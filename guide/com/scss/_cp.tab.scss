@@ -1,0 +1,201 @@
+.highlight {
+    position: absolute;
+    left: 0; bottom: 0;
+    width: 64px; height: 2px;
+    background-color: $color-blue3;
+    transition: 0.4s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+@keyframes widthAct {
+    0% {
+        width: 0;
+        left: 50%;
+    }
+    100% {
+        width: 100%;
+        left: 0;
+    }
+}
+
+.tab-list-wrap {
+    display: flex;
+    @include flex;
+    position: relative;
+    margin: 1.5rem auto;
+
+    @include el-content(before) {
+        position: absolute;
+        left: 0; bottom: 0;
+        width: 100%; height: 1px;
+        background-color: $color-light-gray1;
+    }
+    
+    .tab-list {
+        overflow-x: auto;
+        display: inline-flex;
+        @include flex;
+        position: relative;
+
+        .tab {
+            display: block;
+            flex: none;
+            position: relative;
+            margin-left: 2rem;
+            color: $color-gray4;
+            text-align: center;
+            transition: color .5s ease-in-out;
+
+            @include el-content(before) {
+                position: absolute;
+                left: 50%; bottom: 0;
+                width: 0; height: 2px;
+            }
+
+            &:first-child {
+                margin-left: 0;
+            }
+
+            &:hover {
+                color: $color-blue3;
+            }
+
+            &._is-active {
+                color: $color-blue3;
+
+                &::before { 
+                    background-color: $color-blue3;
+                    animation: widthAct .3s linear forwards;
+                }
+            }
+
+            a {
+                display: block;
+                padding: 1rem;
+            }
+        }
+    }
+
+    &.tab-expand {
+        .tab-list {
+            width: 100%;
+    
+            .tab {
+                flex: 1;
+            }
+        }
+    }
+
+    &.tab-center {
+        justify-content: center;
+    }
+
+    &.tab-right {
+        justify-content: right;
+    }
+
+    &.tab-line-top {
+        &::before {
+            bottom: auto; top: 0;
+        }
+        
+        .tab {
+            border-bottom: none;
+            border-top: 2px solid transparent;
+
+            &::before {
+                top: -1px;
+                bottom: auto;
+            }
+        }
+    }
+}
+
+.tab-wrap {
+    position: relative;
+
+    &.tab-vertical {
+        display: flex;
+        align-items: start;
+
+        .tab-list-wrap {
+            overflow-x: visible;
+            overflow-y: auto;
+            margin: 0;
+            
+            .tab-list {
+                @include overflow (y, auto);
+                flex-direction: column;
+                min-width: 9rem;
+                max-height: 30rem;
+                margin-left: 0;
+
+                .tab {
+                    margin-left: 0;
+                }
+            }
+        }
+
+        .tab-contents-wrap {
+            flex: 1;
+        }
+    }
+    
+    &.tab-scroll {
+        .tab-contents-wrap {
+            overflow-y: scroll;
+            position: relative;  
+            height: 200px;
+        }
+
+    }
+
+    &:not(.tab-scroll) {
+        .tab-contents-wrap {        
+            .tab-contents {
+                display: none;
+
+                &._is-active {
+                    display: block;
+                }
+            }
+        }
+    }
+
+    &.tab-action {
+        .tab-list-wrap {
+            &.tab-line-top {
+                .highlight {
+                    bottom: auto;
+                    top: 0;
+                }
+            }
+            
+            .tab {
+                &::before {
+                    display: none;
+                }
+            }
+        }
+        &.tab-vertical {
+            .highlight {
+                bottom: auto;
+                left: auto;
+                right: 0;
+                height: 4rem;
+                width: 2px;
+            }
+        }
+    }
+}
+
+.tab-contents-wrap {
+    border: 1px solid $color-valid;
+
+    .tab-contents {
+        padding: 3rem 5rem 5rem;
+
+        &:nth-child(even) {
+            background: #eee;
+        }
+    }
+}
