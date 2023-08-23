@@ -1275,10 +1275,10 @@ var COMPONENT_UI = (function (cp, $) {
              * 선택된 탭 highlight action 함수
              * @this 클릭한 탭 버튼
              * @tabWrap 클릭한 탭의 wrapper
-             * tab-action 클래스 있는 tab 메뉴에서 tab-vertical 클래스에 따라 highlight 스타일 변화
+             * tab-moving 클래스 있는 tab 메뉴에서 tab-vertical 클래스에 따라 highlight 스타일 변화
              */
 
-            if ($tabWrap.hasClass('tab-action') && $tabWrap.hasClass('tab-vertical')) {
+            if ($tabWrap.hasClass('tab-moving') && $tabWrap.hasClass('tab-vertical')) {
                 const tabRect = $this.position().top;
                 const tabListRect = $('.tab-list').offset().top;
                 const scrollOffset = tabRect - tabListRect;
@@ -1295,7 +1295,7 @@ var COMPONENT_UI = (function (cp, $) {
                 highLight.css('width', '');
                 highLight.css('top', newTop + 'px');
                 highLight.css('height', newHeight + 'px');
-            } else if ($tabWrap.hasClass('tab-action') && !$tabWrap.hasClass('tab-vertical')) {
+            } else if ($tabWrap.hasClass('tab-moving') && !$tabWrap.hasClass('tab-vertical')) {
                 const tabRect2 = $this.position().left;
                 const tabListRect2 =  $this.parent('.tab-list').offset().left;
                 const scrollOffset2 = tabRect2 + tabListRect2 - ($this.parent('.tab-list').width() - $this.width()) / 2;
@@ -1322,7 +1322,7 @@ var COMPONENT_UI = (function (cp, $) {
              * @contentsIdx 클릭한 탭의 index와 같은 index의 content
              */
             const self = this;
-            $('.tab-action .tab-list').append($('<span class="highlight"></span>'));
+            $('.tab-moving .tab-list').append($('<span class="highlight"></span>'));
             $('.tab-scroll .tab-contents').scrollTop();
 
             $(document).on('click', this.constEl.tab, function(e) {

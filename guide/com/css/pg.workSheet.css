@@ -2730,14 +2730,14 @@
 .tab-wrap:not(.tab-scroll) .tab-contents-wrap .tab-contents._is-active {
   display: block;
 }
-.tab-wrap.tab-action .tab-list-wrap.tab-line-top .highlight {
+.tab-wrap.tab-moving .tab-list-wrap.tab-line-top .highlight {
   bottom: auto;
   top: 0;
 }
-.tab-wrap.tab-action .tab-list-wrap .tab::before {
+.tab-wrap.tab-moving .tab-list-wrap .tab::before {
   display: none;
 }
-.tab-wrap.tab-action.tab-vertical .highlight {
+.tab-wrap.tab-moving.tab-vertical .highlight {
   bottom: auto;
   left: auto;
   right: 0;
