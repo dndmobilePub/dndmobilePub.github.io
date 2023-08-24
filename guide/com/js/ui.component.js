@@ -1322,7 +1322,7 @@ var COMPONENT_UI = (function (cp, $) {
              * @contentsIdx 클릭한 탭의 index와 같은 index의 content
              */
             const self = this;
-            $('.tab-moving .tab-list').append($('<span class="highlight"></span>'));
+            //$('.tab-moving .tab-list').append($('<span class="highlight"></span>')); 23/08/24
             $('.tab-scroll .tab-contents').scrollTop();
 
             $(document).on('click', this.constEl.tab, function(e) {
@@ -1336,12 +1336,12 @@ var COMPONENT_UI = (function (cp, $) {
                 const $contentsIdx = $contentsWrap.children('.tab-contents').eq($index);
 
                 if ($tabWrap.attr('data-roll') === 'tab' && !$tabWrap.hasClass('tab-scroll')) {
-                    $this.siblings('.tab').removeClass('_is-active').attr('aria-selected', 'flase');
+                    $this.siblings('.tab').removeClass('_is-active').attr('aria-selected', 'false');
                     $this.addClass('_is-active').attr('aria-selected', 'true');
                     $contents.removeClass('_is-active');
                     $contentsIdx.addClass('_is-active').removeAttr('hidden');
                 } else if ($tabWrap.attr('data-roll') === 'tab' && $tabWrap.hasClass('tab-scroll')){
-                    $this.siblings('.tab').removeClass('_is-active').attr('aria-selected', 'flase');
+                    $this.siblings('.tab').removeClass('_is-active').attr('aria-selected', 'false');
                     $this.addClass('_is-active').attr('aria-selected', 'true');
                     $contents.removeClass('_is-active');
                     $contentsIdx.addClass('_is-active');
@@ -1382,7 +1382,7 @@ var COMPONENT_UI = (function (cp, $) {
                     if (panelTop <= -20 && panelTop > -$thisWrap.height() / 2) {
                         const tabId = $(this).attr('id');
 
-                        $tabWrap.find('.tab').removeClass('_is-active').attr('aria-selected', 'flase');
+                        $tabWrap.find('.tab').removeClass('_is-active').attr('aria-selected', 'false');
                         $tabWrap.find('.tab[aria-controls="' + tabId + '"]').addClass('_is-active').attr('aria-selected', 'true');
                         $(this).siblings().removeClass('_is-active');
                         $(this).addClass('_is-active');
