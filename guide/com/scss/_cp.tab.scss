@@ -1,10 +1,10 @@
-.highlight {
+/* .highlight {
     position: absolute;
     left: 0; bottom: 0;
     width: 64px; height: 2px;
     background-color: $color-blue3;
     transition: 0.4s cubic-bezier(0.65, 0, 0.35, 1);
-}
+} */
 
 @keyframes widthAct {
     0% {
@@ -15,6 +15,25 @@
         width: 100%;
         left: 0;
     }
+}
+
+/* .tab-moving ._is-active.on > a::before {
+  left: 0; bottom: 0;
+  width: 64px; height: 2px;
+  
+  transition: 0.4s cubic-bezier(0.65, 0, 0.35, 1);
+  
+} */
+.tab-wrap ._is-active > a::before { 
+  content: "";
+  display: block;
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: 0;
+  height: 2px;
+  background-color: $color-blue3;
+  animation: widthAct .3s linear forwards;
 }
 
 .tab-list-wrap {
@@ -45,11 +64,11 @@
             text-align: center;
             transition: color .5s ease-in-out;
 
-            @include el-content(before) {
+            /* @include el-content(before) {
                 position: absolute;
                 left: 50%; bottom: 0;
                 width: 0; height: 2px;
-            }
+            } */
 
             &:first-child {
                 margin-left: 0;
@@ -62,10 +81,10 @@
             &._is-active {
                 color: $color-blue3;
 
-                &::before { 
+                /* &::before { 
                     background-color: $color-blue3;
                     animation: widthAct .3s linear forwards;
-                }
+                } */
             }
 
             a {
@@ -102,10 +121,15 @@
             border-bottom: none;
             border-top: 2px solid transparent;
 
-            &::before {
+            /* &::before {
                 top: -1px;
                 bottom: auto;
-            }
+            } */
+
+            & a::before {
+              top: -2px;
+              bottom: auto;
+          }
         }
     }
 }
@@ -174,6 +198,18 @@
                 &::before {
                     display: none;
                 }
+            }
+
+            .highlight {
+              position: absolute;
+              left: 0; bottom: 0;
+              width: 64px; height: 2px;
+              background-color: $color-blue3;
+              transition: 0.4s cubic-bezier(0.65, 0, 0.35, 1);
+            }
+            ._is-active > a::before { 
+              content: inherit;
+              
             }
         }
         &.tab-vertical {
