@@ -30,8 +30,12 @@
         "id": "toggle",
         "name": "아코디언"
     },
-    {   
+    {
         "id": "tab",
         "name": "탭 메뉴"
+    },
+    {
+        "id": "swiper",
+        "name": "Swiper"
     }
 ]

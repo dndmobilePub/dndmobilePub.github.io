@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="format-detection" content="telephone=no">
+	<meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui, viewport-fit=cover, user-scalable=no">
+	<title>Swiper</title>
+	
+	<!-- [S] PUBLISH COMMON STYLE -->
+	<link rel="stylesheet" href="../com/css/cm.common.css">
+	<!-- [E] PUBLISH COMMON STYLE -->
+
+	<!-- [S] PAGES - STYLE -->
+	<link rel="stylesheet" href="../com/css/swiper_9.1.1.css">
+	<!-- [E] PAGES - STYLE -->
+		
+	<!-- [S] LIBRARY - SCRIPT -->
+	<script src="../com/js/lib/lib.jquery-3.6.3.min.js"></script>
+	<script src="../com/js/lib/lib.jquery-ui-1.13.2.js"></script>
+	<!-- <script src="../com/js/lib/lib.swiper.9.1.1.min.js"></script> -->
+	<script src="../com/js/lib/swiper.jquery.min.js"></script>
+	
+	<!-- [E] LIBRARY - SCRIPT -->
+
+</head>
+<body>
+	<div id="cp-wrap">
+		<div id="cp-container">
+			<h1 class="cp-tit dep01">swiper 탭메뉴</h1>
+			<section class="cp-content">
+				<h2 class="cp-tit dep02">스크롤 이동</h2>
+				<div class="tab-swiper">
+					<div class="tab-nav" id="tabNav">
+						<div class="swiper-wrapper">
+							<div class="swiper-slide active" data-slide-index="0">Tab 1</div>
+							<div class="swiper-slide" data-slide-index="1">Tab 2</div>
+							<div class="swiper-slide" data-slide-index="2">Tab 3</div>
+							<div class="swiper-slide" data-slide-index="3">Tab 4</div>
+							<div class="swiper-slide" data-slide-index="4">Tab 5</div>
+							<div class="swiper-slide" data-slide-index="5">Tab 6</div>
+							<div class="swiper-slide" data-slide-index="6">Tab 7</div>
+							<div class="swiper-slide" data-slide-index="7">Tab 8</div>
+							<div class="swiper-slide" data-slide-index="8">Tab 9</div>
+							<div class="swiper-slide" data-slide-index="9">Tab 10</div>
+							<div class="tab-active-bar" id="tabActiveBar"></div>
+						</div>
+					</div>
+					<div class="tab-content">
+						<div class="swiper-wrapper">
+							<div class="swiper-slide">Swipe 1</div>
+							<div class="swiper-slide">Swipe 2</div>
+							<div class="swiper-slide">Swipe 3</div>
+							<div class="swiper-slide">Swipe 4</div>
+							<div class="swiper-slide">Swipe 5</div>
+							<div class="swiper-slide">Swipe 6</div>
+							<div class="swiper-slide">Swipe 7</div>
+							<div class="swiper-slide">Swipe 8</div>
+							<div class="swiper-slide">Swipe 9</div>
+							<div class="swiper-slide">Swipe 10</div>
+						</div>
+					</div>
+				</div>
+			</section>
+		</div>
+	</div>
+
+	<script>
+		// 메뉴 슬라이드
+		/* var swiper_cate = new Swiper('#tabNav .swiper-container', {
+			loop: false,
+			slidesPerView : 'auto',
+			centeredSlides: false,
+			freeMode: true,
+			onClick: function(swiper, e) {
+					$(swiper.clickedSlide).addClass('now').siblings().removeClass('now');
+					swiper_content.slideTo($(swiper.clickedSlide).index());
+			}
+		});
+		var content_swiper = new Swiper('.tab-content .swiper-container', {
+				loop: false,
+				slidesPerView: 1,
+				on: {
+						slideChange: function() {
+								swiper_cate.slideTo(this.activeIndex);
+								$('#tabNav .swiper-slide:eq('+ this.activeIndex +')').trigger('click');
+						}
+				}
+		});
+		$('#tabNav .swiper-slide').click(function(e){
+				e.preventDefault();
+				$('.now').removeClass('now')
+				$(this).addClass("now");
+				$(this.hash).show().siblings().hide();
+				
+				var _index = $(this).index();
+				content_swiper.slideTo(_index);
+		}); */
+
+		const $activeBar = $('#tabActiveBar');
+		const barW = 20; // 바의 넓이
+		const btnW = 70; // 버튼의 넓이
+		const slideAmount = 10; // 탭 개수
+		
+		const colors = [
+		'#04a5c1', '#f298e7', '#846ef4', '#f45509', '#cf396f',
+		'#04a5c1', '#f298e7', '#846ef4', '#f45509', '#cf396f'];
+		
+		$(document).ready(function () {
+			const tabNavSwiper = new Swiper('.tab-nav', {
+				slidesPerView: 'auto' });
+					
+			const tabContentSwiper = new Swiper('.tab-content', {
+				onProgress: function (swiper, progress) {
+					$activeBar.css('transition-duration', '0s');
+		
+					const slideFullProgress = 1 / (slideAmount - 1); 
+					let slideProgress = progress % slideFullProgress / slideFullProgress;
+					let willActiveIndex = Math.floor(progress / slideFullProgress); 
+		
+					if (progress >= 0 && progress <= 1) {
+						if (slideProgress <= 0.5) {
+							$activeBar.css('width', barW + btnW * slideProgress * 2);
+						} else {
+							$activeBar.css({
+								'left': btnW * willActiveIndex + btnW * (slideProgress - 0.5) * 2,
+								'width': barW + btnW - btnW * (slideProgress - 0.5) * 2 });
+						}
+					}
+				},
+				onSetTransition: function (swiper) {
+					$activeBar.css('transition-duration', '0.25s');
+					$activeBar.css({
+						'left': btnW * swiper.activeIndex,
+						'width': barW });
+				},
+				onSlideChangeStart: function (swiper) {
+					$('#tabNav .active').removeClass('active');
+					$('#tabNav .swiper-slide[data-slide-index=' + swiper.activeIndex + ']').addClass('active');
+					if (swiper.previousIndex < swiper.activeIndex) {
+						tabNavSwiper.slideTo(swiper.activeIndex - 2);
+					} else {
+						tabNavSwiper.slideTo(swiper.activeIndex - 1);
+					}
+					$activeBar.css('background-color', colors[swiper.activeIndex]);
+				}
+			});
+		
+			$('#tabNav .swiper-slide').on('click', function (event) {
+				tabContentSwiper.slideTo($(this).data('slide-index'));
+			});
+		});
+	</script>
+
+<!-- [S] PAGES - SCRIPT -->
+<script src="./../com/js/ui.component.js"></script>
+<!-- [E] PAGES - SCRIPT -->
+
+</body>
+</html>

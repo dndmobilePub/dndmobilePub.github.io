@@ -2560,10 +2560,10 @@
   }
 }
 /* .tab-moving ._is-active.on > a::before {
-  left: 0; bottom: 0;
-  width: 64px; height: 2px;
+left: 0; bottom: 0;
+width: 64px; height: 2px;
 
-  transition: 0.4s cubic-bezier(0.65, 0, 0.35, 1);
+transition: 0.4s cubic-bezier(0.65, 0, 0.35, 1);
 
 } */
 .tab-wrap ._is-active > a::before {
@@ -2777,6 +2777,110 @@
 }
 .tab-contents-wrap .tab-contents:nth-child(even) {
   background: #eee;
+}
+
+.tab-swiper {
+  width: 100%;
+  background-color: #fff;
+  overflow-x: hidden;
+}
+
+.tab-nav {
+  position: relative;
+  height: 50px;
+  padding: 0 10px;
+  background-color: #fff;
+  overflow-x: hidden;
+}
+
+.tab-nav .swiper-slide {
+  display: block;
+  /* width: 50px; */
+  width: auto;
+  color: #999;
+  font-size: 14px;
+  line-height: 50px;
+  text-align: center;
+  margin: 0 10px;
+  cursor: pointer;
+}
+
+.tab-nav .swiper-slide.active {
+  font-weight: bold;
+}
+
+.tab-nav .swiper-slide:nth-child(1).active,
+.tab-nav .swiper-slide:nth-child(6).active {
+  color: #04a5c1;
+}
+
+.tab-nav .swiper-slide:nth-child(2).active,
+.tab-nav .swiper-slide:nth-child(7).active {
+  color: #f298e7;
+}
+
+.tab-nav .swiper-slide:nth-child(3).active,
+.tab-nav .swiper-slide:nth-child(8).active {
+  color: #846ef4;
+}
+
+.tab-nav .swiper-slide:nth-child(4).active,
+.tab-nav .swiper-slide:nth-child(9).active {
+  color: #f45509;
+}
+
+.tab-nav .swiper-slide:nth-child(5).active,
+.tab-nav .swiper-slide:nth-child(10).active {
+  color: #cf396f;
+}
+
+.tab-active-bar {
+  position: absolute;
+  bottom: 9px;
+  left: 0;
+  height: 4px;
+  width: 20px;
+  margin-left: 25px;
+  background-color: #04a5c1;
+  border-radius: 2px;
+  -webkit-transition-property: all;
+  transition-property: all;
+}
+
+.tab-content {
+  height: 200px;
+}
+
+.tab-content .swiper-slide {
+  color: #fff;
+  line-height: 200px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.tab-content .swiper-slide:nth-child(1),
+.tab-content .swiper-slide:nth-child(6) {
+  background-color: #04a5c1;
+}
+
+.tab-content .swiper-slide:nth-child(2),
+.tab-content .swiper-slide:nth-child(7) {
+  background-color: #f298e7;
+}
+
+.tab-content .swiper-slide:nth-child(3),
+.tab-content .swiper-slide:nth-child(8) {
+  background-color: #846ef4;
+}
+
+.tab-content .swiper-slide:nth-child(4),
+.tab-content .swiper-slide:nth-child(9) {
+  background-color: #f45509;
+}
+
+.tab-content .swiper-slide:nth-child(5),
+.tab-content .swiper-slide:nth-child(10) {
+  background-color: #cf396f;
 }
 
 /****************************************/
