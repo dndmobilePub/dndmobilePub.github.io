@@ -13,6 +13,7 @@
 
 	<!-- [S] PAGES - STYLE -->
 	<link rel="stylesheet" href="../com/css/swiper_9.1.1.css">
+	<!-- <link rel="stylesheet" href="../com/css/swiper.css"> -->
 	<!-- [E] PAGES - STYLE -->
 		
 	<!-- [S] LIBRARY - SCRIPT -->
@@ -30,7 +31,45 @@
 			<h1 class="cp-tit dep01">swiper 탭메뉴</h1>
 			<section class="cp-content">
 				<h2 class="cp-tit dep02">스크롤 이동</h2>
+				<div id="tab-menu-1">
+					<!-- 탭메뉴 -->
+					<div class="cate-m">
+						<div class="swiper-container">
+							<div class="swiper-wrapper">
+								<a href="#lst1" class="swiper-slide active"><span>Tab 1</span></a>
+								<a href="#lst2" class="swiper-slide"><span>Tab 2</span></a>
+								<a href="#lst3" class="swiper-slide"><span>Tab 3</span></a>
+								<a href="#lst4" class="swiper-slide"><span>Tab 4</span></a>
+								<a href="#lst5" class="swiper-slide"><span>Tab 5</span></a>
+								<a href="#lst6" class="swiper-slide"><span>Tab 6</span></a>
+								<a href="#lst7" class="swiper-slide"><span>Tab 7</span></a>
+								<a href="#lst8" class="swiper-slide"><span>Tab 8</span></a>
+								<a href="#lst9" class="swiper-slide"><span>Tab 9</span></a>
+								<a href="#lst10" class="swiper-slide"><span>Tab 10</span></a>
+							</div>
+						</div>
+					</div>
+					<!-- 리스트 -->
+					<div class="tab-content swiper-container">
+						<div class="swiper-wrapper">
+							<div class="swiper-slide">Swipe 1</div>
+							<div class="swiper-slide">Swipe 2</div>
+							<div class="swiper-slide">Swipe 3</div>
+							<div class="swiper-slide">Swipe 4</div>
+							<div class="swiper-slide">Swipe 5</div>
+							<div class="swiper-slide">Swipe 6</div>
+							<div class="swiper-slide">Swipe 7</div>
+							<div class="swiper-slide">Swipe 8</div>
+							<div class="swiper-slide">Swipe 9</div>
+							<div class="swiper-slide">Swipe 10</div>
+						</div>
+					</div>
+				</div>
+			</section>
+			<section class="cp-content">
+				<h2 class="cp-tit dep02">스크롤 이동 / 액션</h2>
 				<div class="tab-swiper">
+					<!-- 탭메뉴 -->
 					<div class="tab-nav" id="tabNav">
 						<div class="swiper-wrapper">
 							<div class="swiper-slide active" data-slide-index="0">Tab 1</div>
@@ -46,6 +85,7 @@
 							<div class="tab-active-bar" id="tabActiveBar"></div>
 						</div>
 					</div>
+					<!-- 리스트 -->
 					<div class="tab-content">
 						<div class="swiper-wrapper">
 							<div class="swiper-slide">Swipe 1</div>
@@ -62,94 +102,103 @@
 					</div>
 				</div>
 			</section>
+			
 		</div>
 	</div>
 
 	<script>
-		// 메뉴 슬라이드
-		/* var swiper_cate = new Swiper('#tabNav .swiper-container', {
-			loop: false,
-			slidesPerView : 'auto',
-			centeredSlides: false,
-			freeMode: true,
-			onClick: function(swiper, e) {
-					$(swiper.clickedSlide).addClass('now').siblings().removeClass('now');
-					swiper_content.slideTo($(swiper.clickedSlide).index());
+	// 메뉴 슬라이드
+	var swiper_cate = new Swiper('.cate-m .swiper-container', {
+		loop: false,
+		slidesPerView : 'auto',
+		centeredSlides: false,
+		freeMode: true,
+		onClick: function(swiper, e) {
+			$(swiper.clickedSlide).addClass('active').siblings().removeClass('active');
+			swiper_cate.slideTo($(swiper.clickedSlide).index());
+		}
+	});
+	// 컨텐츠 슬라이드
+	var content_swiper = new Swiper('#tab-menu-1 .tab-content.swiper-container', {
+		loop: false,
+		slidesPerView: 1,
+		on: {
+			slideChange: function() {
+				swiper_cate.slideTo(this.activeIndex);
+				$(this).addClass("active");
+				$('.cate-m .swiper-slide:eq('+ this.activeIndex +')').trigger('click');
 			}
-		});
-		var content_swiper = new Swiper('.tab-content .swiper-container', {
-				loop: false,
-				slidesPerView: 1,
-				on: {
-						slideChange: function() {
-								swiper_cate.slideTo(this.activeIndex);
-								$('#tabNav .swiper-slide:eq('+ this.activeIndex +')').trigger('click');
-						}
-				}
-		});
-		$('#tabNav .swiper-slide').click(function(e){
-				e.preventDefault();
-				$('.now').removeClass('now')
-				$(this).addClass("now");
-				$(this.hash).show().siblings().hide();
-				
-				var _index = $(this).index();
-				content_swiper.slideTo(_index);
-		}); */
+		}
+	});
+	// 메뉴 액션
+	$('.cate-m .swiper-slide').click(function(e){
+		e.preventDefault();
+		$('.active').removeClass('active')
+		$(this).addClass("active");
+		$(this.hash).show().siblings().hide();
+			var _index = $(this).index();
+			content_swiper.slideTo(_index);
+	});
+	
+	const $activeBar = $('#tabActiveBar');
+	const barW = 40; // 플로팅 바의 너비，px
+	const btnW = 70; // 버튼의 너비，px
+	const slideAmount = 10; // 페이지수
+	const colors = [
+	/* '#04a5c1', '#f298e7', '#846ef4', '#f45509', '#cf396f',
+	'#04a5c1', '#f298e7', '#846ef4', '#f45509', '#cf396f']; */
 
-		const $activeBar = $('#tabActiveBar');
-		const barW = 20; // 바의 넓이
-		const btnW = 70; // 버튼의 넓이
-		const slideAmount = 10; // 탭 개수
-		
-		const colors = [
-		'#04a5c1', '#f298e7', '#846ef4', '#f45509', '#cf396f',
-		'#04a5c1', '#f298e7', '#846ef4', '#f45509', '#cf396f'];
-		
-		$(document).ready(function () {
-			const tabNavSwiper = new Swiper('.tab-nav', {
-				slidesPerView: 'auto' });
-					
-			const tabContentSwiper = new Swiper('.tab-content', {
-				onProgress: function (swiper, progress) {
-					$activeBar.css('transition-duration', '0s');
-		
-					const slideFullProgress = 1 / (slideAmount - 1); 
-					let slideProgress = progress % slideFullProgress / slideFullProgress;
-					let willActiveIndex = Math.floor(progress / slideFullProgress); 
-		
-					if (progress >= 0 && progress <= 1) {
-						if (slideProgress <= 0.5) {
-							$activeBar.css('width', barW + btnW * slideProgress * 2);
-						} else {
-							$activeBar.css({
-								'left': btnW * willActiveIndex + btnW * (slideProgress - 0.5) * 2,
-								'width': barW + btnW - btnW * (slideProgress - 0.5) * 2 });
-						}
-					}
-				},
-				onSetTransition: function (swiper) {
-					$activeBar.css('transition-duration', '0.25s');
-					$activeBar.css({
-						'left': btnW * swiper.activeIndex,
-						'width': barW });
-				},
-				onSlideChangeStart: function (swiper) {
-					$('#tabNav .active').removeClass('active');
-					$('#tabNav .swiper-slide[data-slide-index=' + swiper.activeIndex + ']').addClass('active');
-					if (swiper.previousIndex < swiper.activeIndex) {
-						tabNavSwiper.slideTo(swiper.activeIndex - 2);
-					} else {
-						tabNavSwiper.slideTo(swiper.activeIndex - 1);
-					}
-					$activeBar.css('background-color', colors[swiper.activeIndex]);
-				}
-			});
-		
-			$('#tabNav .swiper-slide').on('click', function (event) {
-				tabContentSwiper.slideTo($(this).data('slide-index'));
-			});
+	'#043b72', '#043b72', '#043b72', '#043b72', '#043b72',
+	'#043b72', '#043b72', '#043b72', '#043b72', '#043b72'
+	];
+
+	$(document).ready(function () {
+		const tabNavSwiper = new Swiper('.tab-nav', {
+			slidesPerView: 'auto'
+	});
+
+  const tabContentSwiper = new Swiper('.tab-swiper .tab-content', {
+    onProgress: function (swiper, progress) {
+      $activeBar.css('transition-duration', '0s');
+
+      const slideFullProgress = 1 / (slideAmount - 1); // 단일 페이지 진행의 총 가치
+      let slideProgress = progress % slideFullProgress / slideFullProgress; // 페이지 매기기 진행률, 범위[0,1]
+      let willActiveIndex = Math.floor(progress / slideFullProgress); // 표시할 페이지의 순서 번호
+
+      if (progress >= 0 && progress <= 1) {
+        if (slideProgress <= 0.5) {
+          $activeBar.css('width', barW + btnW * slideProgress * 2);
+        } else {
+          $activeBar.css({
+            'left': btnW * willActiveIndex + btnW * (slideProgress - 0.5) * 2,
+            'width': barW + btnW - btnW * (slideProgress - 0.5) * 2 });
+
+        }
+      }
+    },
+    onSetTransition: function (swiper) {
+      $activeBar.css('transition-duration', '0.25s');
+			// 액션바 위치
+      $activeBar.css({
+        'left': btnW * swiper.activeIndex,
+        'width': barW });
+
+    },
+    onSlideChangeStart: function (swiper) {
+      $('#tabNav .active').removeClass('active');
+      $('#tabNav .swiper-slide[data-slide-index=' + swiper.activeIndex + ']').addClass('active');
+      if (swiper.previousIndex < swiper.activeIndex) {
+        tabNavSwiper.slideTo(swiper.activeIndex - 2);
+      } else {
+        tabNavSwiper.slideTo(swiper.activeIndex - 1);
+      }
+      $activeBar.css('background-color', colors[swiper.activeIndex]);}
 		});
+
+		$('#tabNav .swiper-slide').on('click', function (event) {
+			tabContentSwiper.slideTo($(this).data('slide-index'));
+		});
+	});
 	</script>
 
 <!-- [S] PAGES - SCRIPT -->
