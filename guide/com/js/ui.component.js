@@ -1290,6 +1290,7 @@ var COMPONENT_UI = (function (cp, $) {
       init() {
           this.tabClick();
       },
+      
       tabSel: function($this, $tabWrap) {
           /**
            * 가로/세로 탭 선택 함수
@@ -1454,7 +1455,7 @@ var COMPONENT_UI = (function (cp, $) {
           $('.tab-scroll .tab-contents-wrap').on('scroll', scrollEventHandler);
       }      
   };
-  
+    
   cp.swiper = {
     constEl: {
       swiper: '.swiper-slide'
@@ -1463,37 +1464,6 @@ var COMPONENT_UI = (function (cp, $) {
         this.Swiper();
     },
     Swiper: function() {
-        
-      /* // 메뉴 슬라이드
-      var swiper_cate = new Swiper('.cate-m .swiper-container', {
-        loop: false,
-        slidesPerView : 'auto',
-        centeredSlides: false,
-        freeMode: true,
-        onClick: function(swiper, e) {
-            $(swiper.clickedSlide).addClass('now').siblings().removeClass('now');
-            swiper_content.slideTo($(swiper.clickedSlide).index());
-        }
-      });
-      var content_swiper = new Swiper('#group .swiper-container', {
-          loop: false,
-          slidesPerView: 1,
-          on: {
-              slideChange: function() {
-                  swiper_cate.slideTo(this.activeIndex);
-                  $('.cate-m .swiper-slide:eq('+ this.activeIndex +')').trigger('click');
-              }
-          }
-      });
-      $('.cate-m .swiper-slide').click(function(e){
-          e.preventDefault();
-          $('.now').removeClass('now')
-          $(this).addClass("now");
-          $(this.hash).show().siblings().hide();
-          
-          var _index = $(this).index();
-          content_swiper.slideTo(_index);
-      }); */
     }
   }
 
