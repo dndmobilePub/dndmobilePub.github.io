@@ -2957,8 +2957,7 @@ transition: 0.4s cubic-bezier(0.65, 0, 0.35, 1);
           flex-direction: column;
 }
 
-.tab-swiper3 .tab-content .swiper-slide {
-  height: inherit !important;
+.tab-swiper3 .tab-content .swiper-slide { /*  height:inherit!important; */
   line-height: inherit;
   padding: 3rem 5rem 5rem;
 }
