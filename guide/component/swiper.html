@@ -140,7 +140,7 @@
 				</div>
 			</section>
 
-			<section class="cp-content">
+			<section class="cp-content" style="display:none;">
 				<h2 class="cp-tit dep02">스크롤 이동 / 세로 / Freemode</h2>
 				<div class="tab-swiper3">
 					<!-- 탭메뉴 -->
@@ -204,10 +204,61 @@
 							</div>
 						</div>
 						<div class="swiper-scrollbar"></div>
-					</div>					
+					</div>
 				</div>
 			</section>
 
+			<section class="cp-content">
+				<h2 class="cp-tit dep02">스크롤 이동 / 세로</h2>
+				<div class="tab-swiper4 sticky">
+					<!-- 탭메뉴 -->
+					<div class="swiper-container" id="scroll-tags">
+						<ul class="swiper-wrapper">
+							<a alt="0" class="swiper-slide FirstNavItem" href="#firstID">First</a>
+							<a alt="1" class="swiper-slide SecondNavItem" href="#secondID">Second</a>
+							<a alt="2" class="swiper-slide ThirdNavItem" href="#thirdID">Third</a>
+							<a alt="3" class="swiper-slide FourthNavItem"href="#fourthID">Fourth</a>
+							<a alt="4" class="swiper-slide FifthNavItem"href="#fifthID">Fifth</a>
+							<a alt="5" class="swiper-slide SixtNavItem"href="#sixtID">Sixth</a>
+						</ul>
+					</div>
+					<div class="tab-nav" id="tabNav4">
+						<div style="height: 500vh">
+							<section class="firstClass" id="firstID">
+								<h1>
+									First
+								</h1>
+							</section>
+							<section class="secondClass" id="secondID">
+								<h1>
+									Second
+								</h1>
+							</section>
+							<section class="thirdClass" id="thirdID">
+								<h1>
+									Third
+								</h1>
+							</section>
+							<section class="fourthClass" id="fourthID">
+								<h1>
+									Fourth
+								</h1>
+							</section>
+							<section class="fifthClass" id="fifthID">
+								<h1>
+									Fifth
+								</h1>
+							</section>
+							<section class="sixtClass" id="sixtID">
+								<h1>
+									Sixth
+								</h1>
+							</section>
+							<section></section>
+					</div>
+					
+				</div>
+			</section>
 		</div>
 	</div>
 
@@ -359,10 +410,13 @@
 		var tabContentSwiper3 = new Swiper('.tab-swiper3 #tabContent3', {
 			direction: "vertical",
 			mousewheelControl: true,
-			autoHeight: true,
+			//autoHeight: true,
 			mousewheel: {
 				releaseOnEdges: true,
 			},
+			watchSlidesProgress: true,
+      centeredSlides: true,
+			loop: false,
 			freeMode: true,
 			onProgress: function (swiper, progress) {
 				$activeBar3.css('transition-duration', '0s');
@@ -396,14 +450,79 @@
 				} else {
 					tabNavSwiper3.slideTo(swiper.activeIndex - 1);
 				}
-				$activeBar3.css('background-color', colors[swiper.activeIndex]);
+				/* $activeBar3.css('background-color', colors[swiper.activeIndex]); */
 				}
 			});
 			// 탭메뉴 클릭이벤트(해당 슬라이드 이동)
 			$('#tabNav3 .swiper-slide').on('click', function (event) {
 				tabContentSwiper3.slideTo($(this).data('slide-index'));
-			}
+			} 
 		);
+
+		var swiper4 = new Swiper(".tab-swiper4 .swiper-container", {
+			slidesPerView: "auto",
+			freeMode: {
+				enabled: true,
+				sticky: true,
+			},
+			spaceBetween: 10,
+			mousewheel: true
+		});
+		//
+		function selectElementByClass(className) {
+			return document.querySelector(`.${className}`);
+		}
+
+		const sections = [
+			selectElementByClass("firstClass"),
+			selectElementByClass("secondClass"),
+			selectElementByClass("thirdClass"),
+			selectElementByClass("fourthClass"),
+			selectElementByClass("fifthClass"),
+			selectElementByClass("sixtClass")
+		];
+
+		const navItems = {
+			firstID: selectElementByClass("FirstNavItem"),
+			secondID: selectElementByClass("SecondNavItem"),
+			thirdID: selectElementByClass("ThirdNavItem"),
+			fourthID: selectElementByClass("FourthNavItem"),
+			fifthID: selectElementByClass("FifthNavItem"),
+			sixtID: selectElementByClass("SixtNavItem")
+		};
+
+		// intersection observer setup
+		const observerOptions = {
+			root: null,
+			rootMargin: "0px",
+			threshold: 0.7
+		};
+
+		function observerCallback(entries, observer) {
+			entries.forEach((entry) => {
+				if (entry.isIntersecting) {
+					// get the nav item corresponding to the id of the section
+					// that is currently in view
+					const navItem = navItems[entry.target.id];
+					//get the "alt" tag of section in view
+					// alt tag equals slide index of swiper
+					const navItemAlt = navItem.getAttribute("alt");
+					// tell swiper to slide to the slide with index of "alt"
+					swiper4.slideTo(navItemAlt, 300, true)
+					// add 'active' class on the navItem
+					navItem.classList.add("swiper-slide-active2");
+					// remove 'active' class from any navItem that is not
+					// same as 'navItem' defined above
+					Object.values(navItems).forEach((item) => {
+						if (item != navItem) {
+							item.classList.remove("swiper-slide-active2");
+						}
+					});
+				}
+			});
+		}
+		const observer = new IntersectionObserver(observerCallback, observerOptions);
+		sections.forEach((sec) => observer.observe(sec));
 	});
 	</script>
 

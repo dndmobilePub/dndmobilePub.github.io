@@ -144,3 +144,32 @@
 
 .tab-swiper3 .tab-content .swiper-slide {/*  height:inherit!important; */ line-height: inherit; padding:3rem 5rem 5rem; }
 
+
+.tab-swiper4 .swiper-slide {
+  padding: 10px;
+  width: 33vw!important;
+}
+.swiper-slide-active2 {
+  background-color: #95D5B2;
+  border-radius: 25px;
+}
+
+.sticky {
+  position: sticky;
+  top: 0px;
+}
+.tab-nav section {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5rem;
+}
+.tab-swiper4 a.swiper-slide {
+  color: black;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+}
