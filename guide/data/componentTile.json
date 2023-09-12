@@ -37,5 +37,9 @@
     {
         "id": "swiper",
         "name": "Swiper"
+    },
+    {
+        "id": "chart",
+        "name": "차트"
     }
 ]
