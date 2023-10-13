@@ -2,7 +2,7 @@
 .cate-m { z-index: 1; overflow:hidden; position: relative; background-color: #fff; padding-top:12px; }
 .cate-m .swiper-container { border-bottom: 1px solid #cdcdcd; }
 .cate-m .swiper-wrapper .swiper-slide { margin: 0 17px; width: auto; display: -webkit-box; display: -ms-flexbox; display: -webkit-flex; display: flex; }
-.cate-m .swiper-wrapper .swiper-slide span { display: inline-block; position:relative; margin-bottom:10px; padding-bottom:7px; color: #333; /*font-size: .813em;*/ }
+.cate-m .swiper-wrapper .swiper-slide span { display: inline-block; position:relative; margin-bottom:10px; padding-bottom:7px; color: #333; /*font-size: .813em;*/ cursor:pointer; }
 .cate-m .swiper-wrapper .swiper-slide.active span {  color: #043b72; /* border-radius: 2px; border-bottom: 3px solid #043b72; */ font-weight:bold; }
 .cate-m .swiper-wrapper .swiper-slide.active span:after {
   content: '';
@@ -11,12 +11,10 @@
   left: 50%;
   width: 100%;
   -webkit-transform: translateX(-50%);
-      transform: translateX(-50%);
+  transform: translateX(-50%);
   height: 3px;
   border-radius: 2px;
   background: #043b72;
-
-
 }
 
 .tab-swiper {
@@ -144,32 +142,16 @@
 
 .tab-swiper3 .tab-content .swiper-slide {/*  height:inherit!important; */ line-height: inherit; padding:3rem 5rem 5rem; }
 
-
+.tab-swiper4 { position:relative; }
 .tab-swiper4 .swiper-slide {
   padding: 10px;
-  width: 33vw!important;
+  /* width: 33vw!important; */
 }
-.swiper-slide-active2 {
-  background-color: #95D5B2;
-  border-radius: 25px;
+.swiper-free-mode>.swiper-wrapper {
+  transition-timing-function: ease-out;
+  margin: 0 auto;
 }
-
-.sticky {
-  position: sticky;
-  top: 0px;
+.swiper-vertical>.swiper-wrapper {
+  flex-direction: column;
 }
-.tab-nav section {
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 2.5rem;
-}
-.tab-swiper4 a.swiper-slide {
-  color: black;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  width: 100%;
-  height: 100%;
-}
+.tab-swiper4 .swiper-slide { line-height:inherit; }
