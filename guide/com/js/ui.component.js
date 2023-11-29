@@ -1175,6 +1175,7 @@ var COMPONENT_UI = (function (cp, $) {
           } else {
               if (dataType && dataType.indexOf('double') !== -1) { //토글 안에 토글
                   $thisContents.find('.accordion-contents').slideUp();
+                  $thisContents.find('._is-active').removeClass('_is-active').attr('aria-expanded', false).attr('aria-label', '열기');
               }
               $this.removeClass('_is-active').attr('aria-expanded', false).attr('aria-label', '열기');
               $thisContents.slideUp();
