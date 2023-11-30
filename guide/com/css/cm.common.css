@@ -2796,7 +2796,7 @@ transition: 0.4s cubic-bezier(0.65, 0, 0.35, 1);
       -ms-flex: 1;
           flex: 1;
 }
-.tab-wrap.tab-scroll .tab-contents-wrap {
+.tab-wrap.tab-scroll .tab-contents-wrap, .tab-wrap.tab-scroll-height .tab-contents-wrap {
   overflow-y: scroll;
   position: relative;
   height: 200px;

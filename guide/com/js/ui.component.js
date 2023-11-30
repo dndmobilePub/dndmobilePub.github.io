@@ -1386,6 +1386,8 @@ var COMPONENT_UI = (function (cp, $) {
            * @contentsIdx 클릭한 탭의 index와 같은 index의 content
            */
           const self = this;
+          $('.tab').children('a').attr('aria-selected', 'false');
+          $('.tab._is-active').children('a').attr('aria-selected', 'true');
           $('.tab-moving .tab-list').append($('<li class="highlight"></li>'));
           $('.tab-scroll .tab-contents').scrollTop();
 
@@ -1400,13 +1402,17 @@ var COMPONENT_UI = (function (cp, $) {
               const $contentsIdx = $contentsWrap.children('.tab-contents').eq($index);
 
               if ($tabWrap.attr('data-roll') === 'tab' && !$tabWrap.hasClass('tab-scroll')) {
-                  $this.siblings('.tab').removeClass('_is-active').attr('aria-selected', 'false');
-                  $this.addClass('_is-active').attr('aria-selected', 'true');
+                  $this.siblings('.tab').removeClass('_is-active');
+                  $this.siblings('.tab').children('a').attr('aria-selected', 'false');
+                  $this.addClass('_is-active');
+                  $this.children('a').attr('aria-selected', 'true');
                   $contents.removeClass('_is-active');
                   $contentsIdx.addClass('_is-active').removeAttr('hidden');
               } else if ($tabWrap.attr('data-roll') === 'tab' && $tabWrap.hasClass('tab-scroll')){
-                  $this.siblings('.tab').removeClass('_is-active').attr('aria-selected', 'false');
-                  $this.addClass('_is-active').attr('aria-selected', 'true');
+                  $this.siblings('.tab').removeClass('_is-active');
+                  $this.siblings('.tab').children('a').attr('aria-selected', 'false');
+                  $this.addClass('_is-active');
+                  $this.children('a').attr('aria-selected', 'true');
                   $contents.removeClass('_is-active');
                   $contentsIdx.addClass('_is-active');
               }
@@ -1446,8 +1452,10 @@ var COMPONENT_UI = (function (cp, $) {
                 if (panelTop <= -20 && panelTop > -$thisWrap.height() / 2) {
                   const tabId = $(this).attr('id');
 
-                  $tabWrap.find('.tab').removeClass('_is-active').attr('aria-selected', 'false');
-                  $tabWrap.find('.tab[aria-controls="' + tabId + '"]').addClass('_is-active').attr('aria-selected', 'true');
+                  $tabWrap.find('.tab').removeClass('_is-active');
+                  $tabWrap.find('.tab').children('a').attr('aria-selected', 'false');
+                  $tabWrap.find('.tab[aria-controls="' + tabId + '"]').addClass('_is-active');
+                  $tabWrap.find('.tab[aria-controls="' + tabId + '"]').children('a').attr('aria-selected', 'true');
                   $(this).siblings().removeClass('_is-active');
                   $(this).addClass('_is-active');
                 }
