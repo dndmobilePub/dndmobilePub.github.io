@@ -3486,9 +3486,11 @@ s .fn {
 .split.col2 > * {
   width: 50%;
 }
+/*
 .split.col2 > .cp-tit + .btnWrap {
   min-width: 70%;
 }
+*/ /*231130 khm*/
 
 .uline {
   display: inline-block;
