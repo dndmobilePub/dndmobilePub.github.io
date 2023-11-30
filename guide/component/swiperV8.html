@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="format-detection" content="telephone=no">
+	<meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui, viewport-fit=cover, user-scalable=no">
+	<title>Swiper</title>
+	
+	<!-- [S] PUBLISH COMMON STYLE -->
+	<link rel="stylesheet" href="../com/css/cm.common.css">
+	<!-- [E] PUBLISH COMMON STYLE -->
+
+	<!-- [S] PAGES - STYLE -->
+	<link rel="stylesheet" href="../com/css/swiper_9.1.1.css">
+	<!-- <link rel="stylesheet" href="../com/css/swiper.css"> -->
+	<!-- [E] PAGES - STYLE -->
+		
+	<!-- [S] LIBRARY - SCRIPT -->
+	<script src="../com/js/lib/lib.jquery-3.6.3.min.js"></script>
+	<script src="../com/js/lib/lib.swiper.3.4.2.min.js"></script>
+	<script src="../com/js/lib/lib.jquery-ui-1.13.2.js"></script>
+	<!-- <script src="../com/js/lib/lib.swiper.9.1.1.min.js"></script> -->
+	
+	<!-- [E] LIBRARY - SCRIPT -->
+
+</head>
+<body>
+	<div id="cp-wrap">
+		<div id="cp-container">
+			<h1 class="cp-tit dep01">swiper 탭메뉴</h1>
+			<section class="cp-content">
+				<h2 class="cp-tit dep02">스크롤 이동</h2>
+				<div id="tab-menu-1">
+					<!-- 탭메뉴 -->
+					<div class="cate-m">
+						<div class="swiper-container">
+							<div class="swiper-wrapper">
+								<div class="swiper-slide active" data-slide-index="0"><span>Tab 1</span></div>
+								<div class="swiper-slide" data-slide-index="1"><span>Tab 2</span></div>
+								<div class="swiper-slide" data-slide-index="2"><span>Tab 3</span></div>
+								<div class="swiper-slide" data-slide-index="3"><span>Tab 4</span></div>
+								<div class="swiper-slide" data-slide-index="4"><span>Tab 5</span></div>
+								<div class="swiper-slide" data-slide-index="5"><span>Tab 6</span></div>
+								<div class="swiper-slide" data-slide-index="6"><span>Tab 7</span></div>
+								<div class="swiper-slide" data-slide-index="7"><span>Tab 8</span></div>
+								<div class="swiper-slide" data-slide-index="8"><span>Tab 9</span></div>
+								<div class="swiper-slide" data-slide-index="9"><span>Tab 10</span></div>
+							</div>
+						</div>
+					</div>
+					<!-- 리스트 -->
+					<div class="tab-content swiper-container">
+						<div class="swiper-wrapper">
+							<div class="swiper-slide">Swipe 1</div>
+							<div class="swiper-slide">Swipe 2</div>
+							<div class="swiper-slide">Swipe 3</div>
+							<div class="swiper-slide">Swipe 4</div>
+							<div class="swiper-slide">Swipe 5</div>
+							<div class="swiper-slide">Swipe 6</div>
+							<div class="swiper-slide">Swipe 7</div>
+							<div class="swiper-slide">Swipe 8</div>
+							<div class="swiper-slide">Swipe 9</div>
+							<div class="swiper-slide">Swipe 10</div>
+						</div>
+					</div>
+				</div>
+			</section>
+			<section class="cp-content">
+				<h2 class="cp-tit dep02">스크롤 이동 / 액션</h2>
+				<div class="tab-swiper">
+					<!-- 탭메뉴 -->
+					<div class="tab-nav" id="tabNav">
+						<div class="swiper-wrapper">
+							<div class="swiper-slide active" data-slide-index="0">Tab 1</div>
+							<div class="swiper-slide" data-slide-index="1">Tab 2</div>
+							<div class="swiper-slide" data-slide-index="2">Tab 3</div>
+							<div class="swiper-slide" data-slide-index="3">Tab 4</div>
+							<div class="swiper-slide" data-slide-index="4">Tab 5</div>
+							<div class="swiper-slide" data-slide-index="5">Tab 6</div>
+							<div class="swiper-slide" data-slide-index="6">Tab 7</div>
+							<div class="swiper-slide" data-slide-index="7">Tab 8</div>
+							<div class="swiper-slide" data-slide-index="8">Tab 9</div>
+							<div class="swiper-slide" data-slide-index="9">Tab 10</div>
+							<div class="tab-active-bar" id="tabActiveBar"></div>
+						</div>
+					</div>
+					<!-- 리스트 -->
+					<div class="tab-content" id="tabContent1">
+						<div class="swiper-wrapper">
+							<div class="swiper-slide">Swipe 1</div>
+							<div class="swiper-slide">Swipe 2</div>
+							<div class="swiper-slide">Swipe 3</div>
+							<div class="swiper-slide">Swipe 4</div>
+							<div class="swiper-slide">Swipe 5</div>
+							<div class="swiper-slide">Swipe 6</div>
+							<div class="swiper-slide">Swipe 7</div>
+							<div class="swiper-slide">Swipe 8</div>
+							<div class="swiper-slide">Swipe 9</div>
+							<div class="swiper-slide">Swipe 10</div>
+						</div>
+					</div>
+				</div>
+			</section>
+			<section class="cp-content">
+				<h2 class="cp-tit dep02">스크롤 이동 / 세로 / 마우스휠</h2>
+				<div class="tab-swiper2">
+					<!-- 탭메뉴 -->
+					<div class="tab-nav" id="tabNav2">
+						<div class="swiper-wrapper">
+							<div class="swiper-slide active" data-slide-index="0">Tab 1</div>
+							<div class="swiper-slide" data-slide-index="1">Tab 2</div>
+							<div class="swiper-slide" data-slide-index="2">Tab 3</div>
+							<div class="swiper-slide" data-slide-index="3">Tab 4</div>
+							<div class="swiper-slide" data-slide-index="4">Tab 5</div>
+							<div class="swiper-slide" data-slide-index="5">Tab 6</div>
+							<div class="swiper-slide" data-slide-index="6">Tab 7</div>
+							<div class="swiper-slide" data-slide-index="7">Tab 8</div>
+							<div class="swiper-slide" data-slide-index="8">Tab 9</div>
+							<div class="swiper-slide" data-slide-index="9">Tab 10</div>
+							<div class="tab-active-bar" id="tabActiveBar2"></div>
+						</div>
+					</div>
+					<!-- 리스트 -->
+					<div class="tab-content" id="tabContent2">
+						<div class="swiper-wrapper">
+							<div class="swiper-slide">Swipe 1</div>
+							<div class="swiper-slide">Swipe 2</div>
+							<div class="swiper-slide">Swipe 3</div>
+							<div class="swiper-slide">Swipe 4</div>
+							<div class="swiper-slide">Swipe 5</div>
+							<div class="swiper-slide">Swipe 6</div>
+							<div class="swiper-slide">Swipe 7</div>
+							<div class="swiper-slide">Swipe 8</div>
+							<div class="swiper-slide">Swipe 9</div>
+							<div class="swiper-slide">Swipe 10</div>
+						</div>
+					</div>					
+				</div>
+			</section>
+			<section class="cp-content" style="display:none;">
+				<h2 class="cp-tit dep02">스크롤 이동 / 세로 / Freemode</h2>
+				<div class="tab-swiper3">
+					<!-- 탭메뉴 -->
+					<div class="tab-nav" id="tabNav3">
+						<div class="swiper-wrapper">
+							<div class="swiper-slide active" data-slide-index="0">Tab 1</div>
+							<div class="swiper-slide" data-slide-index="1">Tab 2</div>
+							<div class="swiper-slide" data-slide-index="2">Tab 3</div>
+							<div class="swiper-slide" data-slide-index="3">Tab 4</div>
+							<div class="swiper-slide" data-slide-index="4">Tab 5</div>
+							<div class="swiper-slide" data-slide-index="5">Tab 6</div>
+							<div class="swiper-slide" data-slide-index="6">Tab 7</div>
+							<div class="swiper-slide" data-slide-index="7">Tab 8</div>
+							<div class="swiper-slide" data-slide-index="8">Tab 9</div>
+							<div class="swiper-slide" data-slide-index="9">Tab 10</div>
+							<div class="tab-active-bar" id="tabActiveBar3"></div>
+						</div>
+					</div>
+					<!-- 리스트 -->
+					<div class="tab-content" id="tabContent3">
+						<div class="swiper-wrapper">
+							<div class="swiper-slide">
+								Where does it come from?
+									Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. 
+							</div>
+							<div class="swiper-slide">
+								Where does it come from?
+									Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. 
+							</div>
+							<div class="swiper-slide">
+								Where does it come from?
+									Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. 
+							</div>
+							<div class="swiper-slide">
+								Where does it come from?
+									Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. 
+							</div>
+							<div class="swiper-slide">
+								Where does it come from?
+									Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. 
+							</div>
+							<div class="swiper-slide">
+								Where does it come from?
+									Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. 
+							</div>
+							<div class="swiper-slide">
+								Where does it come from?
+									Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. 
+							</div>
+							<div class="swiper-slide">
+								Where does it come from?
+									Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. 
+							</div>
+							<div class="swiper-slide">
+								Where does it come from?
+									Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. 
+							</div>
+							<div class="swiper-slide">
+								Where does it come from?
+									Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. 
+							</div>
+						</div>
+						<div class="swiper-scrollbar"></div>
+					</div>
+				</div>
+			</section>
+		</div>
+	</div>
+
+	<script>
+	// 스크롤 이동
+	// 탭메뉴
+	var swiper_cate = new Swiper('.cate-m .swiper-container', {
+		loop: false,
+		slidesPerView : 'auto',
+		centeredSlides: false,
+		freeMode: true,
+		onClick: function(swiper) {
+			$(swiper.clickedSlide).addClass('active').siblings().removeClass('active');
+		}
+	});
+	// 탭메뉴 액션
+	$('.cate-m .swiper-slide').click(function(e){
+		e.preventDefault();
+		$('.active').removeClass('active')
+		$(this).addClass("active");
+		$(this.hash).show().siblings().hide();
+			var _index = $(this).index();
+			content_swiper.slideTo(_index);
+	});
+	// 리스트
+	var content_swiper = new Swiper('#tab-menu-1 .tab-content.swiper-container', {
+		loop: false,
+		slidesPerView: 1,
+		onSlideChangeStart: function (swiper) {
+			$('.cate-m .active').removeClass('active');
+			$('.cate-m .swiper-slide[data-slide-index=' + swiper.activeIndex + ']').addClass('active');
+			if (swiper.previousIndex < swiper.activeIndex) {
+				swiper_cate.slideTo(swiper.activeIndex - 2);
+			} else {
+				swiper_cate.slideTo(swiper.activeIndex - 1);
+			}
+		}
+	});
+	
+	// 액션바
+	var $activeBar = $('#tabActiveBar');
+	var $activeBar2 = $('#tabActiveBar2');
+	var $activeBar3 = $('#tabActiveBar3');
+	var barW = 40; // 플로팅 바의 너비，px
+	var btnW = 70; // 버튼의 너비，px
+	var slideAmount = 10; // 페이지수
+	var colors = [
+	'#043b72', '#043b72', '#043b72', '#043b72', '#043b72',
+	'#043b72', '#043b72', '#043b72', '#043b72', '#043b72'
+	];
+
+	
+	$(document).ready(function () {
+		var tabNavSwiper = new Swiper('.tab-swiper .tab-nav', {
+			slidesPerView: 'auto'	});
+
+		var tabNavSwiper2 = new Swiper('.tab-swiper2 .tab-nav', {
+			slidesPerView: 'auto' });
+
+		var tabNavSwiper3 = new Swiper('.tab-swiper3 .tab-nav', {
+			slidesPerView: 'auto' });
+
+		// 스크롤이동, 액션
+		var tabContentSwiper = new Swiper('.tab-swiper #tabContent1', {
+			onProgress: function (swiper, progress) {
+				$activeBar.css('transition-duration', '0s');
+				var slideFullProgress = 1 / (slideAmount - 1); // 단일 페이지 진행의 총 가치
+				let slideProgress = progress % slideFullProgress / slideFullProgress; // 페이지 매기기 진행률, 범위[0,1]
+				let willActiveIndex = Math.floor(progress / slideFullProgress); // 표시할 페이지의 순서 번호
+				if (progress >= 0 && progress <= 1) {
+					if (slideProgress <= 0.5) {
+						$activeBar.css('width', barW + btnW * slideProgress * 2);
+					} else {
+						$activeBar.css({
+							'left': btnW * willActiveIndex + btnW * (slideProgress - 0.5) * 2,
+							'width': barW + btnW - btnW * (slideProgress - 0.5) * 2 }
+							);
+					}
+				}
+			},
+			onSetTransition: function (swiper) {
+				$activeBar.css('transition-duration', '0.25s');
+				// 액션바 위치
+				$activeBar.css({
+					'left': btnW * swiper.activeIndex,
+					'width': barW });
+			},
+			// 터치(슬라이드 변경) 이벤트
+			onSlideChangeStart: function (swiper) {
+				$('#tabNav .active').removeClass('active');
+				$('#tabNav .swiper-slide[data-slide-index=' + swiper.activeIndex + ']').addClass('active');
+				if (swiper.previousIndex < swiper.activeIndex) {
+					tabNavSwiper.slideTo(swiper.activeIndex - 2);
+				} else {
+					tabNavSwiper.slideTo(swiper.activeIndex - 1);
+				}
+				$activeBar.css('background-color', colors[swiper.activeIndex]);}
+			});
+			// 탭메뉴 클릭이벤트(해당 슬라이드 이동)
+			$('#tabNav .swiper-slide').on('click', function (event) {
+				tabContentSwiper.slideTo($(this).data('slide-index'));
+			}
+		);
+		
+		// 스크롤이동, 액션, 세로
+		var tabContentSwiper2 = new Swiper('.tab-swiper2 #tabContent2', {
+			direction: "vertical",
+			mousewheelControl: true,
+			watchSlidesProgress: true,			
+			onProgress: function (swiper, progress) {
+				$activeBar2.css('transition-duration', '0s');
+				var slideFullProgress = 1 / (slideAmount - 1); // 단일 페이지 진행의 총 가치
+				let slideProgress = progress % slideFullProgress / slideFullProgress; // 페이지 매기기 진행률, 범위[0,1]
+				let willActiveIndex = Math.floor(progress / slideFullProgress); // 표시할 페이지의 순서 번호
+				if (progress >= 0 && progress <= 1) {
+					if (slideProgress <= 0.5) {
+						$activeBar2.css('width', barW + btnW * slideProgress * 2);
+					} else {
+						$activeBar2.css({
+							'left': btnW * willActiveIndex + btnW * (slideProgress - 0.5) * 2,
+							'width': barW + btnW - btnW * (slideProgress - 0.5) * 2 }
+							);
+					}
+				}
+			},
+			onSetTransition: function (swiper) {
+				$activeBar2.css('transition-duration', '0.25s');
+				// 액션바 위치
+				$activeBar2.css({
+					'left': btnW * swiper.activeIndex,
+					'width': barW });
+			},
+			// 터치(슬라이드 변경) 이벤트
+			onSlideChangeStart: function (swiper) {
+				$('#tabNav2 .active').removeClass('active');
+				$('#tabNav2 .swiper-slide[data-slide-index=' + swiper.activeIndex + ']').addClass('active');
+				if (swiper.previousIndex < swiper.activeIndex) {
+					tabNavSwiper2.slideTo(swiper.activeIndex - 2);
+				} else {
+					tabNavSwiper2.slideTo(swiper.activeIndex - 1);
+				}
+				$activeBar2.css('background-color', colors[swiper.activeIndex]);}
+			});
+			// 탭메뉴 클릭이벤트(해당 슬라이드 이동)
+			$('#tabNav2 .swiper-slide').on('click', function (event) {
+				tabContentSwiper2.slideTo($(this).data('slide-index'));
+			}
+		);
+
+		// 스크롤이동, 액션, 세로, Freemode
+		var tabContentSwiper3 = new Swiper('.tab-swiper3 #tabContent3', {
+			direction: "vertical",
+			slidesPerView : 'auto',
+			mousewheelControl: true,
+			//autoHeight: true,
+      /* scrollbar: {
+				container: '.tab-swiper3 .swiper-scrollbar',
+				hide: true,
+				draggable: false
+			}, */
+			loop: false,
+			freeMode: true,
+			onProgress: function (swiper, progress) {
+				$activeBar3.css('transition-duration', '0s');
+				var slideFullProgress = 1 / (slideAmount - 1); // 단일 페이지 진행의 총 가치
+				let slideProgress = progress % slideFullProgress / slideFullProgress; // 페이지 매기기 진행률, 범위[0,1]
+				let willActiveIndex = Math.floor(progress / slideFullProgress); // 표시할 페이지의 순서 번호
+				if (progress >= 0 && progress <= 1) {
+					if (slideProgress <= 0.5) {
+						$activeBar3.css('width', barW + btnW * slideProgress * 2);
+					} else {
+						$activeBar3.css({
+							'left': btnW * willActiveIndex + btnW * (slideProgress - 0.5) * 2,
+							'width': barW + btnW - btnW * (slideProgress - 0.5) * 2 }
+							);
+					}
+				}
+			},
+			onSetTransition: function (swiper) {
+				$activeBar3.css('transition-duration', '0.25s');
+				// 액션바 위치
+				$activeBar3.css({
+					'left': btnW * swiper.activeIndex,
+					'width': barW });
+			},
+			// 터치(슬라이드 변경) 이벤트
+			onSlideChangeStart: function (swiper) {
+				$('#tabNav3 .active').removeClass('active');
+				$('#tabNav3 .swiper-slide[data-slide-index=' + swiper.activeIndex + ']').addClass('active');
+				if (swiper.previousIndex < swiper.activeIndex) {
+					tabNavSwiper3.slideTo(swiper.activeIndex - 2);
+				} else {
+					tabNavSwiper3.slideTo(swiper.activeIndex - 1);
+				}
+				/* $activeBar3.css('background-color', colors[swiper.activeIndex]); */
+				}
+			});
+			// 탭메뉴 클릭이벤트(해당 슬라이드 이동)
+			$('#tabNav3 .swiper-slide').on('click', function (event) {
+				tabContentSwiper3.slideTo($(this).data('slide-index'));
+			} 
+		);
+
+		var tabContentSwiper4 = new Swiper('#tabContent4', {
+      direction: "vertical",
+      slidesPerView: "auto",
+      freeMode: true,
+      scrollbar: {
+        el: ".swiper-scrollbar",
+      },
+      mousewheel: true,
+    })
+		$(window).resize(function(){
+			if ( $('#tabContent4 .swiper-slide').height() < $('#tabContent4 .swiper-container').height() ) $('#tabContent4 .swiper-scrollbar').hide();
+			else $('#tabContent4 .swiper-scrollbar').show()
+		})
+	});
+	</script>
+
+<!-- [S] PAGES - SCRIPT -->
+<script src="./../com/js/ui.component.js"></script>
+<!-- [E] PAGES - SCRIPT -->
+
+</body>
+</html>
