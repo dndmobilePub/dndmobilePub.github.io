@@ -3056,7 +3056,7 @@ transition: 0.4s cubic-bezier(0.65, 0, 0.35, 1);
 /*Effect coverflow, triple, pagination easeing*/
 .swiper.triple-Swiper {
   margin: 20px auto; 
-  width: 320px; 
+  width: 280px; 
   height: 240px;
   overflow: visible;
 }
@@ -3100,8 +3100,8 @@ transition: 0.4s cubic-bezier(0.65, 0, 0.35, 1);
 
 /*two, pagination easeing*/
 .swiper.two-Swiper {
-  margin: 100px auto; 
-  width: 100%; 
+  margin: 20px auto; 
+  width: 340px; 
   height: 240px;
   box-sizing: border-box;
   overflow: visible;
