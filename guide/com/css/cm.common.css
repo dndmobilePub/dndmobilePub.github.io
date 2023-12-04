@@ -343,7 +343,9 @@
 .cp-tit + .btnWrap {
   margin-top: 2rem;
 }
-
+.cp-tit > span {
+  font-size: 1rem;
+}
 #cp-wrap {
   padding: 2rem;
 }
@@ -3053,7 +3055,7 @@ transition: 0.4s cubic-bezier(0.65, 0, 0.35, 1);
 }
 
 
-/*Effect coverflow, triple, pagination easeing*/
+/*triple, pagination easeing*/
 .swiper.triple-Swiper {
   margin: 20px auto; 
   width: 280px; 
@@ -3086,6 +3088,7 @@ transition: 0.4s cubic-bezier(0.65, 0, 0.35, 1);
   height: 30px;
   border: 1px solid #007aff;
   color: #007aff;
+  background-color:rgba(255,255,255,0.7)
 }
 .triple-Swiper .swiper-pagination-bullets {
   bottom: -30px !important;
@@ -3138,7 +3141,7 @@ transition: 0.4s cubic-bezier(0.65, 0, 0.35, 1);
 }
 
 /*TABLE*/
-.splitWrap {display:flex; justify-content:center;}
+.splitWrap {display:flex; justify-content:start;}
 .splitWrap .desc {background:#d3ffe5; width:500px; padding:15px; border:1px #8ed0aa solid;}
 .splitWrap .desc p:before {display:inline-block; content:''; background:red; width:2px; height:10px; margin-right:5px;}
 .splitWrap .desc > p ~ p, .splitWrap .desc > p ~ ul {margin-top:10px;}
@@ -3166,9 +3169,8 @@ transition: 0.4s cubic-bezier(0.65, 0, 0.35, 1);
 .splitWrap caption:before {display:inline-block !important; content:'Table Caption' !important; position:Absolute !important; top:-5px !important; left:-5px !important; padding:3px 10px !important; background:#333 !important; color:#fff !important; font-size:6px !important;}
 .splitWrap caption > p {margin:0 !important;}
 .splitWrap legend, .splitWrap caption {overflow: visible !important; height: auto !important; width: auto !important; margin: auto !important; line-height: inherit !important; clip: auto;} /*공통 리셋*/
-@media screen and (max-width 768px) {
-  .splitWrap {display:flex; justify-content:center;}
-}
+
+
 
 
 
