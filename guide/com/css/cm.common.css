@@ -312,7 +312,10 @@
       -ms-flex: 0 0 80%;
           flex: 0 0 80%;
 }
-
+h1 ~ h1 {
+  padding-top: 0.5rem;
+  margin-top: 1.5rem;
+}
 .cp-tit.dep01 {
   font-size: 2.2rem;
 }
@@ -345,6 +348,9 @@
 }
 .cp-tit > span {
   font-size: 1rem;
+}
+.cp-tit > span.info {
+color:red; display:inline-block;
 }
 #cp-wrap {
   padding: 2rem;
