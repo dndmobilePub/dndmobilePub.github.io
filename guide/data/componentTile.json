@@ -8,7 +8,7 @@
     },
     {   
         "id": "text",
-        "name": "타이틀/텍스트"
+        "name": "타이틀/텍스트/리스트"
     },
     {   
         "id": "input",
@@ -41,10 +41,6 @@
     {
         "id": "swiperV8",
         "name": "Swiper v8.4.7"
-    },
-    {
-        "id": "listStyle",
-        "name": "LIST-STYLE"
     },
     {
         "id": "table",
