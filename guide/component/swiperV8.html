@@ -141,7 +141,7 @@
 		<section class="cp-content">
 			<h2 class="cp-tit dep02">triple, pagination easeing</h2>
 			<div class="swiper_box">
-				<div class="swiper triple-Swiper">
+				<div class="swiper triple-swiper">
 					<ul class="swiper-wrapper">
 						<li class="swiper-slide">슬라이드1<button class="btn">더보기</button></li>
 						<li class="swiper-slide">슬라이드2<button class="btn">더보기</button></li>
@@ -157,7 +157,7 @@
 		<section class="cp-content">
 			<h2 class="cp-tit dep02">two, pagination easeing</h2>
 			<div class="swiper_box">
-				<div class="swiper two-Swiper">
+				<div class="swiper two-swiper">
 					<ul class="swiper-wrapper">
 						<li class="swiper-slide">슬라이드1</li>
 						<li class="swiper-slide">슬라이드2</li>
@@ -373,22 +373,22 @@ $(document).ready(function () {
 		} 
 	);
 
-	var tabContentSwiper4 = new Swiper('#tabContent4', {
-	direction: "vertical",
-	slidesPerView: "auto",
-	freeMode: true,
-	scrollbar: {
-	el: ".swiper-scrollbar",
-	},
-	mousewheel: true,
-})
-	$(window).resize(function(){
-		if ( $('#tabContent4 .swiper-slide').height() < $('#tabContent4 .swiper-container').height() ) $('#tabContent4 .swiper-scrollbar').hide();
-		else $('#tabContent4 .swiper-scrollbar').show()
-	})
+// 	var tabContentSwiper4 = new Swiper('#tabContent4', {
+// 	direction: "vertical",
+// 	slidesPerView: "auto",
+// 	freeMode: true,
+// 	scrollbar: {
+// 	el: ".swiper-scrollbar",
+// 	},
+// 	mousewheel: true,
+// })
+// 	$(window).resize(function(){
+// 		if ( $('#tabContent4 .swiper-slide').height() < $('#tabContent4 .swiper-container').height() ) $('#tabContent4 .swiper-scrollbar').hide();
+// 		else $('#tabContent4 .swiper-scrollbar').show()
+// 	})
 
 	//triple, pagination easeing
-    var swiper = new Swiper(".triple-Swiper", {
+    var swiper = new Swiper(".triple-swiper", {
       effect: "coverflow",
       grabCursor: true,
       centeredSlides: true,
@@ -409,22 +409,18 @@ $(document).ready(function () {
       },
     });
 	//two, pagination easeing
-	var swiper = new Swiper(".two-Swiper", {
-  slidesPerView: "auto",
-  // slidesOffsetBefore: -30,
-  // slidesOffsetAfter: 0,
-  spaceBetween: 20,
-  centeredSlides: true,
-  grabCursor: true,
-  pagination: {
-    el: ".swiper-pagination",
-    clickable: true,
-  },
-});
-
-
-
-
+	var swiper = new Swiper(".two-swiper", {
+		slidesPerView: "auto",
+		// slidesOffsetBefore: -30,
+		// slidesOffsetAfter: 0,
+		spaceBetween: 20,
+		centeredSlides: true,
+		grabCursor: true,
+		pagination: {
+			el: ".swiper-pagination",
+			clickable: true,
+		},
+	});
 });
 </script>
 

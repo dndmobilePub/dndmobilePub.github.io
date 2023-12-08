@@ -1,7 +1,9 @@
 /* TABLE */
 
-.splitWrap {display:flex; justify-content:start; font-size: 12px; font-weight: 400; margin-top: 10px;
-  .desc {background:#d3ffe5; width:500px; padding:15px; border:1px #8ed0aa solid; display: none; margin-right:50px;
+.splitWrap {
+  display:flex; justify-content:start; font-size: 12px; font-weight: 400; margin-top: 10px;
+  .desc {
+    background:#d3ffe5; width:500px; padding:15px; border:1px #8ed0aa solid; display: none; margin-right:50px;
     p{
       &::before {display:inline-block; content:''; background:red; width:2px; height:10px; margin-right:5px;}
     }
@@ -13,7 +15,8 @@
     }
   } 
   b {color:#c32000;}
-  strong {color:#1d7500;
+  strong {
+    color:#1d7500;
     + div, + ul {margin-top:10px;}
   }
   .bul{
@@ -30,7 +33,8 @@
     > p:first-child {margin-top:0;}
     p {margin:40px 0 10px;}
   }
-  table {padding:0; border:0; border-spacing:0px; border-collapse:collapse; width:100%;
+  table {
+    padding:0; border:0; border-spacing:0px; border-collapse:collapse; width:100%;
     table {width:100%;}
     + table {margin-top:20px;}
   }

@@ -11,10 +11,6 @@
         "name": "타이틀/텍스트/리스트"
     },
     {   
-        "id": "list",
-        "name": "리스트"
-    },
-    {   
         "id": "input",
         "name": "INPUT"
     },
