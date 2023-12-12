@@ -1476,6 +1476,61 @@ var COMPONENT_UI = (function (cp, $) {
     }
   }
 
+  
+  cp.swiper1 = {
+    init: function () {
+      this.initTripleSwiper();
+      this.initTwoSwiper();
+    },
+
+    initTripleSwiper: function () {
+      this.swiper = new Swiper(".triple-swiper", {
+        effect: "coverflow",
+        grabCursor: true,
+        centeredSlides: true,
+        slidesPerView: "auto",
+        loop: true,
+        coverflow: {
+            rotate: 0,
+            stretch: -20,
+            depth: 300,
+            modifier: 1,
+            slideShadows: false,
+          },
+          pagination: ".swiper-pagination",
+          paginationClickable: true,
+      });
+
+      this.swiperPlay(); // Call swiperPlay method
+    },
+
+    initTwoSwiper: function () {
+      this.swiper = new Swiper(".two-swiper", {
+        slidesPerView: "auto",
+        spaceBetween: 20,
+        centeredSlides: true,
+        grabCursor: true,
+        pagination: ".swiper-pagination",
+        paginationClickable: true,
+        // onInit: function () {
+        //     var firstSlide = this.slides.eq(0);
+        //     var marginLeft = -firstSlide.width() / 2;
+        //     firstSlide.css("margin-left", marginLeft + "px");
+        //   },
+      });
+    },
+
+    swiperPlay: function () {
+      // Add code for swiperPlay if needed
+    },
+
+    // Add more methods as needed
+
+    set: function () {
+      // Add code for set method if needed
+    },
+  };
+
   cp.init = function () {
       // cp.frontUI.init();
       cp.uaCheck.init();
@@ -1486,6 +1541,7 @@ var COMPONENT_UI = (function (cp, $) {
       cp.accordion.init();
       cp.tab.init();
       cp.swiper.init();
+      cp.swiper1.init();
   };
 
   cp.init();
