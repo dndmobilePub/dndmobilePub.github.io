@@ -1475,8 +1475,7 @@ var COMPONENT_UI = (function (cp, $) {
     Swiper: function() {
     }
   }
-
-  
+ 
   cp.swiper1 = {
     init: function () {
       this.initTripleSwiper();
@@ -1561,7 +1560,7 @@ var COMPONENT_UI = (function (cp, $) {
         $(this).addClass("active");
         $(this.hash).show().siblings().hide();
         var _index = $(this).index();
-        cp.swiper3.content_swiper.slideTo(_index);
+        cp.swiper2.content_swiper.slideTo(_index);
       });
     },
     
@@ -1573,9 +1572,9 @@ var COMPONENT_UI = (function (cp, $) {
           $('.cate-m .active').removeClass('active');
           $('.cate-m .swiper-slide[data-slide-index=' + swiper.activeIndex + ']').addClass('active');
           if (swiper.previousIndex < swiper.activeIndex) {
-            cp.swiper3.swiper_cate.slideTo(swiper.activeIndex - 2);
+            cp.swiper2.swiper_cate.slideTo(swiper.activeIndex - 2);
           } else {
-            cp.swiper3.swiper_cate.slideTo(swiper.activeIndex - 1);
+            cp.swiper2.swiper_cate.slideTo(swiper.activeIndex - 1);
           }
         },
       });
@@ -1589,6 +1588,7 @@ var COMPONENT_UI = (function (cp, $) {
       // Add code for swiperPlay method if needed
     },
   };
+
   cp.swiper3 = {
     constEl: {},
     init: function () {
@@ -1659,8 +1659,9 @@ var COMPONENT_UI = (function (cp, $) {
         // Swiper play logic goes here
         console.log('Swiper3 play');
     },
-};
-cp.swiper4 = {
+  };
+
+  cp.swiper4 = {
     constEl: {},
     init: function () {
         const $activeBar2 = $('#tabActiveBar2');
@@ -1736,7 +1737,8 @@ cp.swiper4 = {
         // Swiper play logic goes here
         console.log('Swiper4 play');
     },
-};
+  };
+
   cp.init = function () {
       // cp.frontUI.init();
       cp.uaCheck.init();
