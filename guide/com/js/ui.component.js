@@ -1673,10 +1673,6 @@ var COMPONENT_UI = (function (cp, $) {
             '#043b72', '#043b72', '#043b72', '#043b72', '#043b72'
         ];
 
-        var tabNavSwiper = new Swiper('.tab-swiper .tab-nav', {
-            slidesPerView: 'auto'
-        });
-
         var tabNavSwiper2 = new Swiper('.tab-swiper2 .tab-nav', {
             slidesPerView: 'auto'
         });
