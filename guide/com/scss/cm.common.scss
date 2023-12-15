@@ -116,7 +116,7 @@ legend, caption{@include ir("hide");}
 // @include flex($direction:row, $wrap:nowrap, $j-content:flex-start, $al-items:center)
 
 .fl {@include float(left);}
-.fr {@include float(right);}s
+.fr {@include float(right);}
 .fn {@include float(none !important)}
 
 .scrollY {@include overflow (y, scroll);}

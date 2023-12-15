@@ -1521,27 +1521,236 @@ var COMPONENT_UI = (function (cp, $) {
     },
 
     swiperPlay: function () {
+    
+
       // Add code for swiperPlay if needed
     },
-
-    // Add more methods as needed
 
     set: function () {
       // Add code for set method if needed
     },
   };
 
+  cp.swiper2 = {
+    constEl: {},
+    swiper_cate: null, // Reference to the category swiper
+    content_swiper: null, // Reference to the content swiper
+
+    init: function () {
+      this.initCategorySwiper();
+      this.initTabMenuAction();
+      this.initContentSwiper();
+    },
+
+    initCategorySwiper: function () {
+      this.swiper_cate = new Swiper('.cate-m .swiper-container', {
+        loop: false,
+        slidesPerView: 'auto',
+        centeredSlides: false,
+        freeMode: true,
+        onClick: function (swiper) {
+          $(swiper.clickedSlide).addClass('active').siblings().removeClass('active');
+        },
+      });
+    },
+
+    initTabMenuAction: function () {
+      $('.cate-m .swiper-slide').click(function (e) {
+        e.preventDefault();
+        $('.active').removeClass('active');
+        $(this).addClass("active");
+        $(this.hash).show().siblings().hide();
+        var _index = $(this).index();
+        cp.swiper3.content_swiper.slideTo(_index);
+      });
+    },
+    
+    initContentSwiper: function () {
+      this.content_swiper = new Swiper('#tab-menu-1 .tab-content.swiper-container', {
+        loop: false,
+        slidesPerView: 1,
+        onSlideChangeStart: function (swiper) {
+          $('.cate-m .active').removeClass('active');
+          $('.cate-m .swiper-slide[data-slide-index=' + swiper.activeIndex + ']').addClass('active');
+          if (swiper.previousIndex < swiper.activeIndex) {
+            cp.swiper3.swiper_cate.slideTo(swiper.activeIndex - 2);
+          } else {
+            cp.swiper3.swiper_cate.slideTo(swiper.activeIndex - 1);
+          }
+        },
+      });
+    },
+
+    set: function () {
+      // Add code for set method if needed
+    },
+
+    swiperPlay: function () {
+      // Add code for swiperPlay method if needed
+    },
+  };
+  cp.swiper3 = {
+    constEl: {},
+    init: function () {
+        const $activeBar = $('#tabActiveBar');
+        const barW = 40; // 플로팅 바의 너비，px
+        const btnW = 70; // 버튼의 너비，px
+        const slideAmount = 10; // 페이지수
+        const colors = [
+            '#043b72', '#043b72', '#043b72', '#043b72', '#043b72',
+            '#043b72', '#043b72', '#043b72', '#043b72', '#043b72'
+        ];
+
+        var tabNavSwiper = new Swiper('.tab-swiper .tab-nav', {
+            slidesPerView: 'auto'
+        });
+
+
+        // 스크롤이동, 액션
+        var tabContentSwiper = new Swiper('.tab-swiper #tabContent1', {
+            onProgress: function (swiper, progress) {
+                $activeBar.css('transition-duration', '0s');
+                var slideFullProgress = 1 / (slideAmount - 1); // 단일 페이지 진행의 총 가치
+                let slideProgress = progress % slideFullProgress / slideFullProgress; // 페이지 매기기 진행률, 범위[0,1]
+                let willActiveIndex = Math.floor(progress / slideFullProgress); // 표시할 페이지의 순서 번호
+                if (progress >= 0 && progress <= 1) {
+                    if (slideProgress <= 0.5) {
+                        $activeBar.css('width', barW + btnW * slideProgress * 2);
+                    } else {
+                        $activeBar.css({
+                            'left': btnW * willActiveIndex + btnW * (slideProgress - 0.5) * 2,
+                            'width': barW + btnW - btnW * (slideProgress - 0.5) * 2
+                        });
+                    }
+                }
+            },
+            onSetTransition: function (swiper, duration) {
+                $activeBar.css('transition-duration', '0.25s');
+                // 액션바 위치
+                $activeBar.css({
+                    'left': btnW * swiper.activeIndex,
+                    'width': barW
+                });
+            },
+            // 터치(슬라이드 변경) 이벤트
+            onSlideChangeStart: function (swiper) {
+                $('#tabNav .active').removeClass('active');
+                $('#tabNav .swiper-slide[data-slide-index=' + swiper.activeIndex + ']').addClass('active');
+                if (swiper.previousIndex < swiper.activeIndex) {
+                    tabNavSwiper.slideTo(swiper.activeIndex - 2);
+                } else {
+                    tabNavSwiper.slideTo(swiper.activeIndex - 1);
+                }
+                $activeBar.css('background-color', colors[swiper.activeIndex]);
+            }
+        });
+        // 탭메뉴 클릭이벤트(해당 슬라이드 이동)
+        $('#tabNav .swiper-slide').on('click', function (event) {
+            tabContentSwiper.slideTo($(this).data('slide-index'));
+        });
+
+        // Other swiper3 initialization logic here
+    },
+    set: function () {
+        // Set method logic goes here
+        console.log('Swiper3 set');
+    },
+    swiperPlay: function () {
+        // Swiper play logic goes here
+        console.log('Swiper3 play');
+    },
+};
+cp.swiper4 = {
+    constEl: {},
+    init: function () {
+        const $activeBar2 = $('#tabActiveBar2');
+        const barW = 40; // 플로팅 바의 너비，px
+        const btnW = 70; // 버튼의 너비，px
+        const slideAmount = 10; // 페이지수
+        const colors = [
+            '#043b72', '#043b72', '#043b72', '#043b72', '#043b72',
+            '#043b72', '#043b72', '#043b72', '#043b72', '#043b72'
+        ];
+
+        var tabNavSwiper = new Swiper('.tab-swiper .tab-nav', {
+            slidesPerView: 'auto'
+        });
+
+        var tabNavSwiper2 = new Swiper('.tab-swiper2 .tab-nav', {
+            slidesPerView: 'auto'
+        });
+
+        // 스크롤이동, 액션, 세로
+        var tabContentSwiper2 = new Swiper('.tab-swiper2 #tabContent2', {
+            direction: "vertical",
+            mousewheelControl: true,
+            watchSlidesProgress: true,
+            onProgress: function (swiper, progress) {
+                $activeBar2.css('transition-duration', '0s');
+                var slideFullProgress = 1 / (slideAmount - 1); // 단일 페이지 진행의 총 가치
+                let slideProgress = progress % slideFullProgress / slideFullProgress; // 페이지 매기기 진행률, 범위[0,1]
+                let willActiveIndex = Math.floor(progress / slideFullProgress); // 표시할 페이지의 순서 번호
+                if (progress >= 0 && progress <= 1) {
+                    if (slideProgress <= 0.5) {
+                        $activeBar2.css('width', barW + btnW * slideProgress * 2);
+                    } else {
+                        $activeBar2.css({
+                            'left': btnW * willActiveIndex + btnW * (slideProgress - 0.5) * 2,
+                            'width': barW + btnW - btnW * (slideProgress - 0.5) * 2
+                        });
+                    }
+                }
+            },
+            onSetTransition: function (swiper, duration) {
+                $activeBar2.css('transition-duration', '0.25s');
+                // 액션바 위치
+                $activeBar2.css({
+                    'left': btnW * swiper.activeIndex,
+                    'width': barW
+                });
+            },
+            // 터치(슬라이드 변경) 이벤트
+            onSlideChangeStart: function (swiper) {
+                $('#tabNav2 .active').removeClass('active');
+                $('#tabNav2 .swiper-slide[data-slide-index=' + swiper.activeIndex + ']').addClass('active');
+                if (swiper.previousIndex < swiper.activeIndex) {
+                    tabNavSwiper2.slideTo(swiper.activeIndex - 2);
+                } else {
+                    tabNavSwiper2.slideTo(swiper.activeIndex - 1);
+                }
+                $activeBar2.css('background-color', colors[swiper.activeIndex]);
+            }
+        });
+        // 탭메뉴 클릭이벤트(해당 슬라이드 이동)
+        $('#tabNav2 .swiper-slide').on('click', function (event) {
+            tabContentSwiper2.slideTo($(this).data('slide-index'));
+        });
+
+        // Other swiper3 initialization logic here
+    },
+    set: function () {
+        // Set method logic goes here
+        console.log('Swiper4 set');
+    },
+    swiperPlay: function () {
+        // Swiper play logic goes here
+        console.log('Swiper4 play');
+    },
+};
   cp.init = function () {
       // cp.frontUI.init();
       cp.uaCheck.init();
       cp.form.init();
       cp.selectPop.init(); // 바텀시트 select
-      cp.modalPop.init();
+      cp.modalPop.init(); 
       cp.toolTip.init();
       cp.accordion.init();
       cp.tab.init();
       cp.swiper.init();
       cp.swiper1.init();
+      cp.swiper2.init();
+      cp.swiper3.init();
+      cp.swiper4.init();
   };
 
   cp.init();

@@ -7,7 +7,10 @@
     p{
       &::before {display:inline-block; content:''; background:red; width:2px; height:10px; margin-right:5px;}
     }
-    > p ~ p, > p ~ ul {margin-top:10px;}
+    > p {
+      & ~ p, & ~ ul {margin-top:10px;}
+    }
+    
   }
   ul{
     p{

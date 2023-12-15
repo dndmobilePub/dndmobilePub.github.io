@@ -238,6 +238,7 @@
 		</div>
 	</div>
 
+	<!--
 	<script>
 	// 스크롤 이동
 	// 탭메뉴
@@ -274,20 +275,22 @@
 		}
 	});
 	
-	// 액션바
-	var $activeBar = $('#tabActiveBar');
-	var $activeBar2 = $('#tabActiveBar2');
-	var $activeBar3 = $('#tabActiveBar3');
-	var barW = 40; // 플로팅 바의 너비，px
-	var btnW = 70; // 버튼의 너비，px
-	var slideAmount = 10; // 페이지수
-	var colors = [
+
+
+	
+	$(document).ready(function () {
+			// 액션바
+	const $activeBar = $('#tabActiveBar');
+	const $activeBar2 = $('#tabActiveBar2');
+	const $activeBar3 = $('#tabActiveBar3');
+	const barW = 40; // 플로팅 바의 너비，px
+	const btnW = 70; // 버튼의 너비，px
+	const slideAmount = 10; // 페이지수
+	const colors = [
 	'#043b72', '#043b72', '#043b72', '#043b72', '#043b72',
 	'#043b72', '#043b72', '#043b72', '#043b72', '#043b72'
 	];
 
-	
-	$(document).ready(function () {
 		var tabNavSwiper = new Swiper('.tab-swiper .tab-nav', {
 			slidesPerView: 'auto'	});
 
@@ -315,7 +318,7 @@
 					}
 				}
 			},
-			onSetTransition: function (swiper) {
+			onSetTransition: function (swiper, duration) {
 				$activeBar.css('transition-duration', '0.25s');
 				// 액션바 위치
 				$activeBar.css({
@@ -360,7 +363,7 @@
 					}
 				}
 			},
-			onSetTransition: function (swiper) {
+			onSetTransition: function (swiper, duration) {
 				$activeBar2.css('transition-duration', '0.25s');
 				// 액션바 위치
 				$activeBar2.css({
@@ -413,7 +416,7 @@
 					}
 				}
 			},
-			onSetTransition: function (swiper) {
+			onSetTransition: function (swiper, duration) {
 				$activeBar3.css('transition-duration', '0.25s');
 				// 액션바 위치
 				$activeBar3.css({
@@ -438,22 +441,12 @@
 			} 
 		);
 
-		var tabContentSwiper4 = new Swiper('#tabContent4', {
-      direction: "vertical",
-      slidesPerView: "auto",
-      freeMode: true,
-      scrollbar: {
-        el: ".swiper-scrollbar",
-      },
-      mousewheel: true,
-    })
-		$(window).resize(function(){
-			if ( $('#tabContent4 .swiper-slide').height() < $('#tabContent4 .swiper-container').height() ) $('#tabContent4 .swiper-scrollbar').hide();
-			else $('#tabContent4 .swiper-scrollbar').show()
-		})
 	});
+
 	</script>
 
+	-->
+	
 <!-- [S] PAGES - SCRIPT -->
 <script src="./../com/js/ui.component.js"></script>
 <!-- [E] PAGES - SCRIPT -->
