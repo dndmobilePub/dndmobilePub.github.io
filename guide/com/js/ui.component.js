@@ -1388,7 +1388,7 @@ var COMPONENT_UI = (function (cp, $) {
           const self = this;
           $('.tab').children('a').attr('aria-selected', 'false');
           $('.tab._is-active').children('a').attr('aria-selected', 'true');
-          $('.tab-moving .tab-list').append($('<li class="highlight"></li>'));
+          $('.tab-moving .tab-list').append($('<span class="highlight"></span>'));
           $('.tab-scroll .tab-contents').scrollTop();
 
           $(document).on('click', this.constEl.tab, function(e) {
@@ -1529,7 +1529,7 @@ var COMPONENT_UI = (function (cp, $) {
       // Add code for set method if needed
     },
   };
-
+/*
   cp.swiper2 = {
     constEl: {},
     swiper_cate: null, // Reference to the category swiper
@@ -1586,6 +1586,79 @@ var COMPONENT_UI = (function (cp, $) {
 
     swiperPlay: function () {
       // Add code for swiperPlay method if needed
+    },
+  };
+*/
+
+cp.swiper2 = {
+    constEl: {},
+    init: function () {
+        const $activeBar0 = $('#tabActiveBar0');
+        const barW = 40; // 플로팅 바의 너비，px
+        const btnW = 70; // 버튼의 너비，px
+        const slideAmount = 10; // 페이지수
+        const colors = [
+            '#043b72', '#043b72', '#043b72', '#043b72', '#043b72',
+            '#043b72', '#043b72', '#043b72', '#043b72', '#043b72'
+        ];
+
+        var tabNavSwiper0 = new Swiper('.tab-swiper0 .tab-nav', {
+            slidesPerView: 'auto'
+        });
+
+
+        // 스크롤이동, 액션
+        var tabContentSwiper = new Swiper('.tab-swiper0 #tabContent0', {
+            onProgress: function (swiper, progress) {
+                // $activeBar0.css('transition-duration', '0s');
+                var slideFullProgress = 1 / (slideAmount - 1); // 단일 페이지 진행의 총 가치
+                let slideProgress = progress % slideFullProgress / slideFullProgress; // 페이지 매기기 진행률, 범위[0,1]
+                let willActiveIndex = Math.floor(progress / slideFullProgress); // 표시할 페이지의 순서 번호
+                if (progress >= 0 && progress <= 1) {
+                    if (slideProgress <= 0.5) {
+                        $activeBar0.css('width', barW + btnW * slideProgress * 2);
+                    } else {
+                        $activeBar0.css({
+                            'left': btnW * willActiveIndex + btnW * (slideProgress - 0.5) * 2,
+                            'width': barW + btnW - btnW * (slideProgress - 0.5) * 2
+                        });
+                    }
+                }
+            },
+            onSetTransition: function (swiper, duration) {
+                $activeBar0.css('border-bottom', '10px solid red');
+                // 액션바 위치
+                // $activeBar0.css({
+                //     'left': btnW * swiper.activeIndex,
+                //     'width': barW
+                // });
+            },
+            // 터치(슬라이드 변경) 이벤트
+            onSlideChangeStart: function (swiper) {
+                $('#tabNav0 .active').removeClass('active');
+                $('#tabNav0 .swiper-slide[data-slide-index=' + swiper.activeIndex + ']').addClass('active');
+                if (swiper.previousIndex < swiper.activeIndex) {
+                    tabNavSwiper0.slideTo(swiper.activeIndex - 2);
+                } else {
+                    tabNavSwiper0.slideTo(swiper.activeIndex - 1);
+                }
+                $activeBar0.css('background-color', colors[swiper.activeIndex]);
+            }
+        });
+        // 탭메뉴 클릭이벤트(해당 슬라이드 이동)
+        $('#tabNav0 .swiper-slide').on('click', function (event) {
+            tabContentSwiper.slideTo($(this).data('slide-index'));
+        });
+
+        // Other swiper3 initialization logic here
+    },
+    set: function () {
+        // Set method logic goes here
+        console.log('Swiper2 set');
+    },
+    swiperPlay: function () {
+        // Swiper play logic goes here
+        console.log('Swiper2 play');
     },
   };
 
