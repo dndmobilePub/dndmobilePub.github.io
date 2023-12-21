@@ -105,7 +105,7 @@
     .swiper-pagination {
       position: relative;
       .swiper-pagination-bullet {
-        @include transition;
+        transition: all ease .3s;
         margin: 0 3px;
         &-active {
           width: 20px;
