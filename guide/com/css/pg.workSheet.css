@@ -2602,19 +2602,27 @@
   overflow-x: visible;
   overflow-y: auto;
   margin: 0;
+  border-bottom: 1px solid #e6e6e6;
 }
 .tab-wrap.tab-vertical .tab-list-wrap .tab-list {
-  overflow-y: auto;
   flex-direction: column;
   min-width: 9rem;
-  max-height: 30rem;
+  height: 30rem;
   margin-left: 0;
 }
 .tab-wrap.tab-vertical .tab-list-wrap .tab-list .tab ~ .tab {
   margin-left: 0;
 }
+.tab-wrap.tab-vertical .tab-list-wrap::before {
+  display: none;
+}
 .tab-wrap.tab-vertical .tab-contents-wrap {
   flex: 1;
+  height: 30rem;
+}
+.tab-wrap.tab-vertical .tab-contents-wrap .tab-contents {
+  overflow: auto;
+  height: 100%;
 }
 .tab-wrap.tab-scroll .tab-contents-wrap, .tab-wrap.tab-scroll-height .tab-contents-wrap {
   overflow-y: scroll;

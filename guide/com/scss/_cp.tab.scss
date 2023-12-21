@@ -1,204 +1,213 @@
 .tab-list-wrap {
 	overflow-x: auto;
-  position: relative;
+	position: relative;
 	width: 100%;
-  margin: 1.5rem auto;
+	margin: 1.5rem auto;
 
-  @include el-content(before) {
-      position: absolute;
-      left: 0; bottom: 0;
-      width: 100%; height: 1px;
-      background-color: $color-light-gray1;
-  }
+	@include el-content(before) {
+		position: absolute;
+		left: 0; bottom: 0;
+		width: 100%; height: 1px;
+		background-color: $color-light-gray1;
+	}
 
-  .tab-list {
-      display: flex;
-      @include flex;
-      position: relative;
+	.tab-list {
+		display: flex;
+		@include flex;
+		position: relative;
 
-      .tab {
-          display: block;
-          flex: none;
-          position: relative;
-          color: $color-gray4;
-          text-align: center;
-          transition: color .5s ease-in-out;
+		.tab {
+			display: block;
+			flex: none;
+			position: relative;
+			color: $color-gray4;
+			text-align: center;
+			transition: color .5s ease-in-out;
 
-          &~.tab {
-						margin-left: 2rem;
-          }
+			&~.tab {
+							margin-left: 2rem;
+			}
 
-          &:hover {
-              color: $color-blue3;
-          }
+			&:hover {
+				color: $color-blue3;
+			}
 
-          &._is-active {
-              color: $color-blue3;
-          }
+			&._is-active {
+				color: $color-blue3;
+			}
 
-          a {
-              display: block;
-              padding: 1rem;
-          }
-      }
-  }
+			a {
+				display: block;
+				padding: 1rem;
+			}
+		}
+	}
 
-  &.tab-expand {
-      .tab-list {
-          width: 100%;
-  
-          .tab {
-              flex: 1;
-          }
-      }
-  }
+	&.tab-expand {
+		.tab-list {
+			width: 100%;
+	
+			.tab {
+				flex: 1;
+			}
+		}
+	}
 
-  &.tab-center {
-      justify-content: center;
-  }
+	&.tab-center {
+		justify-content: center;
+	}
 
-  &.tab-right {
-      justify-content: right;
-  }
+	&.tab-right {
+		justify-content: right;
+	}
 
-  &.tab-line-top {
-      &::before {
-          bottom: auto; top: 0;
-      }
-      
-      .tab {
-          border-bottom: none;
-          border-top: 2px solid transparent;
+	&.tab-line-top {
+		&::before {
+			bottom: auto; top: 0;
+		}
+		
+		.tab {
+			border-bottom: none;
+			border-top: 2px solid transparent;
 
-          & a::before {
-            top: -2px;
-            bottom: auto;
-        }
-      }
-  }
+			& a::before {
+				top: -2px;
+				bottom: auto;
+			}
+		}
+	}
 }
 
 .tab-wrap {
-  position: relative;
+  	position: relative;
 
-  &.tab-vertical {
-      display: flex;
-      align-items: start;
+	&.tab-vertical {
+		display: flex;
+		align-items: start;
 
-      .tab-list-wrap {
-					overflow-x: visible;
-					overflow-y: auto;
-          margin: 0;
-          
-          .tab-list {
-              @include overflow (y, auto);
-              flex-direction: column;
-              min-width: 9rem;
-              max-height: 30rem;
-              margin-left: 0;
+		.tab-list-wrap {
+			overflow-x: visible;
+			overflow-y: auto;
+			margin: 0;
+			border-bottom: 1px solid #e6e6e6;
+			
+			.tab-list {
+				flex-direction: column;
+				min-width: 9rem;
+				height: 30rem;
+				margin-left: 0;
 
-              .tab~.tab {
-                  margin-left: 0;
-              }
-          }
-      }
+				.tab~.tab {
+					margin-left: 0;
+				}
+			}
 
-      .tab-contents-wrap {
-          flex: 1;
-      }
+			&::before {
+				display: none;
+			}
+		}
+
+		.tab-contents-wrap {
+			flex: 1;
+			height: 30rem;
+
+			.tab-contents {
+				overflow: auto;
+				height: 100%;
+			}
+		}
   }
   
-  &.tab-scroll,
-  &.tab-scroll-height {
-      .tab-contents-wrap {
-          overflow-y: scroll;
-          position: relative;  
-          height: 200px;
-      }
-  }
+	&.tab-scroll,
+	&.tab-scroll-height {
+		.tab-contents-wrap {
+			overflow-y: scroll;
+			position: relative;  
+			height: 200px;
+		}
+  	}
 
-  &:not(.tab-scroll) {
-      .tab-contents-wrap {        
-          .tab-contents {
-              display: none;
+	&:not(.tab-scroll) {
+		.tab-contents-wrap {        
+			.tab-contents {
+				display: none;
 
-              &._is-active {
-                  display: block;
-              }
-          }
-      }
-  }
+				&._is-active {
+					display: block;
+				}
+			}
+		}
+	}
 
-  &.tab-moving {
-      .tab-list-wrap {
-        &.tab-line-top {
-          .highlight {
-            bottom: auto;
-            top: 0;
-          }
-        }
-        
-        .tab {
-          &::before {
-            display: none;
-          }
-        }
-          
-        .highlight {
-          position: absolute;
-          left: 0; bottom: 0;
-          width: 64px; height: 2px;
-          background-color: $color-blue3;
-          transition: 0.4s cubic-bezier(0.65, 0, 0.35, 1);
-        }
-        ._is-active > a::before {
-          content:inherit;
-        }
-        
-    }
-    &.tab-vertical {
-        .highlight {
-          bottom: auto;
-          left: auto;
-          right: 0;
-          height: 4rem;
-          width: 2px;
-        }
-    }
-      
-  }
+	&.tab-moving {
+		.tab-list-wrap {
+			&.tab-line-top {
+				.highlight {
+					bottom: auto;
+					top: 0;
+				}
+			}
+			
+			.tab {
+				&::before {
+					display: none;
+				}
+			}
+			
+			.highlight {
+				position: absolute;
+				left: 0; bottom: 0;
+				width: 64px; height: 2px;
+				background-color: $color-blue3;
+				transition: 0.4s cubic-bezier(0.65, 0, 0.35, 1);
+			}
+			._is-active > a::before {
+				content:inherit;
+			}
+			
+		}
+		&.tab-vertical {
+			.highlight {
+				bottom: auto;
+				left: auto;
+				right: 0;
+				height: 4rem;
+				width: 2px;
+			}
+		}
+	}
 }
 
 .tab-contents-wrap {
-  border: 1px solid $color-valid;
+	border: 1px solid $color-valid;
 
-  .tab-contents {
-      padding: 3rem 5rem 5rem;
+	.tab-contents {
+		padding: 3rem 5rem 5rem;
 
-      &:nth-child(even) {
-          background: #eee;
-      }
-  }
+		&:nth-child(even) {
+			background: #eee;
+		}
+	}
 }
 
 @keyframes widthAct {
-  0% {
-      width: 0;
-      left: 50%;
-  }
-  100% {
-      width: 100%;
-      left: 0;
-  }
+	0% {
+		width: 0;
+		left: 50%;
+	}
+	100% {
+		width: 100%;
+		left: 0;
+	}
 }
 .tab-wrap ._is-active > a::before { 
-  content: "";
-  display: block;
-  position: absolute;
-  left: 50%;
-  bottom: 0;
-  width: 0;
-  height: 2px;
-  background-color: $color-blue3;
-  animation: widthAct .3s linear forwards;
+	content: "";
+	display: block;
+	position: absolute;
+	left: 50%;
+	bottom: 0;
+	width: 0;
+	height: 2px;
+	background-color: $color-blue3;
+	animation: widthAct .3s linear forwards;
 }
