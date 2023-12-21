@@ -146,7 +146,7 @@
         border-radius: 5px;
         background: #9c27b0;
       }
-      .swiper-pagination-bullet {@include transition;}
+      .swiper-pagination-bullet {transition: all ease .3s;}
     }
   }
 }

@@ -2876,11 +2876,11 @@ transition: 0.4s cubic-bezier(0.65, 0, 0.35, 1);
 .swiper.triple-swiper .swiper-pagination {
   position: relative;
 }
-.swiper.triple-swiper .swiper-pagination span {
-  transition: all 0.3s ease-in-out;
+.swiper.triple-swiper .swiper-pagination .swiper-pagination-bullet {
+  transition: all ease 0.3s;
   margin: 0 3px;
 }
-.swiper.triple-swiper .swiper-pagination span.swiper-pagination-bullet-active {
+.swiper.triple-swiper .swiper-pagination .swiper-pagination-bullet-active {
   width: 20px;
   border-radius: 12px;
 }
@@ -2917,9 +2917,8 @@ transition: 0.4s cubic-bezier(0.65, 0, 0.35, 1);
   border-radius: 5px;
   background: #9c27b0;
 }
-.swiper.two-swiper .swiper-pagination span {
-  transition: all 0.3s ease-in-out;
-  margin: 0 3px;
+.swiper.two-swiper .swiper-pagination .swiper-pagination-bullet {
+  transition: all ease 0.3s;
 }
 
 /* TABLE */
