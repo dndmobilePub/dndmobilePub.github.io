@@ -1588,7 +1588,7 @@ var COMPONENT_UI = (function (cp, $) {
       // Add code for swiperPlay method if needed
     },
   };
-*/
+아래와 구조가 다른 스와이퍼 */
 
 cp.swiper2 = {
     constEl: {},
@@ -1603,35 +1603,46 @@ cp.swiper2 = {
         ];
 
         var tabNavSwiper0 = new Swiper('.tab-swiper0 .tab-nav', {
-            slidesPerView: 'auto'
+            slidesPerView: 'auto',
+            // loop: false,
+            // centeredSlides: false,
+            // freeMode: true,
+            // onClick: function (swiper) {
+            //   $(swiper.clickedSlide).addClass('active').siblings().removeClass('active');
+            // },
         });
+
+
 
 
         // 스크롤이동, 액션
         var tabContentSwiper = new Swiper('.tab-swiper0 #tabContent0', {
             onProgress: function (swiper, progress) {
+                $activeBar0.css({
+                    'width': barW
+                });
                 // $activeBar0.css('transition-duration', '0s');
-                var slideFullProgress = 1 / (slideAmount - 1); // 단일 페이지 진행의 총 가치
-                let slideProgress = progress % slideFullProgress / slideFullProgress; // 페이지 매기기 진행률, 범위[0,1]
-                let willActiveIndex = Math.floor(progress / slideFullProgress); // 표시할 페이지의 순서 번호
-                if (progress >= 0 && progress <= 1) {
-                    if (slideProgress <= 0.5) {
-                        $activeBar0.css('width', barW + btnW * slideProgress * 2);
-                    } else {
-                        $activeBar0.css({
-                            'left': btnW * willActiveIndex + btnW * (slideProgress - 0.5) * 2,
-                            'width': barW + btnW - btnW * (slideProgress - 0.5) * 2
-                        });
-                    }
-                }
+                // var slideFullProgress = 1 / (slideAmount - 1); // 단일 페이지 진행의 총 가치
+                // let slideProgress = progress % slideFullProgress / slideFullProgress; // 페이지 매기기 진행률, 범위[0,1]
+                // let willActiveIndex = Math.floor(progress / slideFullProgress); // 표시할 페이지의 순서 번호
+                // if (progress >= 0 && progress <= 1) {
+                //     if (slideProgress <= 0.5) {
+                //         $activeBar0.css('width', barW + btnW * slideProgress * 2);
+                //     } else {
+                //         $activeBar0.css({
+                //             'left': btnW * willActiveIndex + btnW * (slideProgress - 0.5) * 2,
+                //             'width': barW + btnW - btnW * (slideProgress - 0.5) * 2
+                //         });
+                //     }
+                // }
             },
             onSetTransition: function (swiper, duration) {
-                $activeBar0.css('border-bottom', '10px solid red');
+                
                 // 액션바 위치
-                // $activeBar0.css({
-                //     'left': btnW * swiper.activeIndex,
-                //     'width': barW
-                // });
+                $activeBar0.css({
+                    'left': btnW * swiper.activeIndex,
+                    'width': barW
+                });
             },
             // 터치(슬라이드 변경) 이벤트
             onSlideChangeStart: function (swiper) {
