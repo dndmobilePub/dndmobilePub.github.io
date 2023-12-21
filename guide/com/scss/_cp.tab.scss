@@ -1,45 +1,7 @@
-/* .highlight {
-    position: absolute;
-    left: 0; bottom: 0;
-    width: 64px; height: 2px;
-    background-color: $color-blue3;
-    transition: 0.4s cubic-bezier(0.65, 0, 0.35, 1);
-} */
-
-@keyframes widthAct {
-  0% {
-      width: 0;
-      left: 50%;
-  }
-  100% {
-      width: 100%;
-      left: 0;
-  }
-}
-
-/* .tab-moving ._is-active.on > a::before {
-left: 0; bottom: 0;
-width: 64px; height: 2px;
-
-transition: 0.4s cubic-bezier(0.65, 0, 0.35, 1);
-
-} */
-.tab-wrap ._is-active > a::before { 
-  content: "";
-  display: block;
-  position: absolute;
-  left: 50%;
-  bottom: 0;
-  width: 0;
-  height: 2px;
-  background-color: $color-blue3;
-  animation: widthAct .3s linear forwards;
-}
-
 .tab-list-wrap {
-  display: flex;
-  @include flex;
+	overflow-x: auto;
   position: relative;
+	width: 100%;
   margin: 1.5rem auto;
 
   @include el-content(before) {
@@ -48,10 +10,9 @@ transition: 0.4s cubic-bezier(0.65, 0, 0.35, 1);
       width: 100%; height: 1px;
       background-color: $color-light-gray1;
   }
-  
+
   .tab-list {
-      overflow-x: auto;
-      display: inline-flex;
+      display: flex;
       @include flex;
       position: relative;
 
@@ -59,19 +20,12 @@ transition: 0.4s cubic-bezier(0.65, 0, 0.35, 1);
           display: block;
           flex: none;
           position: relative;
-          margin-left: 2rem;
           color: $color-gray4;
           text-align: center;
           transition: color .5s ease-in-out;
 
-          /* @include el-content(before) {
-              position: absolute;
-              left: 50%; bottom: 0;
-              width: 0; height: 2px;
-          } */
-
-          &:first-child {
-              margin-left: 0;
+          &~.tab {
+						margin-left: 2rem;
           }
 
           &:hover {
@@ -80,11 +34,6 @@ transition: 0.4s cubic-bezier(0.65, 0, 0.35, 1);
 
           &._is-active {
               color: $color-blue3;
-
-              /* &::before { 
-                  background-color: $color-blue3;
-                  animation: widthAct .3s linear forwards;
-              } */
           }
 
           a {
@@ -121,11 +70,6 @@ transition: 0.4s cubic-bezier(0.65, 0, 0.35, 1);
           border-bottom: none;
           border-top: 2px solid transparent;
 
-          /* &::before {
-              top: -1px;
-              bottom: auto;
-          } */
-
           & a::before {
             top: -2px;
             bottom: auto;
@@ -138,12 +82,12 @@ transition: 0.4s cubic-bezier(0.65, 0, 0.35, 1);
   position: relative;
 
   &.tab-vertical {
+			overflow-x: visible;
+			overflow-y: auto;
       display: flex;
       align-items: start;
 
       .tab-list-wrap {
-          overflow-x: visible;
-          overflow-y: auto;
           margin: 0;
           
           .tab-list {
@@ -153,7 +97,7 @@ transition: 0.4s cubic-bezier(0.65, 0, 0.35, 1);
               max-height: 30rem;
               margin-left: 0;
 
-              .tab {
+              .tab~.tab {
                   margin-left: 0;
               }
           }
@@ -235,4 +179,26 @@ transition: 0.4s cubic-bezier(0.65, 0, 0.35, 1);
           background: #eee;
       }
   }
+}
+
+@keyframes widthAct {
+  0% {
+      width: 0;
+      left: 50%;
+  }
+  100% {
+      width: 100%;
+      left: 0;
+  }
+}
+.tab-wrap ._is-active > a::before { 
+  content: "";
+  display: block;
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: 0;
+  height: 2px;
+  background-color: $color-blue3;
+  animation: widthAct .3s linear forwards;
 }

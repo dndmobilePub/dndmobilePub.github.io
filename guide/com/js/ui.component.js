@@ -1285,184 +1285,188 @@ var COMPONENT_UI = (function (cp, $) {
   };
 
   cp.tab = {
-      constEl: {
-          tab: '.tab'
-      },
-      init() {
-          this.tabClick();
-      },
-      
-      tabSel: function($this, $tabWrap) {
-          /**
-           * 가로/세로 탭 선택 함수
-           * @this 클릭한 탭 버튼
-           * @tabWrap 클릭한 탭의 wrapper
-           * @next 가로/세로 형식으로 바뀌는 컨텐츠 wrapper
-           * sel-h-v 클래스 있는 tab 메뉴에서 data-type에 따라 $next highlight 초기화
-           */
+    constEl: {
+        tab: '.tab > a'
+    },
+    init() {
+        this.tabClick();
+    },
+    tabSel: function($this, $tabWrap) {
+        /**
+         * 가로/세로 탭 선택 함수
+         * @this 클릭한 탭 버튼
+         * @tabWrap 클릭한 탭의 wrapper
+         * @next 가로/세로 형식으로 바뀌는 컨텐츠 wrapper
+         * sel-h-v 클래스 있는 tab 메뉴에서 data-type에 따라 $next highlight 초기화
+         */
 
-          if ($tabWrap.hasClass('sel-h-v')) {
-              const $next = $tabWrap.next('.tab-wrap');
-              const $activeTab = $next.find('._is-active');
-              const newHeight2 = $next.find('.tab').outerHeight();
-              const newWidth2 = $next.find('.tab').outerWidth();
-              const nextHighlight = $next.find('.highlight');
+        if ($tabWrap.hasClass('sel-h-v')) {
+            const $next = $tabWrap.next('.tab-wrap');
+            const $activeTab = $next.find('._is-active');
+            const newHeight2 = $next.find('.tab').outerHeight();
+            const newWidth2 = $next.find('.tab').outerWidth();
+            const nextHighlight = $next.find('.highlight');
 
-              newTop2 = $activeTab.position().top;
+            newTop2 = $activeTab.position().top;
 
-              if ($this.attr('data-type') === 'vertical') {
-                  $next.addClass('tab-vertical');
-                  $next.find('.tab-list').attr('aria-orientation', 'vertical');
+            if ($this.attr('data-type') === 'vertical') {
+                $next.addClass('tab-vertical');
+                $next.find('.tab-list').attr('aria-orientation', 'vertical');
 
-                  nextHighlight.css('left', '');
-                  nextHighlight.css('width', '');
-                  nextHighlight.css('top', newTop2 + 'px');
-                  nextHighlight.css('height', newHeight2 + 'px');
-              } else {
-                  $next.removeClass('tab-vertical');
-                  $next.find('.tab-list').removeAttr('aria-orientation');
+                nextHighlight.css('left', '');
+                nextHighlight.css('width', '');
+                nextHighlight.css('top', newTop2 + 'px');
+                nextHighlight.css('height', newHeight2 + 'px');
+            } else {
+                $next.removeClass('tab-vertical');
+                $next.find('.tab-list').removeAttr('aria-orientation');
 
-              
-                  nextHighlight.css('top', '');
-                  nextHighlight.css('height', '');
-                  nextHighlight.css('width', newWidth2 + 'px');
-              }
-              $next.find('.tab').removeClass('_is-active');
-              $next.find('.tab').eq(0).addClass('_is-active');
-              $next.find('.tab-contents').removeClass('_is-active');
-              $next.find('.tab-contents').eq(0).addClass('_is-active');
-          } 
-      },
-      moveHighLight: function($this, $tabWrap, $index) {
-          /**
-           * 선택된 탭 highlight action 함수
-           * @this 클릭한 탭 버튼
-           * @tabWrap 클릭한 탭의 wrapper
-           * tab-moving 클래스 있는 tab 메뉴에서 tab-vertical 클래스에 따라 highlight 스타일 변화
-           */
+            
+                nextHighlight.css('top', '');
+                nextHighlight.css('height', '');
+                nextHighlight.css('width', newWidth2 + 'px');
+            }
+            $next.find('.tab').removeClass('_is-active');
+            $next.find('.tab').eq(0).addClass('_is-active');
+            $next.find('.tab-contents').removeClass('_is-active');
+            $next.find('.tab-contents').eq(0).addClass('_is-active');
+        } 
+    },
+    moveHighLight: function($this, $tabWrap) {
+        /**
+         * 선택된 탭 highlight action 함수
+         * @this 클릭한 탭 버튼
+         * @tabWrap 클릭한 탭의 wrapper
+         * tab-moving 클래스 있는 tab 메뉴에서 tab-vertical 클래스에 따라 highlight 스타일 변화
+         */
 
-          if ($tabWrap.hasClass('tab-moving') && $tabWrap.hasClass('tab-vertical')) {
-              const tabRect = $this.position().top;
-              const tabListRect = $('.tab-list').offset().top;
-              const scrollOffset = tabRect - tabListRect;
-              
-              $this.parent('.tab-list').animate({ 
-                  scrollTop: $this.parent('.tab-list').scrollTop() + scrollOffset 
-              }, 'slow');
+        if ($tabWrap.hasClass('tab-moving') && $tabWrap.hasClass('tab-vertical')) {
+            const tabRect = $this.position().top;
+            const tabListRect = $('.tab-list').offset().top;
+            const scrollOffset = tabRect - tabListRect;
+            
+            $this.parent('.tab-list').animate({ 
+                scrollTop: $this.parent('.tab-list').scrollTop() + scrollOffset 
+            }, 'slow');
 
-              const highLight = $tabWrap.find('.highlight');
-              const newHeight = $this.outerHeight();
-              const newTop = (newHeight * $this.index());
-              
-              highLight.css('left', '');
-              highLight.css('width', '');
-              highLight.css('top', newTop + 'px');
-              highLight.css('height', newHeight + 'px');
-          } else if ($tabWrap.hasClass('tab-moving') && !$tabWrap.hasClass('tab-vertical')) {
-              const tabRect2 = $this.position().left;
-              const tabListRect2 =  $this.parent('.tab-list').offset().left;
-              const scrollOffset2 = tabRect2 + tabListRect2 - ($this.parent('.tab-list').width() - $this.width()) / 2;
-              
-              $this.parent('.tab-list').animate({ 
-                  scrollLeft:  $this.parent('.tab-list').scrollLeft() + scrollOffset2 + 10
-              }, 'slow');
+            const highLight = $tabWrap.find('.highlight');
+            const newHeight = $this.outerHeight();
+            const newTop = (newHeight * $this.index());
+            
+            highLight.css('left', '');
+            highLight.css('width', '');
+            highLight.css('top', newTop + 'px');
+            highLight.css('height', newHeight + 'px');
+        } else if ($tabWrap.hasClass('tab-moving') && !$tabWrap.hasClass('tab-vertical')) {
+            const $tabLstWrap = $this.closest('.tab-list-wrap'),
+                    num = $tabLstWrap.offset().left, 
+                    elemLeft = Math.ceil($this.offset().left),
+                    scrollLeft = $tabLstWrap.scrollLeft(),
+                    thisElem = Math.ceil($this.outerWidth()),
+                    centerScroll = elemLeft + scrollLeft - num - $tabLstWrap.width() / 2 + thisElem / 2;
 
-              const highLight = $tabWrap.find('.highlight');
-              const newWidth = $this.outerWidth();
-              const newLeft = ((newWidth + 20) * $this.index());
-              
-              highLight.css('top', '');
-              highLight.css('height', '');
-              highLight.css('left', newLeft + 'px');
-              highLight.css('width', newWidth + 'px');
-          }
-      },      
+            const $highLight = $tabWrap.find('.highlight'),
+                    newWidth = $this.outerWidth();
+            
+            $highLight.css('top', '');
+            $highLight.css('height', '');
 
-      tabClick: function() {
-          /**
-           * 선택된 탭 _is-active 함수
-           * @this 클릭한 탭 버튼
-           * @tabWrap 클릭한 탭의 wrapper
-           * @contentsIdx 클릭한 탭의 index와 같은 index의 content
-           */
-          const self = this;
-          $('.tab').children('a').attr('aria-selected', 'false');
-          $('.tab._is-active').children('a').attr('aria-selected', 'true');
-          $('.tab-moving .tab-list').append($('<span class="highlight"></span>'));
-          $('.tab-scroll .tab-contents').scrollTop();
-
-          $(document).on('click', this.constEl.tab, function(e) {
-              e.preventDefault();
-
-              const $this = $(this);
-              const $index = $this.index();
-              const $tabWrap = $this.closest('.tab-wrap');
-              const $contentsWrap = $tabWrap.children('.tab-contents-wrap');
-              const $contents = $contentsWrap.children('.tab-contents');
-              const $contentsIdx = $contentsWrap.children('.tab-contents').eq($index);
-
-              if ($tabWrap.attr('data-roll') === 'tab' && !$tabWrap.hasClass('tab-scroll')) {
-                  $this.siblings('.tab').removeClass('_is-active');
-                  $this.siblings('.tab').children('a').attr('aria-selected', 'false');
-                  $this.addClass('_is-active');
-                  $this.children('a').attr('aria-selected', 'true');
-                  $contents.removeClass('_is-active');
-                  $contentsIdx.addClass('_is-active').removeAttr('hidden');
-              } else if ($tabWrap.attr('data-roll') === 'tab' && $tabWrap.hasClass('tab-scroll')){
-                  $this.siblings('.tab').removeClass('_is-active');
-                  $this.siblings('.tab').children('a').attr('aria-selected', 'false');
-                  $this.addClass('_is-active');
-                  $this.children('a').attr('aria-selected', 'true');
-                  $contents.removeClass('_is-active');
-                  $contentsIdx.addClass('_is-active');
-              }
-              
-              let newTop2 = 0;
-              self.tabSel($this, $tabWrap);
-              self.moveHighLight($this, $tabWrap, $index);
-              
-              // tabpanel 스크롤 이동
-              if ($tabWrap.hasClass('tab-scroll')){
-                  // 스크롤 이벤트 핸들러 제거
-                  $('.tab-scroll .tab-contents-wrap').off('scroll', scrollEventHandler);
-
-                  const $targetHref = $('#' + $this.attr('aria-controls'));
-                  const $targetWrap = $targetHref.parent('.tab-contents-wrap');
-                  const location = $targetHref.position().top;
-
-                  $targetWrap.stop().animate({
-                      scrollTop: $targetWrap.scrollTop() + location
-                  }, 300);
-
-                  setTimeout(function() {
-                      $('.tab-scroll .tab-contents-wrap').on('scroll', scrollEventHandler);
-                  }, 400);
-              }
-          });
-
-          // 스크롤 이벤트 처리
-          function scrollEventHandler(e) {
-            e.preventDefault();
-            const $thisWrap = $(this);
-
-            $thisWrap.children('.tab-contents').each(function() {
-              const panelTop = $(this).position().top;
-              const $tabWrap = $(this).closest('.tab-scroll');
-
-                if (panelTop <= -20 && panelTop > -$thisWrap.height() / 2) {
-                  const tabId = $(this).attr('id');
-
-                  $tabWrap.find('.tab').removeClass('_is-active');
-                  $tabWrap.find('.tab').children('a').attr('aria-selected', 'false');
-                  $tabWrap.find('.tab[aria-controls="' + tabId + '"]').addClass('_is-active');
-                  $tabWrap.find('.tab[aria-controls="' + tabId + '"]').children('a').attr('aria-selected', 'true');
-                  $(this).siblings().removeClass('_is-active');
-                  $(this).addClass('_is-active');
-                }
+            $tabLstWrap.stop().animate({ 
+                scrollLeft: centerScroll
+            }, 200, function() {
+                $highLight.stop().animate({ 
+                    width: newWidth,
+                    left: elemLeft - num + scrollLeft
+                });
             });
-          }
-          $('.tab-scroll .tab-contents-wrap').on('scroll', scrollEventHandler);
-      }      
+        }
+    },      
+
+    tabClick: function() {
+        /**
+         * 선택된 탭 _is-active 함수
+         * @this 클릭한 탭 버튼
+         * @tabWrap 클릭한 탭의 wrapper
+         * @contentsIdx 클릭한 탭의 index와 같은 index의 content
+         */
+        const self = this;
+        $('.tab').children('a').attr('aria-selected', 'false');
+        $('.tab._is-active').children('a').attr('aria-selected', 'true');
+        $('.tab-moving .tab-list-wrap').append($('<span class="highlight"></span>'));
+        $('.tab-scroll .tab-contents').scrollTop();
+
+        $(document).on('click', this.constEl.tab, function(e) {
+            e.preventDefault();
+
+            const $this = $(this).parent('.tab');
+            const $index = $this.index();
+            const $tabWrap = $this.closest('.tab-wrap');
+            const $contentsWrap = $tabWrap.children('.tab-contents-wrap');
+            const $contents = $contentsWrap.children('.tab-contents');
+            const $contentsIdx = $contentsWrap.children('.tab-contents').eq($index);
+
+            if ($tabWrap.attr('data-roll') === 'tab' && !$tabWrap.hasClass('tab-scroll')) {
+                $this.siblings('.tab').removeClass('_is-active');
+                $this.siblings('.tab').children('a').attr('aria-selected', 'false');
+                $this.addClass('_is-active');
+                $this.children('a').attr('aria-selected', 'true');
+                $contents.removeClass('_is-active');
+                $contentsIdx.addClass('_is-active').removeAttr('hidden');
+            } else if ($tabWrap.attr('data-roll') === 'tab' && $tabWrap.hasClass('tab-scroll')){
+                $this.siblings('.tab').removeClass('_is-active');
+                $this.siblings('.tab').children('a').attr('aria-selected', 'false');
+                $this.addClass('_is-active');
+                $this.children('a').attr('aria-selected', 'true');
+                $contents.removeClass('_is-active');
+                $contentsIdx.addClass('_is-active');
+            }
+            
+            let newTop2 = 0;
+            self.tabSel($this, $tabWrap);
+            self.moveHighLight($this, $tabWrap);
+            
+            // tabpanel 스크롤 이동
+            if ($tabWrap.hasClass('tab-scroll')){
+                // 스크롤 이벤트 핸들러 제거
+                $('.tab-scroll .tab-contents-wrap').off('scroll', scrollEventHandler);
+
+                const $targetHref = $('#' + $this.attr('aria-controls'));
+                const $targetWrap = $targetHref.parent('.tab-contents-wrap');
+                const location = $targetHref.position().top;
+
+                $targetWrap.stop().animate({
+                    scrollTop: $targetWrap.scrollTop() + location
+                }, 300);
+
+                setTimeout(function() {
+                    $('.tab-scroll .tab-contents-wrap').on('scroll', scrollEventHandler);
+                }, 400);
+            }
+        });
+
+        // 스크롤 이벤트 처리
+        function scrollEventHandler(e) {
+        e.preventDefault();
+        const $thisWrap = $(this);
+
+        $thisWrap.children('.tab-contents').each(function() {
+            const panelTop = $(this).position().top;
+            const $tabWrap = $(this).closest('.tab-scroll');
+
+            if (panelTop <= -20 && panelTop > -$thisWrap.height() / 2) {
+                const tabId = $(this).attr('id');
+
+                $tabWrap.find('.tab').removeClass('_is-active');
+                $tabWrap.find('.tab').children('a').attr('aria-selected', 'false');
+                $tabWrap.find('.tab[aria-controls="' + tabId + '"]').addClass('_is-active');
+                $tabWrap.find('.tab[aria-controls="' + tabId + '"]').children('a').attr('aria-selected', 'true');
+                $(this).siblings().removeClass('_is-active');
+                $(this).addClass('_is-active');
+            }
+        });
+        }
+        $('.tab-scroll .tab-contents-wrap').on('scroll', scrollEventHandler);
+    }      
   };
     
   cp.swiper = {
