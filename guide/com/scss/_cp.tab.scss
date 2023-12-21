@@ -82,12 +82,12 @@
   position: relative;
 
   &.tab-vertical {
-			overflow-x: visible;
-			overflow-y: auto;
       display: flex;
       align-items: start;
 
       .tab-list-wrap {
+					overflow-x: visible;
+					overflow-y: auto;
           margin: 0;
           
           .tab-list {

@@ -1341,32 +1341,38 @@ var COMPONENT_UI = (function (cp, $) {
          */
 
         if ($tabWrap.hasClass('tab-moving') && $tabWrap.hasClass('tab-vertical')) {
-            const tabRect = $this.position().top;
-            const tabListRect = $('.tab-list').offset().top;
-            const scrollOffset = tabRect - tabListRect;
-            
-            $this.parent('.tab-list').animate({ 
-                scrollTop: $this.parent('.tab-list').scrollTop() + scrollOffset 
-            }, 'slow');
-
-            const highLight = $tabWrap.find('.highlight');
-            const newHeight = $this.outerHeight();
-            const newTop = (newHeight * $this.index());
-            
-            highLight.css('left', '');
-            highLight.css('width', '');
-            highLight.css('top', newTop + 'px');
-            highLight.css('height', newHeight + 'px');
-        } else if ($tabWrap.hasClass('tab-moving') && !$tabWrap.hasClass('tab-vertical')) {
             const $tabLstWrap = $this.closest('.tab-list-wrap'),
-                    num = $tabLstWrap.offset().left, 
-                    elemLeft = Math.ceil($this.offset().left),
-                    scrollLeft = $tabLstWrap.scrollLeft(),
-                    thisElem = Math.ceil($this.outerWidth()),
-                    centerScroll = elemLeft + scrollLeft - num - $tabLstWrap.width() / 2 + thisElem / 2;
+									num = $tabLstWrap.offset().top, 
+									elemTop = Math.ceil($this.offset().top),
+									scrollTop = $tabLstWrap.scrollTop(),
+									thisElem = Math.ceil($this.outerHeight()),
+									centerScroll = elemTop + scrollTop - num - $tabLstWrap.height() / 2 + thisElem / 2;
 
             const $highLight = $tabWrap.find('.highlight'),
-                    newWidth = $this.outerWidth();
+									newHeight = $this.outerHeight();
+            
+						highLight.css('left', '');
+						highLight.css('width', '');
+
+            $tabLstWrap.stop().animate({ 
+                scrollTop: centerScroll
+            }, 200, function() {
+                $highLight.stop().animate({ 
+										height: newHeight,
+                    top: elemTop - num + scrollTop
+                });
+            });
+            
+        } else if ($tabWrap.hasClass('tab-moving') && !$tabWrap.hasClass('tab-vertical')) {
+            const $tabLstWrap = $this.closest('.tab-list-wrap'),
+									num = $tabLstWrap.offset().left, 
+									elemLeft = Math.ceil($this.offset().left),
+									scrollLeft = $tabLstWrap.scrollLeft(),
+									thisElem = Math.ceil($this.outerWidth()),
+									centerScroll = elemLeft + scrollLeft - num - $tabLstWrap.width() / 2 + thisElem / 2;
+
+            const $highLight = $tabWrap.find('.highlight'),
+									newWidth = $this.outerWidth();
             
             $highLight.css('top', '');
             $highLight.css('height', '');
