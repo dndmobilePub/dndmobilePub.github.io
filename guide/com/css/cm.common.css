@@ -2556,7 +2556,7 @@
   display: block;
   position: absolute;
   left: 50%;
-  bottom: -1px;
+  bottom: 0;
   width: 0;
   height: 2px;
   background-color: #043b72;
@@ -2572,10 +2572,10 @@
 .tab-list-wrap.tab-expand .tab-list .tab {
   flex: 1;
 }
-.tab-list-wrap.tab-center {
+.tab-list-wrap.tab-center .tab-list {
   justify-content: center;
 }
-.tab-list-wrap.tab-right {
+.tab-list-wrap.tab-right .tab-list {
   justify-content: right;
 }
 .tab-list-wrap.tab-line-top {
@@ -2586,7 +2586,7 @@
   top: 0;
 }
 .tab-list-wrap.tab-line-top .tab a::before {
-  top: -1px;
+  top: 0;
   bottom: auto;
 }
 
@@ -2629,10 +2629,10 @@
   position: relative;
   height: 200px;
 }
-.tab-wrap:not(.tab-scroll) .tab-contents-wrap .tab-contents {
+.tab-wrap:not(.tab-scroll, .tab-sticky) .tab-contents-wrap .tab-contents {
   display: none;
 }
-.tab-wrap:not(.tab-scroll) .tab-contents-wrap .tab-contents._is-active {
+.tab-wrap:not(.tab-scroll, .tab-sticky) .tab-contents-wrap .tab-contents._is-active {
   display: block;
 }
 .tab-wrap.tab-moving .tab-list-wrap.tab-line-top .highlight {
@@ -2923,6 +2923,7 @@
 }
 .splitWrap strong {
   color: #1d7500;
+  font-weight: bold;
 }
 .splitWrap strong + div, .splitWrap strong + ul {
   margin-top: 10px;

@@ -33,7 +33,7 @@
 				@include el-content(before) {
 					position: absolute;
 					left: 50%;
-					bottom: -1px;
+					bottom: 0;
 					width: 0;
 					height: 2px;
 					background-color: $color-blue3;
@@ -59,11 +59,15 @@
 	}
 
 	&.tab-center {
-		justify-content: center;
+		.tab-list {
+			justify-content: center;
+		}
 	}
 
 	&.tab-right {
-		justify-content: right;
+		.tab-list {
+			justify-content: right;
+		}
 	}
 
 	&.tab-line-top {
@@ -75,7 +79,7 @@
 
 		.tab {
 			& a::before {
-				top: -1px;
+				top: 0;
 				bottom: auto;
 			}
 		}
@@ -132,7 +136,7 @@
 		}
   	}
 
-	&:not(.tab-scroll) {
+	&:not(.tab-scroll, .tab-sticky) {
 		.tab-contents-wrap {        
 			.tab-contents {
 				display: none;
