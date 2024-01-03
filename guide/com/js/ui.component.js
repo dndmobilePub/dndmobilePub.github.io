@@ -1354,14 +1354,13 @@ var COMPONENT_UI = (function (cp, $) {
 			$highLight.css('left', '');
 			$highLight.css('width', '');
 
+            $highLight.stop().animate({ 
+                height: newHeight,
+                top: elemTop - num + scrollTop
+            });
             $tabLstWrap.stop().animate({ 
                 scrollTop: centerScroll
-            }, 200, function() {
-                $highLight.stop().animate({ 
-					height: newHeight,
-                    top: elemTop - num + scrollTop
-                });
-            });
+            }, 500);
         } else if ($tabWrap.hasClass('tab-moving') && !$tabWrap.hasClass('tab-vertical')) {
             const $tabLstWrap = $this.closest('.tab-list-wrap'),
 				  num = $tabLstWrap.offset().left, 
@@ -1376,14 +1375,13 @@ var COMPONENT_UI = (function (cp, $) {
             $highLight.css('top', '');
             $highLight.css('height', '');
 
+            $highLight.stop().animate({ 
+                width: newWidth,
+                left: elemLeft - num + scrollLeft
+            });
             $tabLstWrap.stop().animate({ 
                 scrollLeft: centerScroll
-            }, 200, function() {
-                $highLight.stop().animate({ 
-                    width: newWidth,
-                    left: elemLeft - num + scrollLeft
-                });
-            });
+            }, 500);
         }
     },      
 
@@ -1395,10 +1393,34 @@ var COMPONENT_UI = (function (cp, $) {
          * @contentsIdx 클릭한 탭의 index와 같은 index의 content
          */
         const self = this;
-        $('.tab').children('a').attr('aria-selected', 'false');
-        $('.tab._is-active').children('a').attr('aria-selected', 'true');
+        /** [S] 처음 설정 */
         $('.tab-moving .tab-list-wrap').append($('<span class="highlight"></span>'));
         $('.tab-scroll .tab-contents').scrollTop();
+
+        // 접근성
+        $('.tab').children('a').attr('aria-selected', 'false');
+        $('.tab._is-active').children('a').attr('aria-selected', 'true');
+        $('.tab').attr('roll', 'tab');
+        $('.tab-list').attr('roll', 'tablist');
+        $('.tab-contents').attr('roll', 'tabpanel');
+
+        // id 부여
+        $(document).ready(function() {
+            $('.tab-wrap').each(function () {
+                var $wrap = $(this);
+
+                $wrap.find('.tab').each(function (index) {
+                    var tabId = $wrap.attr('id') + '_' + 'tab' + (index + 1);
+                    $(this).attr('aria-controls', tabId);
+                });
+
+                $wrap.find('.tab-contents').each(function (index) {
+                    var panelId = $wrap.attr('id') + '_' + 'tab' + (index + 1);
+                    $(this).attr('id', panelId);
+                });
+            })
+        })
+        /** [E] 처음 설정 */
 
         $(document).on('click', this.constEl.tab, function(e) {
             e.preventDefault();

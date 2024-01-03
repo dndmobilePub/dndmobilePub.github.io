@@ -3,13 +3,8 @@
 	position: relative;
 	width: 100%;
 	margin: 1.5rem auto;
-
-	@include el-content(before) {
-		position: absolute;
-		left: 0; bottom: 0;
-		width: 100%; height: 1px;
-		background-color: $color-light-gray1;
-	}
+	border: 1px solid $color-light-gray1;
+	border-width: 0 0 1px 0;
 
 	.tab-list {
 		display: flex;
@@ -25,15 +20,25 @@
 			transition: color .5s ease-in-out;
 
 			&~.tab {
-							margin-left: 2rem;
+				margin-left: 2rem;
 			}
 
-			&:hover {
+			&:hover a {
 				color: $color-blue3;
 			}
 
-			&._is-active {
+			&._is-active a {
 				color: $color-blue3;
+
+				@include el-content(before) {
+					position: absolute;
+					left: 50%;
+					bottom: -1px;
+					width: 0;
+					height: 2px;
+					background-color: $color-blue3;
+					animation: widthAct .3s linear forwards;
+				}
 			}
 
 			a {
@@ -62,16 +67,15 @@
 	}
 
 	&.tab-line-top {
+		border-width: 1px 0 0 0;
+
 		&::before {
 			bottom: auto; top: 0;
 		}
-		
-		.tab {
-			border-bottom: none;
-			border-top: 2px solid transparent;
 
+		.tab {
 			& a::before {
-				top: -2px;
+				top: -1px;
 				bottom: auto;
 			}
 		}
@@ -88,8 +92,9 @@
 		.tab-list-wrap {
 			overflow-x: visible;
 			overflow-y: auto;
+			width: auto;
 			margin: 0;
-			border-bottom: 1px solid #e6e6e6;
+			border-width: 0 1px 1px 0;
 			
 			.tab-list {
 				flex-direction: column;
@@ -159,7 +164,7 @@
 				left: 0; bottom: 0;
 				width: 64px; height: 2px;
 				background-color: $color-blue3;
-				transition: 0.4s cubic-bezier(0.65, 0, 0.35, 1);
+				transition: 0.2s cubic-bezier(0.0, 0.0, 0.58, 1.0);
 			}
 			._is-active > a::before {
 				content:inherit;
@@ -199,15 +204,4 @@
 		width: 100%;
 		left: 0;
 	}
-}
-.tab-wrap ._is-active > a::before { 
-	content: "";
-	display: block;
-	position: absolute;
-	left: 50%;
-	bottom: 0;
-	width: 0;
-	height: 2px;
-	background-color: $color-blue3;
-	animation: widthAct .3s linear forwards;
 }
