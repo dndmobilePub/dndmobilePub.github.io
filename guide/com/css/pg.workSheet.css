@@ -1266,18 +1266,10 @@
 .field input[type=password] {
   font-family: "pass", "Roboto", Helvetica, Arial, sans-serif;
 }
-.field input[type=password]::-moz-placeholder {
-  font-family: "pass", "Roboto", Helvetica, Arial, sans-serif;
-  -webkit-text-security: none;
-  font-size: 2rem;
-}
 .field input[type=password]::placeholder {
   font-family: "pass", "Roboto", Helvetica, Arial, sans-serif;
   -webkit-text-security: none;
   font-size: 2rem;
-}
-.field input[type=password]:-moz-read-only {
-  color: #999;
 }
 .field input[type=password]:read-only {
   color: #999;
@@ -1334,9 +1326,6 @@
 .field-input input:not([type=checkbox]):not([type=radio]):focus {
   outline: none;
 }
-.field-input input:not([type=checkbox]):not([type=radio])::-moz-placeholder {
-  color: #ccc;
-}
 .field-input input:not([type=checkbox]):not([type=radio])::placeholder {
   color: #ccc;
 }
@@ -1350,10 +1339,6 @@
   position: relative;
   max-width: 1.1rem;
   padding-right: 0;
-}
-.field-input.mid_num input::-moz-placeholder {
-  font-family: "pass";
-  font-size: 0.4rem;
 }
 .field-input.mid_num input::placeholder {
   font-family: "pass";
@@ -1519,9 +1504,6 @@
   opacity: 1;
   touch-action: none;
 }
-._input input._password::-moz-placeholder {
-  font-weight: 700;
-}
 ._input input._password::placeholder {
   font-weight: 700;
 }
@@ -1533,9 +1515,6 @@
 ._input ._secureTxt > input[type=password] {
   position: relative;
   z-index: 2;
-  color: transparent;
-}
-._input ._secureTxt > input[type=password]::-moz-placeholder {
   color: transparent;
 }
 ._input ._secureTxt > input[type=password]::placeholder {
@@ -2694,6 +2673,17 @@
     left: 0;
   }
 }
+/* 탭메뉴 sticky */
+.tab-sticky .tab-list-wrap {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background-color: #fff;
+}
+.tab-sticky .tab-contents-wrap {
+  border: none;
+}
+
 .tab-swiper {
   width: 100%;
   background: #fff;
@@ -3036,10 +3026,6 @@ body, th, td, input, select, textarea, button {
   font-family: "NotoSansKR", "Malgun Gothic", "Dotum", Arial, sans-serif;
   font-weight: 400;
   color: #333;
-}
-
-input[type=text]:-moz-read-only, input[type=password]:-moz-read-only {
-  background: #f6f6f6;
 }
 
 input[type=text]:read-only, input[type=password]:read-only,
@@ -3503,9 +3489,6 @@ html[light-mode=dark] a {
 }
 #pgHeader .pg_util .pg_search input[type=text]:focus {
   background-color: rgba(255, 255, 255, 0.6);
-}
-#pgHeader .pg_util .pg_search input[type=text]::-moz-placeholder {
-  color: #ddd;
 }
 #pgHeader .pg_util .pg_search input[type=text]::placeholder {
   color: #ddd;
