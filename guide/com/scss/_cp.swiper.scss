@@ -1,152 +1,89 @@
-// #1
-.cate-m {
-  z-index: 1; overflow: hidden; position: relative; background-color: #fff; padding-top:12px;
-  .swiper{
-    &-container {border-bottom: 1px solid #cdcdcd;}
-    &-wrapper {
-      .swiper-slide {margin: 0 17px; width: auto; display: flex; display: -webkit-box; display: -ms-flexbox; display: -webkit-flex;
-        span {position:relative; margin-bottom:10px; padding-bottom:7px; color: #333; /*font-size: .813em;*/ cursor:pointer;}
-        &.active {
-          span {color: #043b72; /* border-radius: 2px; border-bottom: 3px solid #043b72; */ font-weight:bold;}
-          &::after {content: ''; position: absolute; bottom: 10px; left: 50%; width: 100%; -webkit-transform: translateX(-50%); transform: translateX(-50%); height: 3px;
-            border-radius: 2px; background: #043b72;
+#{$tab} {
+  &-swiper {
+    @include width;
+    background:$color-white;
+    @include overflow(x, hidden);
+  }
+  &-nav {
+    @include pos(relative); @include height(50px); @include overflow(x, hidden);
+    background-color: $color-white;
+    padding-right:20px;
+
+    #{$swiper}{
+      &-slide {
+        @include display(block);
+        @include width(auto); @include overflow(y, hidden);
+        cursor: pointer;      
+        & > a {
+          padding:1rem;
+          color: $color-gray2;
+          font-size:var(--space-ms);
+          text-align: center;
+          
+          @include el-content(after) {
+            @include el-size(0, .2rem);
+          }
+        }
+        &.active > a {
+          font-weight:bold;
+          @include line-effect($color-blue3, after, center) {
+            @include transition(0.5s, width, ease);
+            @include el-size(100%, .2rem);
+            bottom:0;
+            background:$color-green2;
+            border-radius:.4rem;
+          }
+        }
+      }
+    }
+    &.moveBar {
+      #{$swiper}{
+        &-slide {
+          &.active > a {
+            @include el-content(after){
+              display:none;
+            }
           }
         }
       }
     }
   }
-}
-
-.tab {
-  &-swiper {width:100%; background-color: #fff; overflow-x: hidden;}
-  &-nav {
-    position: relative; height: 50px; /* padding: 0 10px; */ background-color: #fff; overflow-x: hidden;
-    .swiper-slide {
-      display: block; overflow-y: hidden; width: 50px; /* width: auto; */ color: #333; font-size: 14px; line-height: 50px; text-align: center; margin: 0 10px; cursor: pointer;
-      &.active {font-weight: bold; color: #043b72;}
-    }
+  &-active-bar {
+    @include pos-offset-b(.9rem, 0);
+    height:.3rem; margin-left:1.5rem;
+    background:$color-orange; border-radius:.4rem;
+    transition-property: all;
   }
-  &-active-bar {position: absolute; bottom: 9px; left: 0; height: 3px; /* width: 20px; */ margin-left: 15px; /* background-color: #04a5c1; */ background-color: #043b72; border-radius: 2px; transition-property: all;}
-  &-content {overflow: hidden; height: 200px;
-    .swiper-slide {color: #fff; line-height: 200px; text-align: center; cursor: pointer; background-color: #a9b5ca;}
+  &-content {
+    @include overflow (both, hidden); @include height(20rem);
+    .swiper-slide {
+      color:$color-white;
+      line-height: 200px; text-align:center;
+      cursor: pointer;
+      background-color:$color-tbl-thead;
+
+      &:nth-child(odd) {background-color:$color-blue4;}
+    }
   }
 }
 
 .swiper-container-vertical {
   touch-action: pan-x;
-  >.swiper-wrapper {
+  & > .swiper-wrapper {
     flex-direction: column;
   }
 }
 
-.tab-swiper3 {
-  .tab-content {
-    .swiper-slide {/*  height:inherit!important; */ line-height: inherit; padding:3rem 5rem 5rem; }
-  }
-}
-
-.tab-swiper4 { position:relative; 
-  .swiper-slide {
-    padding: 10px;
-    line-height:inherit;
-    /* width: 33vw!important; */
-  }
-}
 .swiper-free-mode {
-  >.swiper-wrapper {
+  & > .swiper-wrapper {
     transition-timing-function: ease-out;
     margin: 0 auto;
   }
 }
 .swiper-vertical {
-  >.swiper-wrapper {
+  & > .swiper-wrapper {
     flex-direction: column;
   }
 }
 
 
-
-.swiper{
-  /*triple, pagination easeing*/
-  &.triple-swiper {
-    margin: 20px auto; 
-    width: 280px; 
-    height: 240px;
-    overflow: visible;
-    .swiper-slide {
-      display: flex; 
-      align-items: center; 
-      justify-content: center; 
-      font-size: 22px; 
-      font-weight: bold; 
-      color: skyblue; 
-      border:1px solid skyblue; 
-      border-radius: 10px;
-      background-color:#fff;
-      > button {
-        display: none;
-      }
-      &-active {
-        background-color:skyblue;
-        color: #fff;
-        > button {
-          display: block;
-          position: absolute;
-          bottom: 10px;
-          width: calc(100% - 20px);
-          height: 30px;
-          border: 1px solid #007aff;
-          color: #007aff;
-          background-color:rgba(255,255,255,0.7)
-        }
-      }
-    }
-
-    .swiper-pagination {
-      position: relative;
-      .swiper-pagination-bullet {
-        transition: all ease .3s;
-        margin: 0 3px;
-        &-active {
-          width: 20px;
-          border-radius: 12px;
-        }
-      }
-    }
-  }
-  /*two, pagination easeing*/
-  &.two-swiper {
-    margin: 20px auto; 
-    width: 280px; 
-    height: 240px;
-    box-sizing: border-box;
-    overflow: visible;
-    .swiper-slide {
-      display: flex; 
-      align-items: center; 
-      justify-content: center; 
-      font-size: 22px; 
-      font-weight: bold; 
-      color: #e1bee7; 
-      border:1px solid #e1bee7; 
-      border-radius: 10px;
-      background-color:#fff;
-      &:first-child {
-        margin-left: -50px;
-      }
-      &-active {
-        background-color: #e1bee7;
-        color: #fff;
-      }
-    }
-    .swiper-pagination {
-      position: relative;
-      &-bullet-active {
-        width: 20px; 
-        border-radius: 5px;
-        background: #9c27b0;
-      }
-      .swiper-pagination-bullet {transition: all ease .3s;}
-    }
-  }
-}

@@ -87,22 +87,11 @@
 	text-decoration:none;
 	color:$color;
 
-    @if ($el-type == "after") {
-        &::after {
-            @include el-content("after");
-            backface-visibility:hidden;
-            position:absolute;
-            @include eff-direction($direction);
-            @content;
-        }
-    } @else if ($el-type == "before") {
-        &::before {
-            @include el-content("before");
-            backface-visibility:hidden;
-            position:absolute;
-            @include eff-direction($direction);
-            @content;
-        }
+    @include el-content($el-type) {
+        backface-visibility:hidden;
+        position:absolute;
+        @include eff-direction($direction);
+        @content;
     }
 }
 // width, height
