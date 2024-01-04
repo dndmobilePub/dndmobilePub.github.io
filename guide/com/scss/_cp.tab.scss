@@ -194,7 +194,7 @@
 		padding: 3rem 5rem 5rem;
 
 		&:nth-child(even) {
-			background: #eee;
+			background: $color-gray7;
 		}
 	}
 }
@@ -207,5 +207,24 @@
 	100% {
 		width: 100%;
 		left: 0;
+	}
+}
+
+/* 탭메뉴 sticky */
+.tab-sticky {
+	// overflow: hidden;
+	// height: 100vh;
+
+	.tab-list-wrap {
+		position: sticky;
+		top: 0;
+		z-index: 100;
+		background-color: $color-white;
+	}
+
+	.tab-contents-wrap {
+		// overflow-y: scroll;
+		// height: 100vh;
+		border: none;
 	}
 }
