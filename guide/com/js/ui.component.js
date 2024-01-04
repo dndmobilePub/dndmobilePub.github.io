@@ -1590,7 +1590,9 @@ cp.tabSwiper = {
 };
 
 // sunnya
-
+cp.swiper = {
+    init: function () {}
+};
 
     cp.init = function () {
         // cp.frontUI.init();
@@ -1602,7 +1604,7 @@ cp.tabSwiper = {
         cp.accordion.init();
         cp.tab.init();
         cp.tabSwiper.init();
-        //cp.swiper.init();
+        cp.swiper.init();
     };
 
     cp.init();
