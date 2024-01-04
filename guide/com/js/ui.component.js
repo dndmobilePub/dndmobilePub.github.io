@@ -1473,27 +1473,27 @@ var COMPONENT_UI = (function (cp, $) {
 
         // 스크롤 이벤트 처리
         function scrollEventHandler(e) {
-        e.preventDefault();
-        const $thisWrap = $(this);
+            e.preventDefault();
+            const $thisWrap = $(this);
 
-        $thisWrap.children('.tab-contents').each(function() {
-            const panelTop = $(this).position().top;
-            const $tabWrap = $(this).closest('.tab-scroll');
+            $thisWrap.children('.tab-contents').each(function() {
+                const panelTop = $(this).position().top;
+                const $tabWrap = $(this).closest('.tab-scroll');
 
-            if (panelTop <= -20 && panelTop > -$thisWrap.height() / 2) {
-                const tabId = $(this).attr('id');
+                if (panelTop <= -20 && panelTop > -$thisWrap.height() / 2) {
+                    const tabId = $(this).attr('id');
 
-                $tabWrap.find('.tab').removeClass('_is-active');
-                $tabWrap.find('.tab').children('a').attr('aria-selected', 'false');
-                $tabWrap.find('.tab[aria-controls="' + tabId + '"]').addClass('_is-active');
-                $tabWrap.find('.tab[aria-controls="' + tabId + '"]').children('a').attr('aria-selected', 'true');
-                $(this).siblings().removeClass('_is-active');
-                $(this).addClass('_is-active');
-            }
-        });
+                    $tabWrap.find('.tab').removeClass('_is-active');
+                    $tabWrap.find('.tab').children('a').attr('aria-selected', 'false');
+                    $tabWrap.find('.tab[aria-controls="' + tabId + '"]').addClass('_is-active');
+                    $tabWrap.find('.tab[aria-controls="' + tabId + '"]').children('a').attr('aria-selected', 'true');
+                    $(this).siblings().removeClass('_is-active');
+                    $(this).addClass('_is-active');
+                }
+            });
         }
         $('.tab-scroll .tab-contents-wrap').on('scroll', scrollEventHandler);
-    }      
+    }
   };
     
   cp.swiper = {
