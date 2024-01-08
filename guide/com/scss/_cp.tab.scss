@@ -59,13 +59,13 @@
 
 	&.tab-center {
 		.tab-list {
-			justify-content: center;
+			@include flex($j-content:center);
 		}
 	}
 
 	&.tab-right {
 		.tab-list {
-			justify-content: right;
+			@include flex($j-content:right);
 		}
 	}
 
@@ -180,7 +180,7 @@
 				bottom: auto;
 				left: auto;
 				right: 0;
-				@include width(0.2rem);4
+				@include width(0.2rem);
 				@include height(4rem);
 			}
 		}

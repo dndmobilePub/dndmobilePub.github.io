@@ -2560,10 +2560,16 @@
   flex: 1;
 }
 .tab-list-wrap.tab-center .tab-list {
+  flex-direction: row;
+  flex-wrap: nowrap;
   justify-content: center;
+  align-items: center;
 }
 .tab-list-wrap.tab-right .tab-list {
+  flex-direction: row;
+  flex-wrap: nowrap;
   justify-content: right;
+  align-items: center;
 }
 .tab-list-wrap.tab-line-top {
   border-width: 0.1rem 0 0 0;
