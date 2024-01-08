@@ -1,23 +1,23 @@
 .tab-list-wrap {
-	overflow-x: auto;
-	position: relative;
-	width: 100%;
+	@include overflow (x, auto);
+	@include pos(relative);
+	@include width(100%);
 	margin: 1.5rem auto;
-	border: 1px solid $color-light-gray1;
-	border-width: 0 0 1px 0;
+	border: 0.1rem solid $color-light-gray1;
+	border-width: 0 0 0.1rem 0;
 
 	.tab-list {
-		display: flex;
+		@include display(flex);
 		@include flex;
-		position: relative;
+		@include pos(relative);
 
 		.tab {
-			display: block;
+			@include display(block);
 			flex: none;
-			position: relative;
+			@include pos(relative);
 			color: $color-gray4;
-			text-align: center;
-			transition: color .5s ease-in-out;
+			@include align(text, center);
+			@include transition(.5s, color, ease-in-out);
 
 			&~.tab {
 				margin-left: 2rem;
@@ -31,18 +31,17 @@
 				color: $color-blue3;
 
 				@include el-content(before) {
-					position: absolute;
-					left: 50%;
+					@include pos(absolute);
 					bottom: 0;
-					width: 0;
-					height: 2px;
+					@include width(0);
+					@include height(0.2rem);
 					background-color: $color-blue3;
 					animation: widthAct .3s linear forwards;
 				}
 			}
 
 			a {
-				display: block;
+				@include display(block);
 				padding: 1rem;
 			}
 		}
@@ -50,7 +49,7 @@
 
 	&.tab-expand {
 		.tab-list {
-			width: 100%;
+			@include width(100%);
 	
 			.tab {
 				flex: 1;
@@ -71,7 +70,7 @@
 	}
 
 	&.tab-line-top {
-		border-width: 1px 0 0 0;
+		border-width: 0.1rem 0 0 0;
 
 		&::before {
 			bottom: auto; top: 0;
@@ -87,23 +86,23 @@
 }
 
 .tab-wrap {
-  	position: relative;
+	@include pos(relative);
 
 	&.tab-vertical {
-		display: flex;
-		align-items: start;
+		@include display(flex);
+		@include flex($al-items: start);
 
 		.tab-list-wrap {
-			overflow-x: visible;
-			overflow-y: auto;
-			width: auto;
+			@include overflow (x, visible);
+			@include overflow (y, auto);
+			@include width(auto);
 			margin: 0;
-			border-width: 0 1px 1px 0;
+			border-width: 0 0.1rem 0.1rem 0;
 			
 			.tab-list {
-				flex-direction: column;
+				@include flex($direction: column);
 				min-width: 9rem;
-				height: 30rem;
+				@include height(30rem);
 				margin-left: 0;
 
 				.tab~.tab {
@@ -112,17 +111,17 @@
 			}
 
 			&::before {
-				display: none;
+				@include display(none);
 			}
 		}
 
 		.tab-contents-wrap {
 			flex: 1;
-			height: 30rem;
+			@include height(30rem);
 
 			.tab-contents {
-				overflow: auto;
-				height: 100%;
+				@include overflow (both, auto);
+				@include height(100%);
 			}
 		}
   }
@@ -130,19 +129,19 @@
 	&.tab-scroll,
 	&.tab-scroll-height {
 		.tab-contents-wrap {
-			overflow-y: scroll;
-			position: relative;  
-			height: 200px;
+			@include overflow (y, scroll);
+			@include pos(relative);
+			@include height(20rem);
 		}
   	}
 
 	&:not(.tab-scroll, .tab-sticky) {
 		.tab-contents-wrap {        
 			.tab-contents {
-				display: none;
+				@include display(none);
 
 				&._is-active {
-					display: block;
+					@include display(block);
 				}
 			}
 		}
@@ -159,16 +158,17 @@
 			
 			.tab {
 				&::before {
-					display: none;
+					@include display(none);
 				}
 			}
 			
 			.highlight {
-				position: absolute;
+				@include pos(absolute);
 				left: 0; bottom: 0;
-				width: 64px; height: 2px;
+				@include width(6.4rem);
+				@include height(0.2rem);
 				background-color: $color-blue3;
-				transition: 0.2s cubic-bezier(0.0, 0.0, 0.58, 1.0);
+				@include transition(.2s, all, cubic-bezier(0.0, 0.0, 0.58, 1.0));
 			}
 			._is-active > a::before {
 				content:inherit;
@@ -180,15 +180,15 @@
 				bottom: auto;
 				left: auto;
 				right: 0;
-				height: 4rem;
-				width: 2px;
+				@include width(0.2rem);4
+				@include height(4rem);
 			}
 		}
 	}
 }
 
 .tab-contents-wrap {
-	border: 1px solid $color-valid;
+	border: 0.1rem solid $color-valid;
 
 	.tab-contents {
 		padding: 3rem 5rem 5rem;
@@ -201,30 +201,25 @@
 
 @keyframes widthAct {
 	0% {
-		width: 0;
+		@include width(0);
 		left: 50%;
 	}
 	100% {
-		width: 100%;
+		@include width(100%);
 		left: 0;
 	}
 }
 
 /* 탭메뉴 sticky */
 .tab-sticky {
-	// overflow: hidden;
-	// height: 100vh;
-
 	.tab-list-wrap {
-		position: sticky;
+		@include pos(sticky);
 		top: 0;
 		z-index: 100;
 		background-color: $color-white;
 	}
 
 	.tab-contents-wrap {
-		// overflow-y: scroll;
-		// height: 100vh;
 		border: none;
 	}
 }
