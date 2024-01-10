@@ -1589,10 +1589,127 @@ cp.tabSwiper = {
     },
 };
 
-// sunnya
+// kju
 cp.swiper = {
-    init: function () {}
+    constEl: {},
+    init: function () {
+        $('.pg-swiper').each(function () {
+            const $pgSwiper = $(this);
+            const swiperType = $pgSwiper.attr('swiper-type');
+            const $swiperContent = $pgSwiper.find('.pg-content');
+            const $pagination = $pgSwiper.find('.swiper-pagination');
+
+            const swiperOptions = {
+                loop: true,
+                centeredSlides: true,
+                paginationClickable: true,
+                pagination: $pagination.length ? $pagination[0] : null,
+                a11y: {
+                    enabled: true,
+                }
+            };
+            if (swiperType === 'swiper2') {
+                Object.assign(swiperOptions, {
+                    centeredSlides: false,
+                    slidesPerView: 1.2,
+                    spaceBetween: 10,
+                });
+            } else if (swiperType === 'swiper3') {
+                Object.assign(swiperOptions, {
+                    slidesPerView: 1.4,
+                    effect: 'coverflow',
+                    coverflow: {
+                    rotate: 0,
+                    stretch: -40,
+                    depth: 300,
+                    modifier: 1,
+                    slideShadows: false,
+                    },
+                });
+            }
+
+            const swiper = new Swiper($swiperContent, swiperOptions);
+            
+            // first bullet 선택됨
+            const $firstBullet = $pagination.find('.swiper-pagination-bullet').first();
+            $firstBullet.attr('title', '선택됨');
+            // active bullet 선택됨
+            swiper.on('transitionEnd', function () {
+                const $activeBullet = $pagination.find('.swiper-pagination-bullet-active');
+                $pagination.find('.swiper-pagination-bullet').removeAttr('title');
+                $activeBullet.attr('title', '선택됨');
+            });
+
+            // slide 접근성
+            const $slides = swiper.slides.not('.swiper-slide-duplicate');
+            $slides.each(function (index) {
+                const $slide = $(this);
+                const actualSlidesLength = $slides.length;
+                $slide.attr('aria-roledescription', 'slide');
+                $slide.attr('aria-label', '총 ' + actualSlidesLength + '장의 슬라이드 중 ' + (index + 1) + '번 째 슬라이드 입니다.');
+            });
+            
+            // jQuery 코드 추가
+            updateSlideAttributes(); // 초기 로드시 호출
+
+            // swiper-slide-active 클래스가 변경될 때 이벤트 처리
+            swiper.on('transitionEnd', function () {
+                updateSlideAttributes();
+            });
+
+           // .swiper-pagination-bullet enter 시 .swiper-slide-active에 초점 이동
+           $pagination.find('.swiper-pagination-bullet').on('keydown', function (event) {
+            if (event.key === 'Enter') {
+                const bulletIndex = $(this).index();
+                swiper.slideTo(bulletIndex);
+                setTimeout(function () {
+                    $swiperContent.find('.swiper-slide-active').focus();
+                }, 100);
+            }
+        });
+            
+            function updateSlideAttributes() {
+                const $activeSlide = $swiperContent.find('.swiper-slide-active');
+                const $inactiveSlides = $swiperContent.find('.swiper-slide').not('.swiper-slide-active');
+
+                // .swiper-slide-active 클래스가 있는 슬라이드 처리
+                $activeSlide.attr({
+                    'tabindex': '0',
+                    'aria-hidden': 'false',
+                });
+
+                // .swiper-slide-active 클래스가 없는 슬라이드 처리
+                $inactiveSlides.attr({
+                    'tabindex': '-1',
+                    'aria-hidden': 'true',
+                });
+           
+            }
+    });
+    },
 };
+
+
+//   따로 설정해야 할 옵션 값
+//   loop: true
+
+//   loop: true
+//   loop: false
+  
+//   spacePerView: 1
+//   spacePerView: 1.5
+//   spacePerView: 'auto'
+  
+//   spaceBetween: 0 (설정x)
+//   spaceBetween: 0 (설정x)
+//   spaceBetween: 10
+  
+//   centeredSlides: true
+//   centeredSlides: true
+//   centeredSlides: false 
+  
+
+
 
     cp.init = function () {
         // cp.frontUI.init();
