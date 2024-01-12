@@ -19,41 +19,6 @@
     <script src="../com/js/lib/lib.jquery-3.6.3.min.js"></script>
     <script src="../com/js/lib/lib.jquery-ui-1.13.2.js"></script>
     <!-- [E] LIBRARY - SCRIPT -->
-	<!-- <script>
-        $(document).ready(function () {
-            // Tab 메뉴 클릭 event
-            $('.tab').on('click', function (e) {
-                e.preventDefault();
-
-                var target = $(this).attr('aria-controls');
-                var $target = $('#' + target);
-				var tabHeight = $(this).outerHeight();
-
-                $('html,body').stop().animate({
-                    'scrollTop': $target.offset().top - tabHeight
-                }, 900, 'swing');
-            });
-
-            //Content scroll event
-            $(window).on('scroll', function () {
-                var scrollPosition = $(this).scrollTop();
-
-                $(".tab-contents").each(function () {
-                    var contentTop = $(this).offset().top;
-                    var contentHeight = $(this).outerHeight();
-					var tabHeight = $('.tab').outerHeight();
-
-                    if (scrollPosition >= contentTop - tabHeight && scrollPosition < contentTop + contentHeight / 2) {
-                        var targetId = $(this).attr("id");
-						var targetTab = $('.tab[aria-controls="' + targetId + '"]');
-                        targetTab.closest("li").addClass("_is-active").siblings().removeClass("_is-active");
-
-						$(this).moveHighLight();
-                    }
-                });
-            });
-        });
-    </script> -->
 </head>
 <body>
     <div id="cp-wrap">

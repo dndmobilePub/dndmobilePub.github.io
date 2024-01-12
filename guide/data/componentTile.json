@@ -35,6 +35,10 @@
         "name": "탭 메뉴"
     },
     {
+        "id": "tab-sticky",
+        "name": "탭 Sticky"
+    },
+    {
         "id": "swiper3",
         "name": "Swiper v3.4.2"
     },

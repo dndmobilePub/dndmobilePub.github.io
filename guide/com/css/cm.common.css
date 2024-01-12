@@ -2683,16 +2683,17 @@
 }
 /* 탭메뉴 sticky */
 .tab-sticky .tab-list-wrap {
+  position: sticky;
   top: 0;
   z-index: 100;
-  margin: 0;
   background-color: #fff;
-}
-.tab-sticky .tab-list-wrap.fixed {
-  position: fixed;
 }
 .tab-sticky .tab-contents-wrap {
   border: none;
+}
+
+.aos_old .tab-sticky .tab-list-wrap {
+  position: relative;
 }
 
 .tab-swiper {
