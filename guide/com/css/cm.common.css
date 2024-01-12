@@ -2683,16 +2683,19 @@
 }
 /* 탭메뉴 sticky */
 .tab-sticky .tab-list-wrap {
-  position: sticky;
   top: 0;
   z-index: 100;
+  margin: 0;
   background-color: #fff;
+}
+.tab-sticky .tab-list-wrap.fixed {
+  position: fixed;
 }
 .tab-sticky .tab-contents-wrap {
   border: none;
 }
 
-.tab-swiper, .pg-swiper {
+.tab-swiper {
   width: 100%;
   background: #fff;
   overflow-x: hidden;
@@ -2758,18 +2761,18 @@
   border-radius: 0.4rem;
   transition-property: all;
 }
-.tab-content, .pg-content {
+.tab-content {
   overflow: hidden;
   height: 20rem;
 }
-.tab-content .swiper-slide, .pg-content .swiper-slide {
+.tab-content .swiper-slide {
   color: #fff;
   line-height: 200px;
   text-align: center;
   cursor: pointer;
   background-color: #a9b5ca;
 }
-.tab-content .swiper-slide:nth-child(odd), .pg-content .swiper-slide:nth-child(odd) {
+.tab-content .swiper-slide:nth-child(odd) {
   background-color: #82B4D2;
 }
 
@@ -2789,22 +2792,6 @@
   flex-direction: column;
 }
 
-/* triple swiper */
-.pg-cp {
-  position: relative;
-}
-.pg-swiper .swiper-slide {
-  margin-top: 10px;
-  height: 190px;
-}
-.pg-swiper .swiper-pagination {
-  position: absolute;
-  bottom: -20px;
-   width: 100%;
-}
-.pg-swiper .swiper-pagination .swiper-pagination-bullet {
-  margin-right: 5px;
-}
 /* TABLE */
 .splitWrap {
   display: flex;

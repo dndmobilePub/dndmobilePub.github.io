@@ -213,10 +213,14 @@
 /* 탭메뉴 sticky */
 .tab-sticky {
 	.tab-list-wrap {
-		@include pos(sticky);
 		top: 0;
 		z-index: 100;
+		margin: 0;
 		background-color: $color-white;
+
+		&.fixed {
+			@include pos(fixed);
+		}
 	}
 
 	.tab-contents-wrap {

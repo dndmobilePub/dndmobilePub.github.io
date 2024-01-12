@@ -1290,6 +1290,7 @@ var COMPONENT_UI = (function (cp, $) {
     },
     init() {
         this.tabClick();
+        this.tabFixed();
     },
     tabSel: function($this, $tabWrap) {
         /**
@@ -1581,6 +1582,35 @@ var COMPONENT_UI = (function (cp, $) {
             }
         }
         $(window).on('scroll', tabSticky);
+    },
+    tabFixed: function() {
+        /**
+         * window 스크롤 이동시 fixed
+         * @tabListWrap 해당 탭 메뉴
+         */
+        // 변수 정의
+        const tabListWrap = $('.tab-list-wrap');
+        const tabListWrapHeight = tabListWrap.height();
+        const tabListWrapOffset = tabListWrap.offset().top;
+
+        // 초기 스크롤 위치 확인dnd1
+        checkScrollPosition();
+
+        // 스크롤 이벤트 핸들러 등록
+        $(window).on('scroll', checkScrollPosition);
+
+        // 스크롤 위치에 따라 tab-list-wrap의 position 변경 함수
+        function checkScrollPosition() {
+            const scrollTop = $(window).scrollTop();
+
+            if (scrollTop >= tabListWrapOffset) {
+                tabListWrap.addClass('fixed');
+                tabListWrap.next('.tab-contents-wrap').css('padding-top', tabListWrapHeight);
+            } else if (scrollTop < tabListWrapOffset) {
+                tabListWrap.removeClass('fixed');
+                tabListWrap.next('.tab-contents-wrap').css('padding-top', '');
+            }
+        }
     }
   };
 
