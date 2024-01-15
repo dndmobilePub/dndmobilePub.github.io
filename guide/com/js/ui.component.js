@@ -1106,185 +1106,187 @@ var COMPONENT_UI = (function (cp, $) {
       }
   };
 
-  cp.accordion = {
-      constEl: {
-          btnToggle: '.btn-toggle',
-          btnChk: '.field-checkbox'
-      },
-      init() {
-          this.toggleAccordion();
-          this.toggleChk();
-          this.allChk('chkAll', 'exChk');
-      },
-      toggleDown: function($this, $thisContents, $thisWrap) {
-          /**
-           * 아코디언 slideDown 함수
-           * @this 클릭한 토글 버튼
-           * @thisContents 클릭한 버튼에 해당하는 content 박스
-           * @thisWrap 해당 아코디언의 wrapper
-           */
-          if ($thisWrap.attr('data-scroll') === 'top') { // data-scroll="top" 여부
-              var offsetTop = $this.parent().offset().top;
+  // jjw
+cp.accordion = {
+    constEl: {
+        btnToggle: '.btn-toggle',
+        btnChk: '.field-checkbox'
+    },
+    init() {
+        this.toggleAccordion();
+        this.toggleChk();
+        this.allChk('chkAll', 'exChk');
+    },
+    toggleDown: function($this, $thisContents, $thisWrap) {
+        /**
+         * 아코디언 slideDown 함수
+         * @this 클릭한 토글 버튼
+         * @thisContents 클릭한 버튼에 해당하는 content 박스
+         * @thisWrap 해당 아코디언의 wrapper
+         */
+        if ($thisWrap.attr('data-scroll') === 'top') { // data-scroll="top" 여부
+            var offsetTop = $this.parent().offset().top;
 
-              if (!$thisWrap.attr('data-type')) {
-                  $thisContents.slideDown();
-                  $this.addClass('_is-active').attr('aria-expanded', true).attr('aria-label', '닫기');
-                  
-                  setTimeout(function() {
-                      $('html, body').animate({ 
-                          scrollTop: offsetTop
-                      }, 300);
-                  }, 200);
-              } else {
-                  $('html, body').animate({ 
-                      scrollTop: offsetTop
-                  }, 300, function (){
-                      $thisContents.slideDown(300);
-                      $this.addClass('_is-active').attr('aria-expanded', true).attr('aria-label', '닫기');
-                  });
-              }
-          } else {
-              $thisContents.slideDown();
-              $this.addClass('_is-active').attr('aria-expanded', true).attr('aria-label', '닫기');
-          }
-      },
-      handleAccordion: function($this, $thisContents, $thisWrap) {
-          /**
-           * data-type 조건에 따라 아코디언 동작 함수
-           * @dataType 해당 아코디언의 data-type
-           * @this 클릭한 토글 버튼
-           * @thisContents 클릭한 버튼에 해당하는 content 박스
-           * @thisWrap 해당 아코디언의 wrapper
-           * @btnAll 아코디언 전체 토글 버튼
-           */
-          const self = this;
-          const dataType = $thisWrap.closest('.accordion-wrap').attr('data-type')
+            if (!$thisWrap.attr('data-type')) {
+                $thisContents.slideDown();
+                $this.addClass('_is-active').attr('aria-expanded', true).attr('aria-label', '닫기');
+                
+                setTimeout(function() {
+                    $('html, body').animate({ 
+                        scrollTop: offsetTop
+                    }, 300);
+                }, 200);
+            } else {
+                $('html, body').animate({ 
+                    scrollTop: offsetTop
+                }, 300, function (){
+                    $thisContents.slideDown(300);
+                    $this.addClass('_is-active').attr('aria-expanded', true).attr('aria-label', '닫기');
+                });
+            }
+        } else {
+            $thisContents.slideDown();
+            $this.addClass('_is-active').attr('aria-expanded', true).attr('aria-label', '닫기');
+        }
+    },
+    handleAccordion: function($this, $thisContents, $thisWrap) {
+        /**
+         * data-type 조건에 따라 아코디언 동작 함수
+         * @dataType 해당 아코디언의 data-type
+         * @this 클릭한 토글 버튼
+         * @thisContents 클릭한 버튼에 해당하는 content 박스
+         * @thisWrap 해당 아코디언의 wrapper
+         * @btnAll 아코디언 전체 토글 버튼
+         */
+        const self = this;
+        const dataType = $thisWrap.closest('.accordion-wrap').attr('data-type')
 
-          if ($thisContents.is(':hidden')) {
-              if (dataType && dataType.indexOf('oneToggle') !== -1) { //토글 하나씩만 오픈
-                  const $btnAll = $thisWrap.find('.btn-toggle');
-  
-                  $btnAll.removeClass('_is-active').attr('aria-expanded', false).attr('aria-label', '열기');
-                  $btnAll.parent('.accordion-header').next('.accordion-contents').slideUp();
-                  setTimeout(function() {
-                      self.toggleDown($this, $thisContents, $thisWrap);
-                  }, 300);
-              } else {
-                  self.toggleDown($this, $thisContents, $thisWrap);
-              }
-          } else {
-              if (dataType && dataType.indexOf('double') !== -1) { //토글 안에 토글
-                  $thisContents.find('.accordion-contents').slideUp();
-                  $thisContents.find('._is-active').removeClass('_is-active').attr('aria-expanded', false).attr('aria-label', '열기');
-              }
-              $this.removeClass('_is-active').attr('aria-expanded', false).attr('aria-label', '열기');
-              $thisContents.slideUp();
-          }
-      },
-      toggleAccordion: function() {
-          /**
-           * 아코디언 함수 실행
-           * @this 클릭한 토글 버튼
-           * @thisContents 클릭한 버튼에 해당하는 content 박스
-           * @thisWrap 해당 아코디언의 wrapper
-           */
-          const self = this;
+        if ($thisContents.is(':hidden')) {
+            if (dataType && dataType.indexOf('oneToggle') !== -1) { //토글 하나씩만 오픈
+                const $btnAll = $thisWrap.find('.btn-toggle');
 
-          $(document).on('click', this.constEl.btnToggle, function(e) {
-              e.preventDefault();
+                $btnAll.removeClass('_is-active').attr('aria-expanded', false).attr('aria-label', '열기');
+                $btnAll.parent('.accordion-header').next('.accordion-contents').slideUp();
+                setTimeout(function() {
+                    self.toggleDown($this, $thisContents, $thisWrap);
+                }, 300);
+            } else {
+                self.toggleDown($this, $thisContents, $thisWrap);
+            }
+        } else {
+            if (dataType && dataType.indexOf('double') !== -1) { //토글 안에 토글
+                $thisContents.find('.accordion-contents').slideUp();
+                $thisContents.find('._is-active').removeClass('_is-active').attr('aria-expanded', false).attr('aria-label', '열기');
+            }
+            $this.removeClass('_is-active').attr('aria-expanded', false).attr('aria-label', '열기');
+            $thisContents.slideUp();
+        }
+    },
+    toggleAccordion: function() {
+        /**
+         * 아코디언 함수 실행
+         * @this 클릭한 토글 버튼
+         * @thisContents 클릭한 버튼에 해당하는 content 박스
+         * @thisWrap 해당 아코디언의 wrapper
+         */
+        const self = this;
 
-              const $this = $(this);
-              const $thisContents = $this.parent('.accordion-header').next('.accordion-contents');
-              const $thisWrap = $this.closest('.accordion-wrap');
+        $(document).on('click', this.constEl.btnToggle, function(e) {
+            e.preventDefault();
 
-              self.handleAccordion($this, $thisContents, $thisWrap);
-          });
-      },
-      toggleChk: function() {
-          /**
-           * 체크박스 상태에 따라 아코디언 동작하는 함수
-           * @thisLabel 클릭한 label
-           * @thisContents 클릭한 레이블에 해당하는 content 박스
-           * @thisWrap 해당 아코디언의 wrapper
-           * @thisBtn 클릭한 레이블의 형제 토글 버튼
-           * @nextAccordion 클릭한 레이블의 다음 contents
-           * @dataType 해당 아코디언의 data-type
-           */
-          const self = this;
+            const $this = $(this);
+            const $thisContents = $this.parent('.accordion-header').next('.accordion-contents');
+            const $thisWrap = $this.closest('.accordion-wrap');
 
-          $(document).on('click', this.constEl.btnChk, function(e) {
-              e.stopPropagation();
+            self.handleAccordion($this, $thisContents, $thisWrap);
+        });
+    },
+    toggleChk: function() {
+        /**
+         * 체크박스 상태에 따라 아코디언 동작하는 함수
+         * @thisLabel 클릭한 label
+         * @thisContents 클릭한 레이블에 해당하는 content 박스
+         * @thisWrap 해당 아코디언의 wrapper
+         * @thisBtn 클릭한 레이블의 형제 토글 버튼
+         * @nextAccordion 클릭한 레이블의 다음 contents
+         * @dataType 해당 아코디언의 data-type
+         */
+        const self = this;
 
-              const $thisLabel = $(this);
-              const $thisContents = $thisLabel.closest('.accordion-header').next('.accordion-contents');
-              const $thisWrap = $thisLabel.closest('.accordion-wrap');
-              const $thisBtn = $thisLabel.siblings('.btn-toggle');
-              const $nextAccordion = $thisContents.parent('.accordion').next('.accordion');
-              const dataType = $thisWrap.attr('data-type');
+        $(document).on('click', this.constEl.btnChk, function(e) {
+            e.stopPropagation();
 
-              if (dataType && dataType.indexOf('toggleChk') !== -1) {
-                  setTimeout(function() {
-                      if ($thisContents.is(':visible')) {
-                          if ($thisLabel.find('input').prop('checked')) { // 체크하면 해당 contents 닫힘
-                              $thisBtn.removeClass('_is-active').attr('aria-expanded', false).attr('aria-label', '열기');
-                              $thisContents.slideUp();
+            const $thisLabel = $(this);
+            const $thisContents = $thisLabel.closest('.accordion-header').next('.accordion-contents');
+            const $thisWrap = $thisLabel.closest('.accordion-wrap');
+            const $thisBtn = $thisLabel.siblings('.btn-toggle');
+            const $nextAccordion = $thisContents.parent('.accordion').next('.accordion');
+            const dataType = $thisWrap.attr('data-type');
 
-                              if (!$nextAccordion.children('.accordion-header').find('input').prop('checked')) { // 다음 input이 미체크시 다음 contents 열림
-                                  $nextAccordion.children('.accordion-contents').slideDown();
-                                  $nextAccordion.children('.accordion-header').find('.btn-toggle').addClass('_is-active').attr('aria-expanded', true).attr('aria-label', '닫기');
-                              }
-                          }
-                      } else {
-                          if (!$thisLabel.find('input').prop('checked')) { //체크 풀면 해당 contents 열림
-                              self.toggleDown($thisLabel, $thisContents, $thisWrap);
-                          }
-                      }
-                  });
-              }
-          });
-      },
-      allChk: function(chkAllId, chkName) { // (전체 체크할 input ID, 해당하는 input name명)
-          /**
-           * @total 개별 input의 전체 갯수
-           * @checked 개별 input의 check된 상태
-           * @thisContents 클릭한 레이블의 아코디언 contents
-           * @thisWrap 해당 아코디언의 wrapper
-           * @thisBtn 클릭한 레이블의 형제 토글 버튼
-           * @dataType 해당 아코디언의 data-type
-           */
-          
-          // 전체 체크하는 input 클릭시
-          $(document).on('click', '#' + chkAllId, function() {
-              if ($(this).is(':checked')){
-                  $('input[name^="' + chkName + '"]').prop('checked', true);
-              } else {
-                  $('input[name^="' + chkName + '"]').prop('checked', false);
-              }
-          });
+            if (dataType && dataType.indexOf('toggleChk') !== -1) {
+                setTimeout(function() {
+                    if ($thisContents.is(':visible')) {
+                        if ($thisLabel.find('input').prop('checked')) { // 체크하면 해당 contents 닫힘
+                            $thisBtn.removeClass('_is-active').attr('aria-expanded', false).attr('aria-label', '열기');
+                            $thisContents.slideUp();
 
-          // 개별 input 클릭시
-          $(document).on('click', 'input[name^="' + chkName + '"]', function() {
-              const total = $('input[name^="' + chkName + '"]').length;
-              const checked = $('input[name^="' + chkName + '"]:checked').length;
-              const $thisContents = $(this).closest('.accordion-contents');
-              const $thisWrap = $(this).closest('.accordion-wrap');
-              const $thisBtn =  $(this).closest('.accordion').find('.btn-toggle');
-              const dataType = $thisWrap.attr('data-type');
-      
-              if (total !== checked) {
-                  $('#' + chkAllId).prop('checked', false);
-              } else {
-                  $('#' + chkAllId).prop('checked', true); 
-                  if (dataType && dataType.indexOf('toggleChk') !== -1) {
-                      $thisContents.slideUp();
-                      $thisBtn.removeClass('_is-active').attr('aria-expanded', false).attr('aria-label', '열기');
-                  }
-              }
-          });
-      }
-  };
+                            if (!$nextAccordion.children('.accordion-header').find('input').prop('checked')) { // 다음 input이 미체크시 다음 contents 열림
+                                $nextAccordion.children('.accordion-contents').slideDown();
+                                $nextAccordion.children('.accordion-header').find('.btn-toggle').addClass('_is-active').attr('aria-expanded', true).attr('aria-label', '닫기');
+                            }
+                        }
+                    } else {
+                        if (!$thisLabel.find('input').prop('checked')) { //체크 풀면 해당 contents 열림
+                            self.toggleDown($thisLabel, $thisContents, $thisWrap);
+                        }
+                    }
+                });
+            }
+        });
+    },
+    allChk: function(chkAllId, chkName) { // (전체 체크할 input ID, 해당하는 input name명)
+        /**
+         * @total 개별 input의 전체 갯수
+         * @checked 개별 input의 check된 상태
+         * @thisContents 클릭한 레이블의 아코디언 contents
+         * @thisWrap 해당 아코디언의 wrapper
+         * @thisBtn 클릭한 레이블의 형제 토글 버튼
+         * @dataType 해당 아코디언의 data-type
+         */
+        
+        // 전체 체크하는 input 클릭시
+        $(document).on('click', '#' + chkAllId, function() {
+            if ($(this).is(':checked')){
+                $('input[name^="' + chkName + '"]').prop('checked', true);
+            } else {
+                $('input[name^="' + chkName + '"]').prop('checked', false);
+            }
+        });
 
-  cp.tab = {
+        // 개별 input 클릭시
+        $(document).on('click', 'input[name^="' + chkName + '"]', function() {
+            const total = $('input[name^="' + chkName + '"]').length;
+            const checked = $('input[name^="' + chkName + '"]:checked').length;
+            const $thisContents = $(this).closest('.accordion-contents');
+            const $thisWrap = $(this).closest('.accordion-wrap');
+            const $thisBtn =  $(this).closest('.accordion').find('.btn-toggle');
+            const dataType = $thisWrap.attr('data-type');
+    
+            if (total !== checked) {
+                $('#' + chkAllId).prop('checked', false);
+            } else {
+                $('#' + chkAllId).prop('checked', true); 
+                if (dataType && dataType.indexOf('toggleChk') !== -1) {
+                    $thisContents.slideUp();
+                    $thisBtn.removeClass('_is-active').attr('aria-expanded', false).attr('aria-label', '열기');
+                }
+            }
+        });
+    }
+};
+
+  // jjw
+cp.tab = {
     constEl: {
         tab: '.tab > a'
     },
@@ -1472,10 +1474,8 @@ var COMPONENT_UI = (function (cp, $) {
                 $this.children('a').attr('aria-selected', 'true');
                 $contents.removeClass('_is-active');
                 $contentsIdx.addClass('_is-active');
-                /* [S] 탭 선택 시 포커스 이동 */
                 $contents.removeAttr('tabindex');
-                $contentsIdx.attr('tabindex','0').focus();
-                /* [E] 탭 선택 시 포커스 이동 */
+                $contentsIdx.attr('tabindex','0');
             }
 
             if ($tabWrap.attr('data-roll') === 'tab' && $tabWrap.hasClass('tab-scroll')){ 
@@ -1486,19 +1486,20 @@ var COMPONENT_UI = (function (cp, $) {
                 // tab-sticky 일 경우
                 isTabClick = false;
                 if (!isTabClick) {
-                    isTabClick = true;
-                    tabAttr();                    
+                    isTabClick = true;          
                     
+                    tabAttr();       
                     self.moveHighLight($tabWrap, $this, function() {
                         const target = $this.attr('aria-controls');
                         const $target = $('#' + target);
                         const tabHeight = $this.outerHeight();
+                        const targetTop = $target.offset().top - tabHeight;
 
                         $('html,body').stop().animate({
-                            'scrollTop': $target.offset().top - tabHeight
-                        }, 500, 'swing', function() {
+                            'scrollTop': targetTop
+                        }, 600, 'swing', function() {
                             isTabClick = false; // 스크롤이동 끝난 후 false 부여
-                        });
+                        });   
                     });
                 }
             } else if ($tabWrap.attr('data-roll') === 'tab' && !$tabWrap.hasClass('tab-sticky')) {
@@ -1557,16 +1558,18 @@ var COMPONENT_UI = (function (cp, $) {
         // tab sticky 이벤트
         function tabSticky(e) {
             e.preventDefault();
-            const scrollPosition = $(this).scrollTop();
             const $tabWrap = $('.tab-sticky');
             
             if (!isTabClick) {
+                isTabClick = true;
+
                 $(".tab-contents").each(function () {
                     const contentTop = $(this).offset().top;
-                    const contentHeight = $(this).outerHeight();
-                    const tabHeight = $('.tab').outerHeight();
+                    const contentBottom = contentTop + $(this).outerHeight();
+                    const tabHeight = $('.tab').outerHeight() + 2;
 
-                    if (scrollPosition >= contentTop - tabHeight && scrollPosition < contentTop + contentHeight / 2) {
+                    if (!$('html, body').is(':animated')) {
+                    if (window.scrollY >= contentTop - tabHeight && window.scrollY <= contentBottom) {
                         const targetId = $(this).attr("id");
                         const targetTab = $('.tab[aria-controls="' + targetId + '"]');
 
@@ -1576,13 +1579,19 @@ var COMPONENT_UI = (function (cp, $) {
                         $(this).addClass("_is-active").siblings().removeClass("_is-active");
 
                         self.moveHighLight($tabWrap, targetTab);
-                    }
+                    } else {
+                        
+                    }}
+
+                    setTimeout(function () {
+                        isTabClick = false;
+                    }, 10);
                 });
             }
         }
         $(window).on('scroll', tabSticky);
     }
-  };
+};
 
 // sunnya
 cp.tabSwiper = {
