@@ -1291,7 +1291,71 @@ cp.tab = {
         tab: '.tab > a'
     },
     init() {
+        this.tabSetting();
         this.tabClick();
+        this.scrollEventHandler();
+    },
+    tabSetting: function() {
+        /**
+         * 탭 초기 설정
+         * @contentsIdx 클릭한 탭의 index와 같은 index의 content
+         */
+        const self = this;
+        
+        $('.tab-moving .tab-list-wrap').append($('<span class="highlight"></span>'));
+        $('.tab-scroll .tab-contents').scrollTop();
+
+        // 접근성
+        $('.tab').children('a').attr('aria-selected', 'false');
+        $('.tab._is-active').children('a').attr('aria-selected', 'true');
+        $('.tab').attr('roll', 'tab');
+        $('.tab-list').attr('roll', 'tablist');
+        $('.tab-contents').attr('roll', 'tabpanel');
+
+        $(document).ready(function() {
+            $('.tab-wrap').each(function () {
+                var $tabWrap = $(this);
+
+                // id 부여
+                $tabWrap.find('.tab').each(function (index) {
+                    var tabId = $tabWrap.attr('id') + '_' + 'tab' + (index + 1);
+                    $(this).attr('aria-controls', tabId);
+                });
+
+                $tabWrap.find('.tab-contents').each(function (index) {
+                    var panelId = $tabWrap.attr('id') + '_' + 'tab' + (index + 1);
+                    $(this).attr('id', panelId);
+                });
+
+                // highlight 너비(높이) 부여
+                $tabWrap.find('.highlight').each(function () {
+                    self.moveHighLight($tabWrap);
+                });
+            })
+        })
+
+        // resize 체크
+        let resizeTimeout;
+        $(window).on('resize', function() {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(function() {
+                $('.tab-wrap').each(function () {
+                    var $tabWrap = $(this);
+                    
+                    // highlight 너비(높이) 부여
+                    $tabWrap.find('.highlight').each(function () {
+                        self.moveHighLight($tabWrap);
+                    });
+                });
+            }, 200);
+        });
+
+        let isTabClick; // 중복 호출 방지를 위한 플래그 변수
+
+        // tabpanel 스크롤 이벤트 처리
+        $('.tab-scroll .tab-contents-wrap').on('scroll', self.scrollEventHandler);
+
+        self.tabSticky(isTabClick);
     },
     tabSel: function($this, $tabWrap) {
         /**
@@ -1396,6 +1460,73 @@ cp.tab = {
             callback($tabWrap, $this); // 콜백 호출
         }
     },
+    tabSticky: function(isTabClick) {
+        /**
+         * tab sticky 이벤트
+         * @this 클릭한 탭 버튼
+         * @tabWrap 클릭한 탭의 wrapper
+         * window 스크롤시 해당 content와 tab 활성화
+         */
+        const self = this;
+        const $tabWrap = $('.tab-sticky');
+        
+        $(window).on('scroll', function(){
+            if (!isTabClick) {
+                isTabClick = true;
+
+                $(".tab-contents").each(function () {
+                    const contentTop = $(this).offset().top;
+                    const contentBottom = contentTop + $(this).outerHeight();
+                    const tabHeight = $('.tab').outerHeight() + 2;
+
+                    if (!$('html, body').is(':animated')) {
+                        if (window.scrollY >= contentTop - tabHeight && window.scrollY <= contentBottom) {
+                            const targetId = $(this).attr("id");
+                            const targetTab = $('.tab[aria-controls="' + targetId + '"]');
+
+                            targetTab.closest('li').addClass("_is-active").siblings().removeClass("_is-active");
+                            targetTab.siblings().find('.tab').children('a').attr('aria-selected', 'false');
+                            targetTab.children('a').attr('aria-selected', 'true');
+                            $(this).addClass("_is-active").siblings().removeClass("_is-active");
+
+                            self.moveHighLight($tabWrap, targetTab);
+                        }
+                    }
+
+                    setTimeout(function () {
+                        isTabClick = false;
+                    }, 10);
+                });
+            }
+        });
+    },
+    scrollEventHandler: function() {
+        /**
+         * tab scroll 이벤트
+         * @thisWrap 스크롤 중인 컨텐츠 상위 wrapper
+         * 스크롤시 해당 content와 tab 활성화
+         */
+        const $thisWrap = $(this);
+
+        $thisWrap.children('.tab-contents').each(function() {
+            const panelTop = $(this).position().top;
+            const $tabWrap = $(this).closest('.tab-scroll');
+
+            if (panelTop <= -20 && panelTop > -$thisWrap.height() / 2) {
+                const tabId = $(this).attr('id');
+
+                $tabWrap.find('.tab').removeClass('_is-active');
+                $tabWrap.find('.tab').children('a').attr('aria-selected', 'false');
+                $tabWrap.find('.tab[aria-controls="' + tabId + '"]').addClass('_is-active');
+                $tabWrap.find('.tab[aria-controls="' + tabId + '"]').children('a').attr('aria-selected', 'true');
+                $(this).siblings().removeClass('_is-active');
+                $(this).addClass('_is-active');
+
+                const $this = $tabWrap.find('.tab[aria-controls="' + tabId + '"]');
+                cp.tab.moveHighLight($tabWrap, $this);
+            }
+        });
+    },
     tabClick: function() {
         /**
          * 선택된 탭 _is-active 함수
@@ -1404,57 +1535,6 @@ cp.tab = {
          * @contentsIdx 클릭한 탭의 index와 같은 index의 content
          */
         const self = this;
-        /** [S] 초기 설정 */
-        $('.tab-moving .tab-list-wrap').append($('<span class="highlight"></span>'));
-        $('.tab-scroll .tab-contents').scrollTop();
-
-        // 접근성
-        $('.tab').children('a').attr('aria-selected', 'false');
-        $('.tab._is-active').children('a').attr('aria-selected', 'true');
-        $('.tab').attr('roll', 'tab');
-        $('.tab-list').attr('roll', 'tablist');
-        $('.tab-contents').attr('roll', 'tabpanel');
-
-        $(document).ready(function() {
-            $('.tab-wrap').each(function () {
-                var $tabWrap = $(this);
-
-                // id 부여
-                $tabWrap.find('.tab').each(function (index) {
-                    var tabId = $tabWrap.attr('id') + '_' + 'tab' + (index + 1);
-                    $(this).attr('aria-controls', tabId);
-                });
-
-                $tabWrap.find('.tab-contents').each(function (index) {
-                    var panelId = $tabWrap.attr('id') + '_' + 'tab' + (index + 1);
-                    $(this).attr('id', panelId);
-                });
-
-                // highlight 너비(높이) 부여
-                $tabWrap.find('.highlight').each(function () {
-                    self.moveHighLight($tabWrap);
-                });
-            })
-        })
-
-        // resize 체크
-        let resizeTimeout;
-        $(window).on('resize', function() {
-            clearTimeout(resizeTimeout);
-            resizeTimeout = setTimeout(function() {
-                $('.tab-wrap').each(function () {
-                    var $tabWrap = $(this);
-                    
-                    // highlight 너비(높이) 부여
-                    $tabWrap.find('.highlight').each(function () {
-                        self.moveHighLight($tabWrap);
-                    });
-                });
-            }, 200);
-        });
-
-        let isTabClick // 중복 호출 방지를 위한 플래그 변수
-        /** [E] 초기 설정 */
 
         $(document).on('click', this.constEl.tab, function(e) {
             e.preventDefault();
@@ -1482,6 +1562,21 @@ cp.tab = {
                 // tab-scroll 일 경우
                 tabAttr();
                 self.moveHighLight($tabWrap);
+
+                // tabpanel 영역 안 스크롤 이동
+                $('.tab-scroll .tab-contents-wrap').off('scroll', self.scrollEventHandler); // 스크롤 이벤트 핸들러 제거
+
+                const $targetHref = $('#' + $this.attr('aria-controls'));
+                const $targetWrap = $targetHref.parent('.tab-contents-wrap');
+                const location = $targetHref.position().top;
+
+                $targetWrap.stop().animate({
+                    scrollTop: $targetWrap.scrollTop() + location
+                }, 300);
+
+                setTimeout(function() {
+                    $('.tab-scroll .tab-contents-wrap').on('scroll', self.scrollEventHandler);
+                }, 400);
             } else if ($tabWrap.attr('data-roll') === 'tab' && $tabWrap.hasClass('tab-sticky')) { 
                 // tab-sticky 일 경우
                 isTabClick = false;
@@ -1510,86 +1605,7 @@ cp.tab = {
             
             let newTop = 0;
             self.tabSel($this, $tabWrap);
-            
-            // tabpanel 영역 안 스크롤 이동
-            if ($tabWrap.hasClass('tab-scroll')){
-                // 스크롤 이벤트 핸들러 제거
-                $('.tab-scroll .tab-contents-wrap').off('scroll', scrollEventHandler);
-
-                const $targetHref = $('#' + $this.attr('aria-controls'));
-                const $targetWrap = $targetHref.parent('.tab-contents-wrap');
-                const location = $targetHref.position().top;
-
-                $targetWrap.stop().animate({
-                    scrollTop: $targetWrap.scrollTop() + location
-                }, 300);
-
-                setTimeout(function() {
-                    $('.tab-scroll .tab-contents-wrap').on('scroll', scrollEventHandler);
-                }, 400);
-            }
         });
-
-        // tabpanel 스크롤 이벤트 처리
-        function scrollEventHandler(e) {
-            e.preventDefault();
-            const $thisWrap = $(this);
-
-            $thisWrap.children('.tab-contents').each(function() {
-                const panelTop = $(this).position().top;
-                const $tabWrap = $(this).closest('.tab-scroll');
-
-                if (panelTop <= -20 && panelTop > -$thisWrap.height() / 2) {
-                    const tabId = $(this).attr('id');
-
-                    $tabWrap.find('.tab').removeClass('_is-active');
-                    $tabWrap.find('.tab').children('a').attr('aria-selected', 'false');
-                    $tabWrap.find('.tab[aria-controls="' + tabId + '"]').addClass('_is-active');
-                    $tabWrap.find('.tab[aria-controls="' + tabId + '"]').children('a').attr('aria-selected', 'true');
-                    $(this).siblings().removeClass('_is-active');
-                    $(this).addClass('_is-active');
-
-                    self.moveHighLight($tabWrap, $tabWrap.find('.tab[aria-controls="' + tabId + '"]'));
-                }
-            });
-        }
-        $('.tab-scroll .tab-contents-wrap').on('scroll', scrollEventHandler);
-
-        // tab sticky 이벤트
-        function tabSticky(e) {
-            e.preventDefault();
-            const $tabWrap = $('.tab-sticky');
-            
-            if (!isTabClick) {
-                isTabClick = true;
-
-                $(".tab-contents").each(function () {
-                    const contentTop = $(this).offset().top;
-                    const contentBottom = contentTop + $(this).outerHeight();
-                    const tabHeight = $('.tab').outerHeight() + 2;
-
-                    if (!$('html, body').is(':animated')) {
-                    if (window.scrollY >= contentTop - tabHeight && window.scrollY <= contentBottom) {
-                        const targetId = $(this).attr("id");
-                        const targetTab = $('.tab[aria-controls="' + targetId + '"]');
-
-                        targetTab.closest('li').addClass("_is-active").siblings().removeClass("_is-active");
-                        targetTab.siblings().find('.tab').children('a').attr('aria-selected', 'false');
-                        targetTab.children('a').attr('aria-selected', 'true');
-                        $(this).addClass("_is-active").siblings().removeClass("_is-active");
-
-                        self.moveHighLight($tabWrap, targetTab);
-                    } else {
-                        
-                    }}
-
-                    setTimeout(function () {
-                        isTabClick = false;
-                    }, 10);
-                });
-            }
-        }
-        $(window).on('scroll', tabSticky);
     }
 };
 
