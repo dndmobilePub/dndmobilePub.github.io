@@ -2513,6 +2513,7 @@
   margin: 1.5rem auto;
   border: 0.1rem solid #e6e6e6;
   border-width: 0 0 0.1rem 0;
+  white-space: nowrap;
 }
 .tab-list-wrap .tab-list {
   display: flex;
@@ -2521,6 +2522,7 @@
   justify-content: flex-start;
   align-items: center;
   position: relative;
+  min-width: fit-content;
 }
 .tab-list-wrap .tab-list .tab {
   display: block;

@@ -5,11 +5,13 @@
 	margin: 1.5rem auto;
 	border: 0.1rem solid $color-light-gray1;
 	border-width: 0 0 0.1rem 0;
+	white-space: nowrap;
 
 	.tab-list {
 		@include display(flex);
 		@include flex;
 		@include pos(relative);
+		min-width: fit-content;
 
 		.tab {
 			@include display(block);
