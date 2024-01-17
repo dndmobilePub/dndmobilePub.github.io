@@ -1711,6 +1711,8 @@ cp.swiper = {
             const swiperType = $pgSwiper.attr('swiper-type');
             const $swiperContent = $pgSwiper.find('.pg-content');
             const $pagination = $pgSwiper.find('.swiper-pagination');
+            const $playBtn = $pgSwiper.find('#playBtn');
+            const $pauseBtn = $pgSwiper.find('#pauseBtn');
 
             const swiperOptions = {
                 loop: true,
@@ -1719,8 +1721,9 @@ cp.swiper = {
                 pagination: $pagination.length ? $pagination[0] : null,
                 a11y: {
                     enabled: true,
-                }
+                },
             };
+
             if (swiperType === 'swiper2') {
                 Object.assign(swiperOptions, {
                     centeredSlides: false,
@@ -1731,26 +1734,53 @@ cp.swiper = {
                 Object.assign(swiperOptions, {
                     slidesPerView: 1.4,
                     effect: 'coverflow',
+                    spaceBetween: 20,
                     coverflow: {
-                    rotate: 0,
-                    stretch: -40,
-                    depth: 300,
-                    modifier: 1,
-                    slideShadows: false,
+                        rotate: 0,
+                        modifier: 1.5,
+                        slideShadows: false,
+                    },
+                });
+            } else if (swiperType === 'swiper4') {
+                Object.assign(swiperOptions, {
+                    autoplay: 2000,
+                    slidesPerView: 1.4,
+                    // spaceBetween: 20,
+                    effect: 'coverflow',
+                    nextButton: '.swiper-button-next',
+                    prevButton: '.swiper-button-prev',
+                    coverflow: {
+                        rotate: 0,
+                        modifier: 1.5,
+                        slideShadows: false,
                     },
                 });
             }
 
             const swiper = new Swiper($swiperContent, swiperOptions);
+
+            // play, pause button
+            $playBtn.on('click', function () {
+                $pauseBtn.show();
+                $playBtn.hide();
+                swiper.startAutoplay();
+                $pauseBtn.focus();
+            });
+            $pauseBtn.on('click', function () {
+                $playBtn.show();
+                $pauseBtn.hide();
+                swiper.stopAutoplay();
+                $playBtn.focus();
+            });
             
-            // first bullet 선택됨
+            // active bullet 선택됨
             const $firstBullet = $pagination.find('.swiper-pagination-bullet').first();
             $firstBullet.attr('title', '선택됨');
-            // active bullet 선택됨
             swiper.on('transitionEnd', function () {
                 const $activeBullet = $pagination.find('.swiper-pagination-bullet-active');
                 $pagination.find('.swiper-pagination-bullet').removeAttr('title');
                 $activeBullet.attr('title', '선택됨');
+                updateAriaLabel();
             });
 
             // slide 접근성
@@ -1761,46 +1791,49 @@ cp.swiper = {
                 $slide.attr('aria-roledescription', 'slide');
                 $slide.attr('aria-label', '총 ' + actualSlidesLength + '장의 슬라이드 중 ' + (index + 1) + '번 째 슬라이드 입니다.');
             });
-            
-            // jQuery 코드 추가
-            updateSlideAttributes(); // 초기 로드시 호출
 
-            // swiper-slide-active 클래스가 변경될 때 이벤트 처리
+            updateAriaLabel();
+
+             // .swiper-pagination-bullet enter -> .swiper-slide-active에 초점 이동
             swiper.on('transitionEnd', function () {
                 updateSlideAttributes();
             });
+            $pagination.find('.swiper-pagination-bullet').on('keydown', function (event) {
+                if (event.key === 'Enter') {
+                    const bulletIndex = $(this).index();
+                    swiper.slideTo(bulletIndex);
+                    setTimeout(function () {
+                        $swiperContent.find('.swiper-slide-active').focus();
+                    }, 500);
+                }
+            });
 
-           // .swiper-pagination-bullet enter 시 .swiper-slide-active에 초점 이동
-           $pagination.find('.swiper-pagination-bullet').on('keydown', function (event) {
-            if (event.key === 'Enter') {
-                const bulletIndex = $(this).index();
-                swiper.slideTo(bulletIndex);
-                setTimeout(function () {
-                    $swiperContent.find('.swiper-slide-active').focus();
-                }, 100);
+            // slide aria-label
+            function updateAriaLabel() {
+                $pagination.find('.swiper-pagination-bullet').each(function (index) {
+                    const bulletIndex = index + 1;
+                    const ariaLabel = bulletIndex + '번째 슬라이드';
+                    $(this).attr('aria-label', ariaLabel);
+                });
             }
-        });
-            
+
+            // slide tabindex, aria-hidden
             function updateSlideAttributes() {
                 const $activeSlide = $swiperContent.find('.swiper-slide-active');
                 const $inactiveSlides = $swiperContent.find('.swiper-slide').not('.swiper-slide-active');
-
-                // .swiper-slide-active 클래스가 있는 슬라이드 처리
                 $activeSlide.attr({
                     'tabindex': '0',
                     'aria-hidden': 'false',
                 });
-
-                // .swiper-slide-active 클래스가 없는 슬라이드 처리
                 $inactiveSlides.attr({
                     'tabindex': '-1',
                     'aria-hidden': 'true',
                 });
-           
             }
-    });
+        });
     },
 };
+
 
 
 //   따로 설정해야 할 옵션 값
