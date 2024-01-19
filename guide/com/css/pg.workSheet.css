@@ -2518,46 +2518,6 @@
   border-width: 0 0 0.1rem 0;
   white-space: nowrap;
 }
-.tab-list-wrap .tab-list {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  justify-content: flex-start;
-  align-items: center;
-  position: relative;
-  min-width: fit-content;
-}
-.tab-list-wrap .tab-list .tab {
-  display: block;
-  flex: none;
-  position: relative;
-  color: #999;
-  text-align: center !important;
-  transition: 0.5s color ease-in-out;
-}
-.tab-list-wrap .tab-list .tab ~ .tab {
-  margin-left: 2rem;
-}
-.tab-list-wrap .tab-list .tab:hover a {
-  color: #043b72;
-}
-.tab-list-wrap .tab-list .tab._is-active a {
-  color: #043b72;
-}
-.tab-list-wrap .tab-list .tab._is-active a::before {
-  content: "";
-  display: block;
-  position: absolute;
-  bottom: 0;
-  width: 0;
-  height: 0.2rem;
-  background-color: #043b72;
-  animation: widthAct 0.3s linear forwards;
-}
-.tab-list-wrap .tab-list .tab a {
-  display: block;
-  padding: 1rem;
-}
 .tab-list-wrap.tab-expand .tab-list {
   width: 100%;
 }
@@ -2587,7 +2547,46 @@
   top: 0;
   bottom: auto;
 }
-
+.tab-list {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: center;
+  position: relative;
+  min-width: fit-content;
+}
+.tab-list .tab {
+  display: block;
+  flex: none;
+  position: relative;
+  color: #999;
+  text-align: center !important;
+  transition: 0.5s color ease-in-out;
+}
+.tab-list .tab ~ .tab {
+  margin-left: 2rem;
+}
+.tab-list .tab a {
+  display: block;
+  padding: 1rem;
+}
+.tab-list .tab:hover a {
+  color: #043b72;
+}
+.tab-list .tab._is-active a {
+  color: #043b72;
+}
+.tab-list .tab._is-active a::before {
+  content: "";
+  display: block;
+  position: absolute;
+  bottom: 0;
+  width: 0;
+  height: 0.2rem;
+  background-color: #043b72;
+  animation: widthAct 0.3s linear forwards;
+}
 .tab-wrap {
   position: relative;
 }
@@ -2605,7 +2604,10 @@
   margin: 0;
   border-width: 0 0.1rem 0.1rem 0;
 }
-.tab-wrap.tab-vertical .tab-list-wrap .tab-list {
+.tab-wrap.tab-vertical .tab-list-wrap::before {
+  display: none;
+}
+.tab-wrap.tab-vertical .tab-list {
   flex-direction: column;
   flex-wrap: nowrap;
   justify-content: flex-start;
@@ -2614,17 +2616,14 @@
   height: 30rem;
   margin-left: 0;
 }
-.tab-wrap.tab-vertical .tab-list-wrap .tab-list .tab ~ .tab {
+.tab-wrap.tab-vertical .tab-list .tab ~ .tab {
   margin-left: 0;
-}
-.tab-wrap.tab-vertical .tab-list-wrap::before {
-  display: none;
 }
 .tab-wrap.tab-vertical .tab-contents-wrap {
   flex: 1;
   height: 30rem;
 }
-.tab-wrap.tab-vertical .tab-contents-wrap .tab-contents {
+.tab-wrap.tab-vertical .tab-contents {
   overflow: auto;
   height: 100%;
 }
@@ -2632,12 +2631,6 @@
   overflow-y: scroll;
   position: relative;
   height: 20rem;
-}
-.tab-wrap:not(.tab-scroll, .tab-sticky) .tab-contents-wrap .tab-contents {
-  display: none;
-}
-.tab-wrap:not(.tab-scroll, .tab-sticky) .tab-contents-wrap .tab-contents._is-active {
-  display: block;
 }
 .tab-wrap.tab-moving .tab-list-wrap.tab-line-top .highlight {
   bottom: auto;
@@ -2665,15 +2658,32 @@
   width: 0.2rem;
   height: 4rem;
 }
-
+.tab-wrap:not(.tab-scroll, .tab-sticky) .tab-contents {
+  display: none;
+}
+.tab-wrap:not(.tab-scroll, .tab-sticky) .tab-contents._is-active {
+  display: block;
+}
 .tab-contents-wrap {
   border: 0.1rem solid #0048ff;
 }
-.tab-contents-wrap .tab-contents {
+.tab-contents {
   padding: 3rem 5rem 5rem;
 }
-.tab-contents-wrap .tab-contents:nth-child(even) {
+.tab-contents:nth-child(even) {
   background: #eee;
+}
+.tab-sticky .tab-list-wrap {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background-color: #fff;
+}
+.tab-sticky .tab-contents-wrap {
+  border: none;
+}
+.tab-sticky .tab-contents {
+  padding: 8rem 5rem;
 }
 
 @keyframes widthAct {
@@ -2686,20 +2696,6 @@
     left: 0;
   }
 }
-/* 탭메뉴 sticky */
-.tab-sticky .tab-list-wrap {
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  background-color: #fff;
-}
-.tab-sticky .tab-contents-wrap {
-  border: none;
-}
-.tab-sticky .tab-contents-wrap .tab-contents {
-  padding: 8rem 5rem;
-}
-
 .aos_old .tab-sticky .tab-list-wrap {
   position: relative;
 }
