@@ -459,6 +459,9 @@ html.util_show {
 
 #{$pgNav} + #{$pgContainer} {margin:0 0 0 20rem;}
 #{$pgContent} {padding:3rem 2rem;}
+[data-category='document'] {
+    #{$pgContent} {padding-top:0 !important;}
+}
 
 #{$htmlM} {
     #{$pgTit}, #{$pgStatus} {padding-right:37rem;}
@@ -1702,6 +1705,11 @@ html.util_show {
 }
 
 
+.pg {
+    &-docSection {
+        & + hr {display:block; border:0; height:18rem;}
+    }
+}
 
 // media Query import
 @import 'mediaquery';

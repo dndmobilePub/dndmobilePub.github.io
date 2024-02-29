@@ -47,28 +47,28 @@
     }
 }
 
-@mixin el-content($el-type) {
+@mixin el-content($el-type, $display:block) {
     @if ($el-type == "after") {
         &::after {
             content: "";
-            display: block;
+            display:$display;
             @content;
         }
     } @else if ($el-type == "before") {
         &::before {
             content: "";
-            display: block;
+            display:$display;
             @content;
         }
     } @else if ($el-type == "both") {
         &::before {
             content: "";
-            display: block;
+            display:$display;
             @content;
         }
         &::after {
             content: "";
-            display: block;
+            display:$display;
             @content;
         }
     }

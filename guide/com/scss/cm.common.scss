@@ -84,7 +84,10 @@ a {display:inline-block; color:$color-default; text-decoration:none;/*outline:tr
 a:active, a:hover {text-decoration:none;}
 
 legend, caption{@include ir("hide");}
-#{$hr} {display:none; visibility:hidden;}
+#{$hr} {
+    display:none; visibility:hidden;
+}
+
 /****************************************/
 /*	PART: BASIC CSS
 /****************************************/

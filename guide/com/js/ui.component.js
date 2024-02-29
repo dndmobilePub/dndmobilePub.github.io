@@ -547,8 +547,7 @@ var COMPONENT_UI = (function (cp, $) {
           btnModal: "._modalBtn",
           dimmedEl: $('<div class="dimmed" aria-hidden="true"></div>')
       },
-      init: function() {       
-
+      init: function() {
           this.openPop();
           this.closePop();
           this.toastPop();
@@ -557,7 +556,7 @@ var COMPONENT_UI = (function (cp, $) {
       openPop: function () {
           const self = this,
               btnModal = this.constEl.btnModal;
-          $(document).on('click', btnModal, function() {
+          $('html, body').on('click', btnModal, function() {
               $(this).addClass('_rtFocus');
               self.showModal($(this));
               self.layerFocusControl($(this));
@@ -625,6 +624,8 @@ var COMPONENT_UI = (function (cp, $) {
               modalTitHeight = $modalWrap.find(" > .modal-header").outerHeight();
               modalConHeight = $modalWrap.find(" > .modal-container").outerHeight();
               modalBtnHeight = $modalWrap.find(" > .modal-footer").outerHeight();
+              
+              // console.log(modalTitHeight,modalConHeight,modalBtnHeight);
               
               // 팝업 요소의 위치를 조정한다.
               if (modalHeight > winHeight) {
@@ -696,38 +697,10 @@ var COMPONENT_UI = (function (cp, $) {
 
           
       },
-
-      // 탭으로 포커스 이동 시 팝업이 열린상태에서 팝업 내부해서만 돌도록 제어하는 함수
-      layerFocusControl: function ($btn) {
-          // var target = $btn.attr('data-modal');
-          // var $modal = $('.modalPop[modal-target="' + target + '"]');
-          const target = $btn.attr('data-modal') || $btn.attr('data-select');
-          const $modal = $('.modalPop[modal-target="' + target + '"], .modalPop[select-target="' + target + '"]');
-          var $modalWrap = $modal.find("> .modalWrap");
-          
-          var $firstEl = $modalWrap.find('a, button, input, textarea, select, [tabindex]:not([tabindex="-1"])').first();
-          var $lastEl = $modalWrap.find('a, button, input, textarea, select, [tabindex]:not([tabindex="-1"])').last();
-          
-          $modalWrap.on("keydown", function (e) {
-              if (e.keyCode == 9) {
-              if (e.shiftKey) { // shift + tab
-                  if ($(e.target).is($firstEl)) {
-                      $lastEl.focus();
-                      e.preventDefault();
-                      }
-                  } else { // tab
-                      if ($(e.target).is($lastEl)) {
-                      $firstEl.focus();
-                      e.preventDefault();
-                      }
-                  }
-              }
-          });
-      },
       
       closePop: function() {
           const self = this;
-          $(document).on('click', '.modalPop .btn-close-pop', function() {
+          $('.modalPop').on('click', '.btn-close-pop', function() {
               var $modal = $(this).closest('.modalPop');
               var $modalWrap = $modal.find("> .modalWrap");
               var modalWrapClass = $modal.attr('class');
@@ -755,7 +728,8 @@ var COMPONENT_UI = (function (cp, $) {
                   .removeClass('is-active')
                   .css({
                       'height':'',
-                      'max-height':''
+                      'max-height':'',
+                      'margin':'',
                   })
                   .hide();
                   $modalWrap
@@ -795,6 +769,34 @@ var COMPONENT_UI = (function (cp, $) {
               $('body').removeClass('no-scroll');
               $(this).closest('.modalPop').prev().focus();
               $('.dimmed').remove();
+          });
+      },
+
+      // 탭으로 포커스 이동 시 팝업이 열린상태에서 팝업 내부해서만 돌도록 제어하는 함수
+      layerFocusControl: function ($btn) {
+          // var target = $btn.attr('data-modal');
+          // var $modal = $('.modalPop[modal-target="' + target + '"]');
+          const target = $btn.attr('data-modal') || $btn.attr('data-select');
+          const $modal = $('.modalPop[modal-target="' + target + '"], .modalPop[select-target="' + target + '"]');
+          var $modalWrap = $modal.find("> .modalWrap");
+          
+          var $firstEl = $modalWrap.find('a, button, input, textarea, select, [tabindex]:not([tabindex="-1"])').first();
+          var $lastEl = $modalWrap.find('a, button, input, textarea, select, [tabindex]:not([tabindex="-1"])').last();
+          
+          $modalWrap.on("keydown", function (e) {
+              if (e.keyCode == 9) {
+              if (e.shiftKey) { // shift + tab
+                  if ($(e.target).is($firstEl)) {
+                      $lastEl.focus();
+                      e.preventDefault();
+                      }
+                  } else { // tab
+                      if ($(e.target).is($lastEl)) {
+                      $firstEl.focus();
+                      e.preventDefault();
+                      }
+                  }
+              }
           });
       },
 
