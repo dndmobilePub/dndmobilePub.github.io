@@ -95,12 +95,16 @@ var COMPONENT_UI = (function (cp, $) {
 
     init: function() {
         $('table').each(function() {
+            // summary 속성 제거
             $(this).removeAttr('summary');
+
             var hasHeader = $(this).find('th').length > 0;
+
             if (!hasHeader) {
+                // 헤더가 없는 테이블인 경우 caption 제거
                 $(this).find('caption').remove();
             } else {
-                cp.tblCaption.processCaption.call(this);
+                cp.tblCaption.processCaption.call(this); // 'this'를 넘겨줌
             }
         });
     },
@@ -111,39 +115,42 @@ var COMPONENT_UI = (function (cp, $) {
         var tblCaption = $(this).find('caption');
         var tblCaptionTit = tblCaption.text().trim();
         var tblColgroup = $(this).find('colgroup');
+
+        // 이미 처리된 경우 return
         if (tblCaption.hasClass('processedCaption')) {
             return;
         }
-        var currentCaptionTit = dataTblTit || tblCaptionTit;
+
+        // 캡션 정보 변수에 저장
+        var currentCaptionTit = dataTblTit || tblCaption.text().trim();
 
         if (captionType === 'basic') {
+            // basic 타입인 경우
             tblCaption.remove();
+
             $(this).find('th').each(function() {
                 var thHTML = $(this).html();
                 $(this).replaceWith('<td>' + thHTML + '</td>');
             });
-        } else if (captionType === 'parentTbl') {
-            cp.tblCaption.handleTbl('parent', this);
         } else if (captionType === 'keep') {
             // keep 타입인 경우 기존 caption 정보를 유지함
         } else {
-            cp.tblCaption.handleTbl('regular', this);
+            cp.tblCaption.handleRegularTbl.call(this); // 'this'를 넘겨줌
         }
     },
-
-    handleTbl: function(type, context) {
-        var tblCaption = $(context).find('caption');
-        var currentCaptionTit = $(context).data('tbl') || tblCaption.text().trim();
-        var parentCaptionText = '';
-        if (type === 'parent') {
-            parentCaptionText = $(context).find('> thead > tr > th, > tbody > tr > th').map(function() {
-                return $(this).text();
-            }).get().join(', ');
-        }
-        tblCaption.remove();
+       
+    handleParentTbl: function() {
+        var tblCaption = $(this).find('caption');
+        var currentCaptionTit = '';
+        var captionText = $(this).find('> thead > tr > th, > tbody > tr > th').map(function() {
+            return $(this).text();
+        }).get().join(', ');
+        
+        console.log(captionText);
+    
         if (currentCaptionTit) {
-            var captionHtml = cp.tblCaption.getCaptionHtml(currentCaptionTit, parentCaptionText);
-            cp.tblCaption.insertCaption.call(context, tblCaption, captionHtml);
+            var captionHtml = cp.tblCaption.getCaptionHtml(currentCaptionTit, captionText);
+            cp.tblCaption.insertCaption.call(this, tblCaption, captionHtml);
         }
     },
 
@@ -154,18 +161,24 @@ var COMPONENT_UI = (function (cp, $) {
         var captionText = $(this).find('> thead > tr > th, > tbody > tr > th').map(function() {
             return $(this).text();
         }).get().join(', ');
+
+        // 캡션 삭제
         tblCaption.remove();
+
         if (tblColgroup.length > 0) {
-            var captionHtml = cp.tblCaption.getCaptionHtml(currentCaptionTit, captionText);
-            tblColgroup.before(captionHtml);
+            // colgroup이 존재하는 경우
+            var captionHtml = cp.tblCaption.getCaptionHtml(currentCaptionTit, captionText); // 새로운 캡션 정보 생성
+            tblColgroup.before(captionHtml); // 'this'와 caption 정보를 넘겨줌
         } else {
-            cp.tblCaption.insertCaption.call(this, tblCaption, cp.tblCaption.getCaptionHtml(currentCaptionTit, captionText));
+            // colgroup이 없는 경우
+            cp.tblCaption.insertCaption.call(this, tblCaption, cp.tblCaption.getCaptionHtml(currentCaptionTit, captionText)); // 'this'와 caption 정보를 넘겨줌
         }
     },
 
     insertCaption: function(tblCaption, captionHtml) {
         var tableThead = $(this).find('thead');
         var tableTbody = $(this).find('tbody');
+
         if (tableThead.length > 0) {
             tableThead.before(captionHtml);
         } else {
@@ -276,91 +289,6 @@ var COMPONENT_UI = (function (cp, $) {
               });
           });
       },
-
-      /* lbPlaceHolder: function() {
-          const labelDiv = this.constEl.labelDiv.find(".field-label");
-        
-          $(labelDiv).each(function() {
-              const $fieldLabel = $(this),
-                  $fieldBox = $fieldLabel.parent().find(".field-outline"),
-                  $labelTxt = $fieldLabel.text(),
-                  $fieldInput = $fieldBox.find("input"),
-                  inputId = $fieldBox.find("._input:first-child > input").attr('id'),
-                  $newFieldLabel = $('<label class="field-label" for="' + inputId +'" data-name="' + inputId +'">' + $labelTxt + '</label>'); 
-  
-              $fieldLabel.remove();
-              $fieldBox.prepend($newFieldLabel);
-      
-              // .field-label 클릭 이벤트 처리
-              $newFieldLabel.on('click', function () {
-                  $(this).addClass('_is-active');
-              });
-              $fieldInput.on('blur', function () {
-                  const inputVal = $fieldInput.val(),
-                      inputValLength = inputVal.length,
-                      inputLength = $fieldInput.parent("._input").length;
-                  
-                  // if(inputLength === 1) {
-
-                  // }
-                  // if(!inputVal) {
-                  //     $(this).parent().siblings("label").removeClass('_is-active');
-                  // }
-                  
-              });
-            
-          });
-        }, */
-        
-      
-      
-      /* lbPlaceHolder: function () {
-          const labelDiv = this.constEl.labelDiv;
-          $(labelDiv).each(function () {
-              const $placeHolder = $(this),
-              $fieldLabel = $placeHolder.find(".field-label"),
-              $fieldBox = $placeHolder.find(".field-outline"),
-              $labelTxt = $fieldLabel.text();
-
-              $fieldLabel.remove();
-              $fieldBox.prepend('<label class="field-label">' + $labelTxt + '</label>');
-
-              // $fieldBox
-              // .on("keyup focus click", function () {
-              //     $(this).find(".field-label").addClass("_is-active");
-              // })
-              // .on("blur focusout", function () {
-              //     let inputField = $placeHolder.find("input"),
-              //         value = inputField.val();
-                      
-              //     if(value > 0) {
-              //     } else {
-              //         $(this).find(".field-label").removeClass("_is-active");
-              //     }
-              // });
-
-              // .field-label 클릭 이벤트 처리
-              $fieldLabel.on('click', function () {
-                  $(this).addClass('_is-active');
-              });
-
-              // .field-outline input 초점 이벤트 처리
-              $fieldBox.find('input')
-              .on('focus', function () {
-                  $fieldLabel.addClass('_is-active');
-              })
-
-              // .field-outline input 값 변화 이벤트 처리
-              .on('input', function () {
-                  if ($(this).val().trim() === '') {
-                      $fieldLabel.removeClass('_is-active');
-                  } else {
-                      $fieldLabel.addClass('_is-active');
-                  }
-              });
-          });
-      }, */
-    
 
       // input Btn Clear
       input: function () {
@@ -1924,29 +1852,6 @@ cp.swiper = {
         });
     },
 };
-
-
-
-//   따로 설정해야 할 옵션 값
-//   loop: true
-
-//   loop: true
-//   loop: false
-  
-//   spacePerView: 1
-//   spacePerView: 1.5
-//   spacePerView: 'auto'
-  
-//   spaceBetween: 0 (설정x)
-//   spaceBetween: 0 (설정x)
-//   spaceBetween: 10
-  
-//   centeredSlides: true
-//   centeredSlides: true
-//   centeredSlides: false 
-  
-
-
 
     cp.init = function () {
         // cp.frontUI.init();
