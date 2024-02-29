@@ -90,6 +90,147 @@ var COMPONENT_UI = (function (cp, $) {
   },
 
   /* COMMON UI */
+  cp.tblCaption = {
+    constEl: {},
+
+    init: function() {
+        $('table').each(function() {
+            // summary 속성 제거
+            $(this).removeAttr('summary');
+
+            var hasHeader = $(this).find('th').length > 0;
+
+            if (!hasHeader) {
+                // 헤더가 없는 테이블인 경우 caption 제거
+                $(this).find('caption').remove();
+            } else {
+                cp.tblCaption.processCaption.call(this); // 'this'를 넘겨줌
+            }
+        });
+    },
+
+    processCaption: function() {
+        var captionType = $(this).data('caption');
+        var dataTblTit = $(this).data('tbl');
+        var tblCaption = $(this).find('caption');
+        var tblCaptionTit = tblCaption.text().trim();
+        var tblColgroup = $(this).find('colgroup');
+
+        // 이미 처리된 경우 return
+        if (tblCaption.hasClass('processedCaption')) {
+            return;
+        }
+
+        // 캡션 정보 변수에 저장
+        var currentCaptionTit = dataTblTit || tblCaption.text().trim();
+
+        if (captionType === 'basic') {
+            // basic 타입인 경우
+            tblCaption.remove();
+
+            $(this).find('th').each(function() {
+                var thHTML = $(this).html();
+                $(this).replaceWith('<td>' + thHTML + '</td>');
+            });
+        } else if (captionType === 'parentTbl') {
+            cp.tblCaption.handleParentTbl.call(this); // 'this'를 넘겨줌
+        } else if (captionType === 'keep') {
+            // keep 타입인 경우 기존 caption 정보를 유지함
+        } else {
+            cp.tblCaption.handleRegularTbl.call(this); // 'this'를 넘겨줌
+        }
+    },
+    
+    handleParentTbl: function() {
+        var tblCaption = $(this).find('caption');
+        var currentCaptionTit = $(this).data('tbl') || tblCaption.text().trim();
+        var parentCaptionText = $(this).find('> thead > tr > th, > tbody > tr > th').map(function() {
+            return $(this).text();
+        }).get().join(', ');
+
+        // 캡션 삭제
+        tblCaption.remove();
+
+        if (currentCaptionTit) {
+            var captionHtml = cp.tblCaption.getCaptionHtml(currentCaptionTit, parentCaptionText); // 새로운 캡션 정보 생성
+            cp.tblCaption.insertCaption.call(this, tblCaption, captionHtml); // 'this'와 caption 정보를 넘겨줌
+        }
+    },
+
+    /*
+    handleParentTbl: function() {
+        var tblCaption = $(this).find('caption');
+        var currentCaptionTit = '';
+        var captionText = $(this).find('> thead > tr > th, > tbody > tr > th').map(function() {
+            return $(this).text();
+        }).get().join(', ');
+    
+        if ($(this).data('caption') === 'parentTbl') {
+            currentCaptionTit = captionText;
+            console.log(captionText);
+        } else if ($(this).data('caption') === 'innerTbl') {
+            currentCaptionTit = captionText;
+            console.log(captionText);
+        }
+    
+        if (currentCaptionTit) {
+            var captionHtml = cp.tblCaption.getCaptionHtml(currentCaptionTit, captionText);
+            cp.tblCaption.insertCaption.call(this, tblCaption, captionHtml);
+        }
+    
+        // handleRegularTbl() 내용 추가
+        var tblColgroup = $(this).find('colgroup');
+    
+        if (tblCaption.length > 0) {
+            tblCaption.remove();
+        }
+    
+        if (tblColgroup.length > 0) {
+            var captionHtml = cp.tblCaption.getCaptionHtml(currentCaptionTit, captionText);
+            tblColgroup.before(captionHtml);
+        } else {
+            cp.tblCaption.insertCaption.call(this, tblCaption, cp.tblCaption.getCaptionHtml(currentCaptionTit, captionText));
+        }
+    },
+    */
+
+    handleRegularTbl: function() {
+        var tblCaption = $(this).find('caption');
+        var currentCaptionTit = $(this).data('tbl') || tblCaption.text().trim();
+        var tblColgroup = $(this).find('colgroup');
+        var captionText = $(this).find('> thead > tr > th, > tbody > tr > th').map(function() {
+            return $(this).text();
+        }).get().join(', ');
+
+        // 캡션 삭제
+        tblCaption.remove();
+
+        if (tblColgroup.length > 0) {
+            // colgroup이 존재하는 경우
+            var captionHtml = cp.tblCaption.getCaptionHtml(currentCaptionTit, captionText); // 새로운 캡션 정보 생성
+            tblColgroup.before(captionHtml); // 'this'와 caption 정보를 넘겨줌
+        } else {
+            // colgroup이 없는 경우
+            cp.tblCaption.insertCaption.call(this, tblCaption, cp.tblCaption.getCaptionHtml(currentCaptionTit, captionText)); // 'this'와 caption 정보를 넘겨줌
+        }
+    },
+
+    insertCaption: function(tblCaption, captionHtml) {
+        var tableThead = $(this).find('thead');
+        var tableTbody = $(this).find('tbody');
+
+        if (tableThead.length > 0) {
+            tableThead.before(captionHtml);
+        } else {
+            tableTbody.before(captionHtml);
+        }
+    },
+
+    getCaptionHtml: function(title, text) {
+        return '<caption class="processedCaption"><strong>' + title + '</strong><p>' + text + ' 로 구성된 표' + '</p></caption>';
+    }
+  },
+
   cp.form = {
       constEl: {
           inputDiv: $("._input"),
@@ -1862,6 +2003,7 @@ cp.swiper = {
     cp.init = function () {
         // cp.frontUI.init();
         cp.uaCheck.init();
+        cp.tblCaption.init(); // table caption
         cp.form.init();
         cp.selectPop.init(); // 바텀시트 select
         cp.modalPop.init(); 
