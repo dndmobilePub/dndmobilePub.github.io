@@ -3,6 +3,8 @@ $fontDefault: 'Malgun Gothic','Dotum', Arial, sans-serif;
 $fontNoto: 'NotoSansKR', $fontDefault; //default
 $fontRoboto: 'roboto','NotoSansKR', $fontDefault;
 
+$img-url:'../img/'; // img 경로설정(예시 :  background:url($img-url + 'imgFileName.png') no-repeat 0 0;)
+
 //------ color system
 $color-default:#333;
 $color-white: #fff;
