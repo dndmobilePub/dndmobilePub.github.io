@@ -117,8 +117,17 @@ var COMPONENT_UI = (function (cp, $) {
         var tblColgroup = $(this).find('colgroup');
 
         // 이미 처리된 경우 return
-        if (tblCaption.hasClass('processedCaption')) {
+
+        // 테이블안에 테이블 있는 경우에도, 부모 테이블에 캡션이 있으면 함수가 더 이상 실행안됨
+        /* if (tblCaption.hasClass('processedCaption')) {
             return;
+        } */
+
+        // 캡션이 있고 innerTbl인 경우는 캡션 생성을 계속 실행(예외처리)
+        if (
+          tblCaption.hasClass("processedCaption") && captionType !== "innerTbl" // true
+        ){
+          return;
         }
 
         // 캡션 정보 변수에 저장
