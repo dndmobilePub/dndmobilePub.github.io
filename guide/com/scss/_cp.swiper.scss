@@ -103,20 +103,20 @@
     &:nth-child(odd){
       background-color: #82B4D2;
     }
+  }
 
-    &.swiper-pagination{
-      position: absolute;
-      bottom: -25px;
-      width: 100%;
+  & .swiper-pagination{
+    position: absolute;
+    bottom: -25px;
+    width: 100%;
 
-      &-bullet {
-        margin-right: 5px; 
-      }
+    &-bullet {
+      margin-right: 5px; 
     }
   }
 }
 
-.pg-cp {
+.pg-rt {
   position: relative;
 
   &:last-child{
