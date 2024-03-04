@@ -2958,36 +2958,32 @@
   overflow: hidden;
   height: 20rem;
 }
-
 .pg-swiper .swiper-slide {
   color: #fff;
   line-height: 200px;
   text-align: center;
   cursor: pointer;
   background-color: #a9b5ca;
+  margin-top: 10px;
+  height: 190px;
 }
-
 .pg-swiper .swiper-slide:nth-child(odd) {
   background-color: #82B4D2;
+}
+.pg-swiper .swiper-slide.swiper-pagination {
+  position: absolute;
+  bottom: -25px;
+  width: 100%;
+}
+.pg-swiper .swiper-slide.swiper-pagination-bullet {
+  margin-right: 5px;
 }
 
 .pg-cp {
   position: relative;
 }
-
 .pg-cp:last-child {
   margin-bottom: 2rem;
-}
-
-.pg-swiper .swiper-slide {
-  margin-top: 10px;
-  height: 190px;
-}
-
-.pg-swiper .swiper-pagination {
-  position: absolute;
-  bottom: -25px;
-  width: 100%;
 }
 
 .pg-wrap {
@@ -2998,7 +2994,6 @@
 .play-btn-wrap {
   margin-left: 70px;
 }
-
 .play-btn-wrap button {
   position: absolute;
   bottom: -25px;
@@ -3022,24 +3017,17 @@
   background: #fff !important;
   border: 2px solid #82B4D2 !important;
 }
-
 .swiper-pagination-bullet-active {
   background: #82B4D2 !important;
   width: 20px !important;
   border-radius: 15px !important;
 }
-
 .swiper-pagination-bullet:focus {
   outline: 2px solid #000;
   outline-offset: 1px;
 }
-
 .swiper-pagination-bullet:focus:not(:focus-visible) {
   outline: none !important;
-}
-
-.pg-swiper .swiper-pagination .swiper-pagination-bullet {
-  margin-right: 5px;
 }
 
 .hidden {
@@ -3050,6 +3038,7 @@
   margin: -1px;
   overflow: hidden;
 } /*접근성 ir css*/
+/* triple swiper */
 /* TABLE */
 .splitWrap {
   display: flex;
