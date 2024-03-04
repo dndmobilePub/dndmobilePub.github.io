@@ -45,7 +45,7 @@ SyntaxHighlighter.all();
 				<ul class="swiper-wrapper" aria-live="polite">
 					<li class="swiper-slide active" role="group"><a href="#pgWrap" role="button">문서 가이드</a></li>
                     <li class="swiper-slide" role="group"><a href="#doc2" role="button">컨텐츠 가이드</a></li>
-                    <li class="swiper-slide" role="group"><a href="#doc3" role="button">CSS 가이드</a></li>
+                    <li class="swiper-slide" role="group"><a href="#doc3" role="button">SCSS 가이드</a></li>
                     <li class="swiper-slide" role="group"><a href="#doc4" role="button">JS 가이드</a></li>
                     <li class="swiper-slide" role="group"><a href="#doc5" role="button">주석가이드</a></li>
 				</ul>
@@ -346,8 +346,7 @@ SyntaxHighlighter.all();
                                             <div class="wg-codeBox">
                                                 <pre class="brush: js; html-css: true;">
                                                     /* CSS IR */
-                                                    .hide {color:transparent;vertical-align:middle;display:block;overflow:hidden;width:1px;height:1px;margin-bottom:-1px;text-align:center;white-space:nowrap;font-size:1px;}
-                                                    .blind {position:absolute !important; display:block !important; height:0 !important; width:0 !important; font-size:2px !important; line-height:0 !important; margin:0 !important; padding:0 !important; overflow:hidden !important; z-index:-1;}
+                                                    .hide {position:absolute !important; overflow:hidden !important; height:1px !important; width:1px !important; margin:0 !important; padding:0 !important; line-height:0 !important; border:0; clip:rect(1px 1px 1px 1px);}
                                                 </pre>
                                             </div>
                                         </div>
@@ -358,7 +357,7 @@ SyntaxHighlighter.all();
                                             <div class="wg-codeBox">
                                                 <pre class="brush: js; html-script: true;">
                                                     <!-- 용도가 있는 iframe/frame -->
-                                                    &lt;iframe title="최근 공지사항 게시물">
+                                                    &lt;iframe title="프린트 모듈프레임">
     
                                                     <!-- 용도가 없는 빈 iframe/frame -->
                                                     &lt;iframe title="Blank Frame">
@@ -423,7 +422,7 @@ SyntaxHighlighter.all();
                                                     &lt;label class="field-checkbox" for="formId1">
                                                         &lt;input type="checkbox" id="formId1" checked="checked">
                                                         &lt;i class="field-icon">&lt;/i>
-                                                    &lt;span class="field-label">레이블텍스트&lt;/span>
+                                                        &lt;span class="field-label">레이블텍스트&lt;/span>
                                                     &lt;/label>
 
                                                     <!-- 라디오 -->
@@ -690,13 +689,129 @@ SyntaxHighlighter.all();
                 <hr class="target_hr" id="doc3" />
                 <section class="pg-docSection">
                     <div class="wg-hgroup">
-                        <h2 class="wgTit01">CSS 가이드</h2>
+                        <h2 class="wgTit01">SCSS 가이드</h2>
                     </div>
+                    <article class="wg-fxWrap wg-rowWrap">
+                        <div class="wg-contBoxWrap wg-fx">
+                            <dl class="wg-contBody">
+                                <dt>SCSS 가이드</dt>
+                                <dd class="wg-txtCont">
+                                    <strong class="wg-TxtTit">SCSS 구조</strong>
+                                    <ul class="wg-lstBody wg-lst-bar">
+                                        <li>[./com/scss] 폴더에 작성되어 있으며, 글로벌(전역SCSS)과 기본/페이지별 SCSS로 구분됨
+                                            <div class="wg-codeBox">
+                                                <pre class="brush: html;">
+                                                    <!-- 글로벌 CSS -->
+                                                    _variables.scss // 변수선언
+                                                    _mixin.scss // mixin 함수선언
+                                                    _font.scss // 웹폰트선언
+                                                    _cp.text.scss // 컴포넌트 : 텍스트 관련
+                                                    _cp.button.scss // 컴포넌트 : 버튼 관련
+                                                    _cp.ico.scss // 컴포넌트 : 아이콘 관련
+                                                    _cp.input.scss // 컴포넌트 : input 관련
+                                                    _cp.select.scss // 컴포넌트 : select 관련
+                                                    _cp.rdochk.scss // 컴포넌트 : 라디오/체크박스 관련
+                                                    _cp.popup.scss // 컴포넌트 : 팝업 관련
+                                                    _cp.accodion.scss // 컴포넌트 : 아코디언 관련
+                                                    _cp.tab.scss // 컴포넌트 : 탭 관련
+                                                    _cp.swiper.scss // 컴포넌트 : 스와이퍼 관련
+                                                    _cp.table.scss // 컴포넌트 : 테이블 관련
+
+                                                    <!-- 기본/페이지별 CSS -->
+                                                    cm.common.scss // 컴파일 후 페이지에 작성될 css가 생성
+                                                    &lt;link rel="stylesheet" href="../com/css/cm.common.css">
+                                                </pre>
+    
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </dd>
+                                <dd class="wg-txtCont">
+                                    <strong class="wg-TxtTit">SCSS 파일명 작성 규칙</strong>
+                                    <ul class="wg-lstBody wg-lst-bar">
+                                        <li>컴파일 된 css 파일은 기본적으로 <b>[./com/css/]</b> 폴더 내에 포함된다.</li>
+                                        <li>프로젝트 내 공통적으로 사용되는 SCSS 파일은 <b>[cm.*.scss]</b>의 형태로 작성되며, 각 컴퍼넌트에 대한 파일은 <b>[_cp.*.scss]</b>의 형태로 작성되어 cm.common.scss import 하도록 한다.
+                                            <div class="wg-codeBox">
+                                                <pre class="brush: js; html-css: true;">
+                                                    @import 'variables';
+                                                    @import 'mixin';
+                                                    @import 'font';
+                                                    @import 'cp.text';
+                                                    @import 'cp.button';
+                                                    @import 'cp.ico';
+                                                    @import 'cp.input';
+                                                    @import 'cp.select';
+                                                    @import 'cp.rdochk';
+                                                    @import 'cp.popup';
+                                                    @import 'cp.accodion';
+                                                    @import 'cp.tab';
+                                                    @import 'cp.swiper';
+                                                    @import 'cp.table';
+                                                </pre>
+                                            </div>
+                                        </li>
+                                        <li>각 컴퍼넌트별 SCSS가 구분되어 작성되도록 구성</li>
+                                    </ul>
+                                </dd>
+                            </dl>
+                        </div><!--// .wg-contBoxWrap end -->
+
+                        <div class="wg-contBoxWrap wg-fx">
+                            <dl class="wg-contBody">
+                                <dt>SCSS 가이드</dt>
+                                <dd class="wg-txtCont">
+                                    <strong class="wg-TxtTit">SCSS 기본사용 규칙</strong>
+                                    <ul class="wg-lstBody wg-lst-bar">
+                                        <li>
+                                            속성값은 반드시 변수로 적용되도록 작성한다. (_variables.scss 에 선언된 변수값을 참고)<br>
+                                            <p class="wg-ico wg-ico-star">WSG에 따라 필요시 _variables.scss 에 선언된 변수값을 수정/추가 할 수 있다.</p>
+                                        </li>
+                                        <li>scss 속성 선언시 모든 속성은 소문자로 작성되어야 하며, 선언된 속성과 속성 사이는 빈칸으로 구분하고 속성과 속성값 사이에 빈칸은 적용하지 않는다.</b>
+                                            <div class="wg-codeBox">
+                                                <pre class="brush: js; html-css: true;">
+                                                    /* 잘못된 사용 예
+                                                    1. 속성과 속성값 사이 빈칸 적용
+                                                    2. 속성에 대문자 사용
+                                                    */
+                                                    .example {display: block; Background: #fff; COLOR: #000;}
+                                                    
+                                                    /* 올바른 사용 예 */
+                                                    .example {display:block; background:#fff; color:#000;}
+                                                </pre>
+                                            </div>
+                                        </li>
+                                        <li>페이지내 style 사용은 금하며, <b>예외적으로 input 또는 팝업(레이어팝업 포함) 사이즈 지정이 필요한 경우 style="width" 사용</b>할 수 있다.</li>
+                                        <li>문서내 margin/padding 사용이 필요할 경우 해당 요소의 클래스내에서 처리하며, 아래 예시와 같이 <b>inner style 또는 공통클래스(ex. marT15, padL20 등)를 만들어 사용하지 않는다</b>
+                                            <div class="wg-codeBox">
+                                                <pre class="brush: js; html-script: true;">
+                                                    &lt;!-- 잘못된 사용 예 -->
+                                                    &lt;p style="margin-top:20px; padding-bottom:15px;">사용금지&lt;/p>
+                                                    &lt;p class="marT20 padL20">사용금지&lt;/p>
+                                                    
+                                                    &lt;!-- 올바른 사용 예 -->
+                                                    p.sampleBox {margin-top:20px; padding-bottom:15px;}
+                                                    &lt;p class="sampleBox">inner style 또는 공통클래스(ex. marT15, padL20 등)를 만들어 사용하지 않는다.&lt;/p>
+                                                </pre>
+                                            </div>
+                                        </li>
+                                        <li>속성값으로 한글폰트 및 이미지 URL 표기시 <b>작은 따옴표{''}를 사용</b>하며, <b>모든 속성의 마지막에는 세미콜론(;)을 작성</b>하도록 한다.
+                                            <div class="wg-codeBox">
+                                                <pre class="brush: css; html-css: true">
+                                                div {font-family:'맑은고딕', '돋움'; background:url(/front/img/temp.gif);} /* 속성 마지막에는 반드시 (;) 작성. */
+                                                </pre>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </dd>
+                            </dl>
+                        </div><!--// .wg-contBoxWrap end -->
+                    </article>
+
                     <article class="wg-fxWrap wg-colWrap">
     
                         <div class="wg-contBoxWrap wg-fx">
                             <dl class="wg-contBody">
-                                <dt>CSS 가이드</dt>
+                                <dt>SCSS 가이드</dt>
                                 <dd class="wg-txtCont">
                                     <strong class="wg-TxtTit">CSS 선언</strong>
                                     <ul class="wg-lstBody wg-lst-bar">
