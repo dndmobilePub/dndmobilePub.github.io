@@ -1699,16 +1699,17 @@ cp.tabSwiper = {
 cp.swiper = {
     constEl: {},
     init: function () {
-        $('.pg-swiper').each(function () {
+        $('.swip-swiper').each(function () {
             const $pgSwiper = $(this);
             const swiperType = $pgSwiper.attr('swiper-type');
-            const $swiperContent = $pgSwiper.find('.pg-content');
+            const $swiperContent = $pgSwiper.find('.swip-content');
             const $pagination = $pgSwiper.find('.swiper-pagination');
             const $playBtn = $pgSwiper.find('#playBtn');
             const $pauseBtn = $pgSwiper.find('#pauseBtn');
 
             const swiperOptions = {
                 loop: true,
+                loopAdditionalSlides : 1,
                 centeredSlides: true,
                 paginationClickable: true,
                 pagination: $pagination.length ? $pagination[0] : null,

@@ -7,7 +7,7 @@
   &-nav {
     @include pos(relative); @include height(50px); @include overflow(x, hidden);
     background-color: $color-white;
-    padding-right:20px;
+    padding-right:2rem;
 
     #{$swiper}{
       &-slide {
@@ -18,7 +18,7 @@
           padding:1rem;
           color: $color-gray2;
           font-size:var(--space-ms);
-          text-align: center;
+          @include align(text, center);
           
           @include el-content(after) {
             @include el-size(0, .2rem);
@@ -58,7 +58,8 @@
     @include overflow (both, hidden); @include height(20rem);
     .swiper-slide {
       color:$color-white;
-      line-height: 200px; text-align:center;
+      line-height: 20rem;
+      @include align(text, center);
       cursor: pointer;
       background-color:$color-tbl-thead;
 
@@ -95,10 +96,9 @@
   }
 
   &-wrapper{
-    display: flex;
-    @include pos(relative);
-    @include el-size(100%, 100%);
-    z-index: 1;
+    @include display(flex);
+    @include pos(relative){z-index:1;}
+    @include el-size(100%, 100%);    
     box-sizing: content-box;
   }
 
@@ -109,31 +109,30 @@
   }
 
   &-pagination{
-    @include pos(absolute);
-    text-align: center;
+    @include pos(absolute){z-index:10;}
+    @include align(text, center);
     @extend %transition3s;
     transform: translate3d(0,0,0);
-    z-index: 10;
 
     &-bullet{
-      @include el-size(10px, 10px !important) ;
+      @include el-size(1rem, 1rem !important) ;
       opacity: 1 !important;
       background: $color-white !important;
-      border: 2px solid $color-blue4 !important;
+      @include line(border, 0.2rem solid $color-blue4 !important);
       @include display(inline-block);
       border-radius: 100%;
 
       &-active{
         background: $color-blue4 !important;
-        @include width(20px !important);
-        border-radius: 15px !important;
+        @include width(2rem !important);
+        border-radius: 1.5rem !important;
         opacity: 1;
-        background: #007aff
+        background: $color-blue2
       }
 
       &:focus{
-        outline: 2px solid $color-black;
-        outline-offset: 1px;
+        @include line(outline, 0.2rem solid $color-black);
+        outline-offset: 0.1rem;
 
         &:not(:focus-visible){
           outline: none !important;
@@ -144,12 +143,11 @@
 
   &-button {
     &-next {
-      @include pos-offset-r(50%, 10px, absolute);
-      @include el-size(27px, 44px);
-      margin-top: -22px;
-      z-index: 10;
+      @include pos-offset-r(50%, 1rem, absolute){z-index: 10;}
+      @include el-size(2.7rem, 4.4rem);
+      margin-top: -2.2rem;
       cursor: pointer;
-      background-size: 27px 44px;
+      background-size: 2.7rem 4.4rem;
       background-position: center;
       background-repeat: no-repeat;
       
@@ -159,18 +157,25 @@
         @include auto-vertical-align;
         right: 0.75rem;
         @include el-size(2.2rem, 2.2rem);
-        border: 2px solid $color-blue;
-        border-width: 2px 2px 0 0;
+        @include line(border, 0.2rem solid $color-blue);
+        border-width: 0.2rem 0.2rem 0 0;
         transform: translateY(-50%) rotate(45deg);
+      }
+
+      & span{
+        @include pos(absolute);
+        clip: rect(0 0 0 0);
+        @include el-size(0.1rem, 0.1rem);
+        margin: -0.1rem;
+        overflow: hidden;
       }
     }
     &-prev{
-      @include pos-offset-l(50%, 20px, absolute);
-      @include el-size(27px, 44px);
-      margin-top: -22px;
-      z-index: 10;
+      @include pos-offset-l(50%, 2rem, absolute){z-index: 10;}
+      @include el-size(2.7rem, 4.4rem);
+      margin-top: -2.2rem;
       cursor: pointer;
-      background-size: 27px 44px;
+      background-size: 2.7rem 4.4rem;
       background-position: center;
       background-repeat: no-repeat;
 
@@ -180,16 +185,24 @@
         @include auto-vertical-align;
         right: 0.75rem;
         width: 2.2rem; height: 2.2rem;
-        border: 2px solid $color-blue;
-        border-width: 2px 2px 0 0;
+        @include line(border, 0.2rem solid $color-blue);
+        border-width: 0.2rem 0.2rem 0 0;
         transform: translateY(-50%) rotate(225deg);
+      }
+
+      & span{
+        @include pos(absolute);
+        clip: rect(0 0 0 0);
+        @include el-size(0.1rem, 0.1rem);
+        margin: -0.1rem;
+        overflow: hidden;
       }
     }
   }
 
   &-container{
     &-3d{
-      perspective: 1200px;
+      perspective: 120rem;
 
       & #{$sw}{
         transform-style: preserve-3d;
@@ -199,20 +212,28 @@
 
 }
 
-.pg{
+.swip{
+  &-rt{
+    @include pos(relative);
+
+    &:last-child{
+      margin-bottom: 2rem;
+    }
+  }
+
   &-swiper{
-    overflow: hidden;
+    @include overflow(both, hidden);
     @include height(20rem);
 
     & .swiper{
       &-slide{
         color: $color-white;
-        line-height: 200px;
-        text-align: center;
+        line-height: 20rem;
+        @include align(text, center);
         cursor: pointer;
         background-color: $color-tbl-thead;
-        margin-top: 10px;
-        @include height(190px);
+        margin-top: 1rem;
+        @include height(19rem);
     
         &:nth-child(odd){
           background-color: $color-blue4;
@@ -221,22 +242,13 @@
 
       &-pagination{
         @include pos(absolute);
-        bottom: -25px;
-        width: 100%;
         @include width(100%);
+        bottom: -2.5rem;
     
         &-bullet {
-          margin-right: 5px; 
+          margin-right: 0.5rem; 
         }
       }
-    }
-  }
-
-  &-rt{
-    @include pos(relative);
-
-    &:last-child{
-      margin-bottom: 2rem;
     }
   }
 
@@ -246,24 +258,22 @@
 }
 
 .play-btn-wrap {
-  margin-left: 70px;
+  margin-left: 7rem;
   
   & button{
-    @include pos(absolute){bottom: -25px;}
-    @include el-size(20px, 20px);
-    z-index: 100;
-    border-radius: 10px;
+    @include pos(absolute){bottom: -2.5rem; z-index: 100;}
+    @include el-size(2rem, 2rem);
+    border-radius: 1rem;
     background: $color-blue4;
     color: $color-white;
     cursor: pointer;
-  }
-}
 
-/*접근성 ir css*/
-.hidden {
-  @include pos(absolute);
-  clip: rect(0 0 0 0);
-  @include el-size(1px, 1px);
-  margin: -1px;
-  overflow: hidden;
+    & span{
+      @include pos(absolute);
+      clip: rect(0 0 0 0);
+      @include el-size(0.1rem, 0.1rem);
+      margin: -0.1rem;
+      @include overflow(both, hidden);
+    }
+  }
 }
