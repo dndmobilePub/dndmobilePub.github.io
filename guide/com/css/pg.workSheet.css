@@ -2527,7 +2527,7 @@
   opacity: 0.35;
 }
 
-.frame_device, .pg_layout .pg_layout_content > div, .pg_layout div::before, .pg_layout div, .pg_board_scroll > div, .pg_status_box .bar, .pg_alert_btn_set button, .panel_head, .search_title, .pg_project_status .pg_project_ing .ing, .pg_project_status .pg_project_ing, .pg_project_status pgCount > strong, .pg_project_status pgCount > span, .pg_board_tab, .btn_light_mode > i::after, .btn_light_mode > i::before, .btn_light_mode::after, .btn_light_mode::before, .btn_guide_top, .btm_btn_set, .btm_guide_top, .pg_titles h2, .pg_titles .pg_project_status, .pg_titles, #pgWrap, .pg_nav > ul > li > a, .pg_project .current::after, #pgHeader .switch > ul > li > a, #pgHeader .pg_util .btn_responsive > i > i, #pgHeader .pg_util .btn_responsive > i::after, #pgHeader .pg_util .btn_responsive > i::before, #pgHeader .pg_util .btn_responsive > i, #pgHeader .pg_util .btn_responsive::after, #pgHeader .pg_util .btn_responsive::before, #pgHeader .pg_util .btn_responsive, #pgHeader .pg_util .btn_nav span::after, #pgHeader .pg_util .btn_nav span::before, #pgHeader .pg_util .btn_nav span, #pgHeader .pg_util .pg_search #btnPgSearch, .btn-toggle.btn-style-02::before, .btn-toggle.btn-style-02::after, .btn-toggle:not([class*=btn-style])::after, .modalPop._bottom > .modalWrap, .modalPop._left > .modalWrap, .modalPop._top > .modalWrap {
+.frame_device, .pg_layout .pg_layout_content > div, .pg_layout div::before, .pg_layout div, .pg_board_scroll > div, .pg_status_box .bar, .pg_alert_btn_set button, .panel_head, .search_title, .pg_project_status .pg_project_ing .ing, .pg_project_status .pg_project_ing, .pg_project_status pgCount > strong, .pg_project_status pgCount > span, .pg_board_tab, .btn_light_mode > i::after, .btn_light_mode > i::before, .btn_light_mode::after, .btn_light_mode::before, .btn_guide_top, .btm_btn_set, .btm_guide_top, .pg_titles h2, .pg_titles .pg_project_status, .pg_titles, #pgWrap, .pg_nav > ul > li > a, .pg_project .current::after, #pgHeader .switch > ul > li > a, #pgHeader .pg_util .btn_responsive > i > i, #pgHeader .pg_util .btn_responsive > i::after, #pgHeader .pg_util .btn_responsive > i::before, #pgHeader .pg_util .btn_responsive > i, #pgHeader .pg_util .btn_responsive::after, #pgHeader .pg_util .btn_responsive::before, #pgHeader .pg_util .btn_responsive, #pgHeader .pg_util .btn_nav span::after, #pgHeader .pg_util .btn_nav span::before, #pgHeader .pg_util .btn_nav span, #pgHeader .pg_util .pg_search #btnPgSearch, .swiper-pagination, .btn-toggle.btn-style-02::before, .btn-toggle.btn-style-02::after, .btn-toggle:not([class*=btn-style])::after, .modalPop._bottom > .modalWrap, .modalPop._left > .modalWrap, .modalPop._top > .modalWrap {
   -webkit-transition: 0.3s all ease-in-out;
   transition: 0.3s all ease-in-out;
 }
@@ -3266,7 +3266,7 @@
   height: 50px;
   overflow-x: hidden;
   background-color: #fff;
-  padding-right: 20px;
+  padding-right: 2rem;
 }
 .tab-nav .swiper-slide {
   display: block;
@@ -3278,7 +3278,7 @@
   padding: 1rem;
   color: #333;
   font-size: var(--space-ms);
-  text-align: center;
+  text-align: center !important;
 }
 .tab-nav .swiper-slide > a::after {
   content: "";
@@ -3333,8 +3333,8 @@
 }
 .tab-content .swiper-slide {
   color: #fff;
-  line-height: 200px;
-  text-align: center;
+  line-height: 20rem;
+  text-align: center !important;
   cursor: pointer;
   background-color: #a9b5ca;
 }
@@ -3352,54 +3352,177 @@
       -ms-flex-direction: column;
           flex-direction: column;
 }
-
 .swiper-free-mode > .swiper-wrapper {
   -webkit-transition-timing-function: ease-out;
           transition-timing-function: ease-out;
   margin: 0 auto;
 }
-
 .swiper-vertical > .swiper-wrapper {
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
 }
+.swiper-wrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: content-box;
+          box-sizing: content-box;
+}
+.swiper-slide {
+  -ms-flex-negative: 0;
+      flex-shrink: 0;
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+.swiper-pagination {
+  position: absolute;
+  z-index: 10;
+  text-align: center !important;
+  -webkit-transform: translate3d(0, 0, 0);
+          transform: translate3d(0, 0, 0);
+}
+.swiper-pagination-bullet {
+  width: 1rem;
+  height: 1rem !important;
+  opacity: 1 !important;
+  background: #fff !important;
+  border: 0.2rem solid #82B4D2 !important;
+  display: inline-block;
+  border-radius: 100%;
+}
+.swiper-pagination-bullet-active {
+  background: #82B4D2 !important;
+  width: 2rem !important;
+  border-radius: 1.5rem !important;
+  opacity: 1;
+  background: #0048ff;
+}
+.swiper-pagination-bullet:focus {
+  outline: 0.2rem solid #000;
+  outline-offset: 0.1rem;
+}
+.swiper-pagination-bullet:focus:not(:focus-visible) {
+  outline: none !important;
+}
+.swiper-button-next {
+  position: absolute;
+  top: 50%;
+  right: 1rem;
+  z-index: 10;
+  width: 2.7rem;
+  height: 4.4rem;
+  margin-top: -2.2rem;
+  cursor: pointer;
+  background-size: 2.7rem 4.4rem;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.swiper-button-next::after {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+  right: 0.75rem;
+  width: 2.2rem;
+  height: 2.2rem;
+  border: 0.2rem solid #2380ff;
+  border-width: 0.2rem 0.2rem 0 0;
+  -webkit-transform: translateY(-50%) rotate(45deg);
+          transform: translateY(-50%) rotate(45deg);
+}
+.swiper-button-next span {
+  position: absolute;
+  clip: rect(0 0 0 0);
+  width: 0.1rem;
+  height: 0.1rem;
+  margin: -0.1rem;
+  overflow: hidden;
+}
+.swiper-button-prev {
+  position: absolute;
+  top: 50%;
+  left: 2rem;
+  z-index: 10;
+  width: 2.7rem;
+  height: 4.4rem;
+  margin-top: -2.2rem;
+  cursor: pointer;
+  background-size: 2.7rem 4.4rem;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.swiper-button-prev::after {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+  right: 0.75rem;
+  width: 2.2rem;
+  height: 2.2rem;
+  border: 0.2rem solid #2380ff;
+  border-width: 0.2rem 0.2rem 0 0;
+  -webkit-transform: translateY(-50%) rotate(225deg);
+          transform: translateY(-50%) rotate(225deg);
+}
+.swiper-button-prev span {
+  position: absolute;
+  clip: rect(0 0 0 0);
+  width: 0.1rem;
+  height: 0.1rem;
+  margin: -0.1rem;
+  overflow: hidden;
+}
+.swiper-container-3d {
+  -webkit-perspective: 120rem;
+          perspective: 120rem;
+}
+.swiper-container-3d .swiper-wrapper {
+  -webkit-transform-style: preserve-3d;
+          transform-style: preserve-3d;
+}
 
-/* triple swiper */
-.pg-swiper {
+.swip-rt {
+  position: relative;
+}
+.swip-rt:last-child {
+  margin-bottom: 2rem;
+}
+.swip-swiper {
   overflow: hidden;
   height: 20rem;
 }
-.pg-swiper .swiper-slide {
+.swip-swiper .swiper-slide {
   color: #fff;
-  line-height: 200px;
-  text-align: center;
+  line-height: 20rem;
+  text-align: center !important;
   cursor: pointer;
   background-color: #a9b5ca;
-  margin-top: 10px;
-  height: 190px;
+  margin-top: 1rem;
+  height: 19rem;
 }
-.pg-swiper .swiper-slide:nth-child(odd) {
+.swip-swiper .swiper-slide:nth-child(odd) {
   background-color: #82B4D2;
 }
-.pg-swiper .swiper-slide.swiper-pagination {
+.swip-swiper .swiper-pagination {
   position: absolute;
-  bottom: -25px;
   width: 100%;
+  bottom: -2.5rem;
 }
-.pg-swiper .swiper-slide.swiper-pagination-bullet {
-  margin-right: 5px;
+.swip-swiper .swiper-pagination-bullet {
+  margin-right: 0.5rem;
 }
-
-.pg-cp {
-  position: relative;
-}
-.pg-cp:last-child {
-  margin-bottom: 2rem;
-}
-
-.pg-wrap {
+.swip-wrap {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -3409,53 +3532,28 @@
 }
 
 .play-btn-wrap {
-  margin-left: 70px;
+  margin-left: 7rem;
 }
 .play-btn-wrap button {
   position: absolute;
-  bottom: -25px;
-  height: 20px;
-  width: 20px;
+  bottom: -2.5rem;
   z-index: 100;
-  border-radius: 10px;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 1rem;
   background: #82B4D2;
   color: #fff;
   cursor: pointer;
-  -webkit-border-radius: 10px;
-  -moz-border-radius: 10px;
-  -ms-border-radius: 10px;
-  -o-border-radius: 10px;
 }
-
-.swiper-pagination-bullet {
-  width: 10px !important;
-  height: 10px !important;
-  opacity: 1 !important;
-  background: #fff !important;
-  border: 2px solid #82B4D2 !important;
-}
-.swiper-pagination-bullet-active {
-  background: #82B4D2 !important;
-  width: 20px !important;
-  border-radius: 15px !important;
-}
-.swiper-pagination-bullet:focus {
-  outline: 2px solid #000;
-  outline-offset: 1px;
-}
-.swiper-pagination-bullet:focus:not(:focus-visible) {
-  outline: none !important;
-}
-
-.hidden {
+.play-btn-wrap button span {
   position: absolute;
   clip: rect(0 0 0 0);
-  width: 1px;
-  height: 1px;
-  margin: -1px;
+  width: 0.1rem;
+  height: 0.1rem;
+  margin: -0.1rem;
   overflow: hidden;
-} /*접근성 ir css*/
-/* triple swiper */
+}
+
 /* TABLE */
 .splitWrap {
   display: -webkit-box;
@@ -4059,7 +4157,7 @@ html[light-mode=dark] a {
 /****************************************/
 /*	PART: work sheet PAGE STYLE
 /****************************************/
-.frame_device, .pg_layout .pg_layout_content > div, .pg_layout div::before, .pg_layout div, .pg_board_scroll > div, .pg_status_box .bar, .pg_alert_btn_set button, .panel_head, .search_title, .pg_project_status .pg_project_ing .ing, .pg_project_status .pg_project_ing, .pg_project_status pgCount > strong, .pg_project_status pgCount > span, .pg_board_tab, .btn_light_mode > i::after, .btn_light_mode > i::before, .btn_light_mode::after, .btn_light_mode::before, .btn_guide_top, .btm_btn_set, .btm_guide_top, .pg_titles h2, .pg_titles .pg_project_status, .pg_titles, #pgWrap, .pg_nav > ul > li > a, .pg_project .current::after, #pgHeader .switch > ul > li > a, #pgHeader .pg_util .btn_responsive > i > i, #pgHeader .pg_util .btn_responsive > i::after, #pgHeader .pg_util .btn_responsive > i::before, #pgHeader .pg_util .btn_responsive > i, #pgHeader .pg_util .btn_responsive::after, #pgHeader .pg_util .btn_responsive::before, #pgHeader .pg_util .btn_responsive, #pgHeader .pg_util .btn_nav span::after, #pgHeader .pg_util .btn_nav span::before, #pgHeader .pg_util .btn_nav span, #pgHeader .pg_util .pg_search #btnPgSearch, .modalPop._top > .modalWrap, .modalPop._left > .modalWrap, .modalPop._bottom > .modalWrap, .btn-toggle:not([class*=btn-style])::after, .btn-toggle.btn-style-02::before, .btn-toggle.btn-style-02::after {
+.frame_device, .pg_layout .pg_layout_content > div, .pg_layout div::before, .pg_layout div, .pg_board_scroll > div, .pg_status_box .bar, .pg_alert_btn_set button, .panel_head, .search_title, .pg_project_status .pg_project_ing .ing, .pg_project_status .pg_project_ing, .pg_project_status pgCount > strong, .pg_project_status pgCount > span, .pg_board_tab, .btn_light_mode > i::after, .btn_light_mode > i::before, .btn_light_mode::after, .btn_light_mode::before, .btn_guide_top, .btm_btn_set, .btm_guide_top, .pg_titles h2, .pg_titles .pg_project_status, .pg_titles, #pgWrap, .pg_nav > ul > li > a, .pg_project .current::after, #pgHeader .switch > ul > li > a, #pgHeader .pg_util .btn_responsive > i > i, #pgHeader .pg_util .btn_responsive > i::after, #pgHeader .pg_util .btn_responsive > i::before, #pgHeader .pg_util .btn_responsive > i, #pgHeader .pg_util .btn_responsive::after, #pgHeader .pg_util .btn_responsive::before, #pgHeader .pg_util .btn_responsive, #pgHeader .pg_util .btn_nav span::after, #pgHeader .pg_util .btn_nav span::before, #pgHeader .pg_util .btn_nav span, #pgHeader .pg_util .pg_search #btnPgSearch, .modalPop._top > .modalWrap, .modalPop._left > .modalWrap, .modalPop._bottom > .modalWrap, .btn-toggle:not([class*=btn-style])::after, .btn-toggle.btn-style-02::before, .btn-toggle.btn-style-02::after, .swiper-pagination {
   -webkit-transition: 0.3s all ease-in-out;
   transition: 0.3s all ease-in-out;
 }
