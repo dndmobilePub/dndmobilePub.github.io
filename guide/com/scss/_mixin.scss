@@ -344,6 +344,16 @@
     }
 }
 
+//border
+@mixin line($attribute, $argument){
+    @if($attribute == "border"){
+        border: $argument;
+    } @else if($attribute == "outline"){
+        outline: $argument;
+    }
+    @content;
+}
+
 // FORM SVG ICON
 @function svgIconForm($iconName, $color: 666, $backgroundRepeat: no-repeat) {
     $iconList: (
