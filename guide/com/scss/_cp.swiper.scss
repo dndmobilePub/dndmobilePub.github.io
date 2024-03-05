@@ -67,108 +67,203 @@
   }
 }
 
-.swiper-container-vertical {
-  touch-action: pan-x;
-  & > .swiper-wrapper {
-    flex-direction: column;
-  }
-}
+#{$swiper}{
+  $sw:'.swiper-wrapper';
 
-.swiper-free-mode {
-  & > .swiper-wrapper {
-    transition-timing-function: ease-out;
-    margin: 0 auto;
+  &-container{
+    &-vertical{
+      touch-action: pan-x;
+      & > .swiper{
+        &-wrapper {
+          flex-direction: column;
+        }
+      } 
+    }
   }
-}
-.swiper-vertical {
-  & > .swiper-wrapper {
-    flex-direction: column;
+
+  &-free-mode{
+    & > #{$sw} {
+      transition-timing-function: ease-out;
+      margin: 0 auto;
+    }
   }
-}
 
-/* triple swiper */
-.pg-swiper {
-  overflow: hidden;
-  height: 20rem;
+  &-vertical{
+    & > #{$sw} {
+      flex-direction: column;
+    }
+  }
 
-  & .swiper-slide{
-    color: #fff;
-    line-height: 200px;
+  &-wrapper{
+    display: flex;
+    @include pos(relative);
+    @include el-size(100%, 100%);
+    z-index: 1;
+    box-sizing: content-box;
+  }
+
+  &-slide{
+    flex-shrink: 0;
+    @include el-size(100%, 100%);
+    @include pos(relative);
+  }
+
+  &-pagination{
+    @include pos(absolute);
     text-align: center;
-    cursor: pointer;
-    background-color: #a9b5ca;
-    margin-top: 10px;
-    height: 190px;
+    @extend %transition3s;
+    transform: translate3d(0,0,0);
+    z-index: 10;
 
-    &:nth-child(odd){
-      background-color: #82B4D2;
+    &-bullet{
+      @include el-size(10px, 10px !important) ;
+      opacity: 1 !important;
+      background: $color-white !important;
+      border: 2px solid $color-blue4 !important;
+      @include display(inline-block);
+      border-radius: 100%;
+
+      &-active{
+        background: $color-blue4 !important;
+        @include width(20px !important);
+        border-radius: 15px !important;
+        opacity: 1;
+        background: #007aff
+      }
+
+      &:focus{
+        outline: 2px solid $color-black;
+        outline-offset: 1px;
+
+        &:not(:focus-visible){
+          outline: none !important;
+        }
+      }
     }
   }
 
-  & .swiper-pagination{
-    position: absolute;
-    bottom: -25px;
-    width: 100%;
+  &-button {
+    &-next {
+      @include pos-offset-r(50%, 10px, absolute);
+      @include el-size(27px, 44px);
+      margin-top: -22px;
+      z-index: 10;
+      cursor: pointer;
+      background-size: 27px 44px;
+      background-position: center;
+      background-repeat: no-repeat;
+      
+      &::after{
+        content: '';
+        @include display(block);
+        @include auto-vertical-align;
+        right: 0.75rem;
+        @include el-size(2.2rem, 2.2rem);
+        border: 2px solid $color-blue;
+        border-width: 2px 2px 0 0;
+        transform: translateY(-50%) rotate(45deg);
+      }
+    }
+    &-prev{
+      @include pos-offset-l(50%, 20px, absolute);
+      @include el-size(27px, 44px);
+      margin-top: -22px;
+      z-index: 10;
+      cursor: pointer;
+      background-size: 27px 44px;
+      background-position: center;
+      background-repeat: no-repeat;
 
-    &-bullet {
-      margin-right: 5px; 
+      &::after{
+        content: '';
+        @include display(block);
+        @include auto-vertical-align;
+        right: 0.75rem;
+        width: 2.2rem; height: 2.2rem;
+        border: 2px solid $color-blue;
+        border-width: 2px 2px 0 0;
+        transform: translateY(-50%) rotate(225deg);
+      }
     }
   }
+
+  &-container{
+    &-3d{
+      perspective: 1200px;
+
+      & #{$sw}{
+        transform-style: preserve-3d;
+      }
+    }
+  }
+
 }
 
-.pg-rt {
-  position: relative;
+.pg{
+  &-swiper{
+    overflow: hidden;
+    @include height(20rem);
 
-  &:last-child{
-    margin-bottom: 2rem;
+    & .swiper{
+      &-slide{
+        color: $color-white;
+        line-height: 200px;
+        text-align: center;
+        cursor: pointer;
+        background-color: $color-tbl-thead;
+        margin-top: 10px;
+        @include height(190px);
+    
+        &:nth-child(odd){
+          background-color: $color-blue4;
+        }
+      }
+
+      &-pagination{
+        @include pos(absolute);
+        bottom: -25px;
+        width: 100%;
+        @include width(100%);
+    
+        &-bullet {
+          margin-right: 5px; 
+        }
+      }
+    }
+  }
+
+  &-rt{
+    @include pos(relative);
+
+    &:last-child{
+      margin-bottom: 2rem;
+    }
+  }
+
+  &-wrap{
+    @include display(flex){justify-content: center;}
   }
 }
 
-.pg-wrap {
-  display: flex;
-  justify-content: center;
-}
 .play-btn-wrap {
   margin-left: 70px;
-
+  
   & button{
-    position: absolute;
-    bottom: -25px;
-    height: 20px;
-    width: 20px;
+    @include pos(absolute){bottom: -25px;}
+    @include el-size(20px, 20px);
     z-index: 100;
     border-radius: 10px;
-    background: #82B4D2;
-    color: #fff;
+    background: $color-blue4;
+    color: $color-white;
     cursor: pointer;
-    -webkit-border-radius: 10px;
-    -moz-border-radius: 10px;
-    -ms-border-radius: 10px;
-    -o-border-radius: 10px;
   }
 }
 
-.swiper-pagination-bullet {
-  width: 10px !important;
-  height: 10px !important;
-  opacity: 1 !important;
-  background: #fff!important;
-  border: 2px solid #82B4D2 !important;
-
-  &-active{
-    background: #82B4D2 !important;
-    width: 20px !important;
-    border-radius: 15px !important;
-  }
-
-  &:focus{
-    outline: 2px solid #000;
-    outline-offset: 1px;
-
-    &:not(:focus-visible){
-      outline: none !important;
-    }
-  }
+/*접근성 ir css*/
+.hidden {
+  @include pos(absolute);
+  clip: rect(0 0 0 0);
+  @include el-size(1px, 1px);
+  margin: -1px;
+  overflow: hidden;
 }
-
-.hidden {position: absolute; clip: rect(0 0 0 0); width: 1px; height: 1px; margin: -1px; overflow: hidden;}/*접근성 ir css*/
