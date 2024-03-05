@@ -95,46 +95,29 @@ var COMPONENT_UI = (function (cp, $) {
 
     init: function() {
         $('table').each(function() {
-            // summary 속성 제거
             $(this).removeAttr('summary');
-
+            
             var hasHeader = $(this).find('th').length > 0;
 
             if (!hasHeader) {
-                // 헤더가 없는 테이블인 경우 caption 제거
                 $(this).find('caption').remove();
             } else {
-                cp.tblCaption.processCaption.call(this); // 'this'를 넘겨줌
+                cp.tblCaption.processCaption.call(this);
             }
         });
     },
 
     processCaption: function() {
         var captionType = $(this).data('caption');
-        var dataTblTit = $(this).data('tbl');
         var tblCaption = $(this).find('caption');
-        var tblCaptionTit = tblCaption.text().trim();
-        var tblColgroup = $(this).find('colgroup');
-
-        // 이미 처리된 경우 return
-
-        // 테이블안에 테이블 있는 경우에도, 부모 테이블에 캡션이 있으면 함수가 더 이상 실행안됨
-        /* if (tblCaption.hasClass('processedCaption')) {
-            return;
-        } */
-
-        // 캡션이 있고 innerTbl인 경우는 캡션 생성을 계속 실행(예외처리)
-        if (
-          tblCaption.hasClass("processedCaption") && captionType !== "innerTbl" // true
-        ){
+        
+        if (tblCaption.hasClass("processedCaption") && captionType !== "innerTbl") {
+            // table > table 인 경우 caption 처리
           return;
         }
-
-        // 캡션 정보 변수에 저장
-        var currentCaptionTit = dataTblTit || tblCaption.text().trim();
-
+        
         if (captionType === 'basic') {
-            // basic 타입인 경우
+            // basic 타입인 경우 데이터 테이블을 배치형 테이블로 변경
             tblCaption.remove();
 
             $(this).find('th').each(function() {
@@ -144,22 +127,7 @@ var COMPONENT_UI = (function (cp, $) {
         } else if (captionType === 'keep') {
             // keep 타입인 경우 기존 caption 정보를 유지함
         } else {
-            cp.tblCaption.handleRegularTbl.call(this); // 'this'를 넘겨줌
-        }
-    },
-       
-    handleParentTbl: function() {
-        var tblCaption = $(this).find('caption');
-        var currentCaptionTit = '';
-        var captionText = $(this).find('> thead > tr > th, > tbody > tr > th').map(function() {
-            return $(this).text();
-        }).get().join(', ');
-        
-        console.log(captionText);
-    
-        if (currentCaptionTit) {
-            var captionHtml = cp.tblCaption.getCaptionHtml(currentCaptionTit, captionText);
-            cp.tblCaption.insertCaption.call(this, tblCaption, captionHtml);
+            cp.tblCaption.handleRegularTbl.call(this);
         }
     },
 
@@ -170,17 +138,14 @@ var COMPONENT_UI = (function (cp, $) {
         var captionText = $(this).find('> thead > tr > th, > tbody > tr > th').map(function() {
             return $(this).text();
         }).get().join(', ');
-
-        // 캡션 삭제
+        
         tblCaption.remove();
 
         if (tblColgroup.length > 0) {
-            // colgroup이 존재하는 경우
-            var captionHtml = cp.tblCaption.getCaptionHtml(currentCaptionTit, captionText); // 새로운 캡션 정보 생성
-            tblColgroup.before(captionHtml); // 'this'와 caption 정보를 넘겨줌
+            var captionHtml = cp.tblCaption.getCaptionHtml(currentCaptionTit, captionText);
+            tblColgroup.before(captionHtml);
         } else {
-            // colgroup이 없는 경우
-            cp.tblCaption.insertCaption.call(this, tblCaption, cp.tblCaption.getCaptionHtml(currentCaptionTit, captionText)); // 'this'와 caption 정보를 넘겨줌
+            cp.tblCaption.insertCaption.call(this, tblCaption, cp.tblCaption.getCaptionHtml(currentCaptionTit, captionText));
         }
     },
 
