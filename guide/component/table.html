@@ -205,7 +205,7 @@
                 <caption></caption>
                 <thead>
                   <tr>
-                    <th>제목1</th>
+                    <th scope="row">제목1</th>
                     <th>제목2</th>
                     <th colspan="2">제목3</th>
                   </tr>
@@ -213,7 +213,7 @@
                 <tbody>
                   <tr>
                     <th>열제목1</th>
-                    <td>내용</td>
+                    <td scope="col">내용</td>
                     <td>내용</td>
                     <td>내용</td>
                   </tr>
@@ -225,10 +225,14 @@
                   </tr>
                   <tr>
                     <td>내용</td>
-                    <td>내용</td>
-                    <td>내용</td>
+                    <td scope="row" colspan="2">내용</td>
                   </tr>
                 </tbody>
+                <tfoot>
+                  <tr>
+                    <th colspan="4">test</th>
+                  </tr>
+                </tfoot>
               </table>
             </div>
           </div>
