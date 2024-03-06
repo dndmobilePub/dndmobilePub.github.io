@@ -2970,19 +2970,19 @@
 .pg-swiper .swiper-slide:nth-child(odd) {
   background-color: #82B4D2;
 }
-.pg-swiper .swiper-slide.swiper-pagination {
+.pg-swiper .swiper-pagination {
   position: absolute;
   bottom: -25px;
   width: 100%;
 }
-.pg-swiper .swiper-slide.swiper-pagination-bullet {
+.pg-swiper .swiper-pagination-bullet {
   margin-right: 5px;
 }
 
-.pg-cp {
+.pg-rt {
   position: relative;
 }
-.pg-cp:last-child {
+.pg-rt:last-child {
   margin-bottom: 2rem;
 }
 
@@ -3038,7 +3038,6 @@
   margin: -1px;
   overflow: hidden;
 } /*접근성 ir css*/
-/* triple swiper */
 /* TABLE */
 .splitWrap {
   display: flex;

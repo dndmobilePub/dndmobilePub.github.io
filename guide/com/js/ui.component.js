@@ -93,81 +93,48 @@ var COMPONENT_UI = (function (cp, $) {
     cp.tblCaption = {
       constEl: {},
   
-      init: function() {
-          $('table').each(function() {
-              // summary 속성 제거
-              $(this).removeAttr('summary');
-  
-              var hasHeader = $(this).find('th').length > 0;
-  
-              if (!hasHeader) {
-                  // 헤더가 없는 테이블인 경우 caption 제거
-                  $(this).find('caption').remove();
-              } else {
-                  cp.tblCaption.processCaption.call(this); // 'this'를 넘겨줌
-              }
-          });
-          // 1. th속성이 있어?없어?
-          // 2. scope col = thead
-          // 3. scope row = tbody
-          // 4. scope row = tfoot(total)
-          // 5. tbody tfoot 합치기
-          // 6. colgroup, rowgroup 추가
-          // 7. td scope 없애기 + 8. th scope="row" 잘못된 scope 삭제
-          // 7,8 동시에 해결
-  
-          // thead의 각 셀에 scope="col"을 추가합니다. 
-          var theadCells = $('thead th');
-          var tbodyCells = $('tbody th, tfoot th');
-          var tdCells = $('tbody td, tfoot td');
-  
-          theadCells.each(function(){
-              // thead 각 셀이 <th> 요소이고 scope 속성이 없는 경우
-              $(this).removeAttr('scope'); // scope 속성 제거
-              if ($(this).is('th:not([scope])')){
-                  $(this).attr('scope', 'col');
-              }
-              var colSpanGroup = $(this).attr('colspan');
-              if(colSpanGroup !== undefined && colSpanGroup > 1) {
-                  $(this).attr('scope', 'colgroup');
-              }
-              var rowSpanGroup = $(this).attr('rowspan');
-              if(rowSpanGroup !== undefined && rowSpanGroup > 1) {
-                  $(this).attr('scope', 'rowgroup');
-              }
-          });
-          
-          // tbody th 각 셀에 scope="row"을 추가 
-          tbodyCells.each(function(){
-              // tbody 각 셀이 <th> 요소이고 scope 속성이 없는 경우
-              $(this).removeAttr('scope'); // scope 속성 제거
-              if ($(this).is('th:not([scope])')){
-                  $(this).attr('scope', 'row');
-              }
-              var colSpanGroup = $(this).attr('colspan');
-              if(colSpanGroup !== undefined && colSpanGroup > 1) {
-                  $(this).attr('scope', 'colgroup');
-              }
-              var rowSpanGroup = $(this).attr('rowspan');
-              if(rowSpanGroup !== undefined && rowSpanGroup > 1) {
-                  $(this).attr('scope', 'rowgroup');
-              }
-          });
-  
-          // td scope 없애기
-          tdCells.each(function(){
-              $(this).removeAttr('scope'); // scope 속성 제거
-              var colSpanGroup = $(this).attr('colspan');
-              if(colSpanGroup !== undefined && colSpanGroup > 1) {
-                  $(this).attr('scope', 'colgroup');
-              }
-              var rowSpanGroup = $(this).attr('rowspan');
-              if(rowSpanGroup !== undefined && rowSpanGroup > 1) {
-                  $(this).attr('scope', 'rowgroup');
-              }
-          });
-  
-      },
+        init: function() {
+            $('table').each(function() {
+                // summary 속성 제거
+                $(this).removeAttr('summary');
+
+                var hasHeader = $(this).find('th').length > 0;
+
+                if (!hasHeader) {
+                    // 헤더가 없는 테이블인 경우 caption 제거
+                    $(this).find('caption').remove();
+                } else {
+                    cp.tblCaption.processCaption.call(this); // 'this'를 넘겨줌
+                }
+            });
+
+            var theadCells = $('thead th');
+            var tbodyCells = $('tbody th, tfoot th');
+            var tdCells = $('tbody td, tfoot td');
+
+            function updateCells(cells, scopeType) { // 공통함수 인자(Cells, scopeType)
+                cells.each(function() { // each 메서드는 요소검사 및 반복하게 하는 함수
+                    
+                    $(this).removeAttr('scope'); // scope 속성 제거
+
+                    if ($(this).is('th:not([scope])')) {
+                        $(this).attr('scope', scopeType); // scope, scope유형 값 받기
+                    }
+                    var colSpanGroup = $(this).attr('colspan');
+                    if (colSpanGroup !== undefined && colSpanGroup > 1) { // 값이 1보다 크다면 실행
+                        $(this).attr('scope', 'colgroup');
+                    }
+                    var rowSpanGroup = $(this).attr('rowspan');
+                    if (rowSpanGroup !== undefined && rowSpanGroup > 1) { 
+                        $(this).attr('scope', 'rowgroup');
+                    }
+                });
+            }
+            // 셀에 대해 스코프 갱신
+            updateCells(theadCells, 'col'); // 스코프 유형 전달
+            updateCells(tbodyCells, 'row'); // 스코프 유형 전달
+            updateCells(tdCells, ''); // 원하는 스코프 유형 전달
+        },
   
       processCaption: function() {
           var captionType = $(this).data('caption');
@@ -258,8 +225,6 @@ var COMPONENT_UI = (function (cp, $) {
       getCaptionHtml: function(title, text) {
           return '<caption class="processedCaption"><strong>' + title + '</strong><p>' + text + ' 로 구성된 표' + '</p></caption>';
       },
-  
-      
     },
   
   
