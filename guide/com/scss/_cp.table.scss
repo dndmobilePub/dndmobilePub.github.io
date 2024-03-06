@@ -1,116 +1,27 @@
 /* TABLE */
 #{$tbl} {
   &Wrap {
+    & > p:first-child {margin-top:0;}
+    p {margin:4rem 0 1rem;}
     table{
-      @include width;
-      & + table {margin-top:2rem;}
+        @include width;
+        & + table {margin-top:2rem;}
 
-      th, td {padding:1rem; @include line(border, .1rem $color-gray5 solid);}
-      th {border-color:$color-gray3;}
+        th, td {padding:1rem; @include line(border, .1rem $color-gray5 solid);}
+        th {border-color:$color-gray3;}
 
-      thead {
-        th {background:$color-light-blue2;}
-        & + tbody {
-          th {background:$color-light-yellow1;}
-          & > tr:first-child th, & > tr:first-child td {@include line(border, none, top)}
+        thead {
+          th {background:$color-light-blue2;}
+          & + tbody {
+              & > tr:first-child th, & > tr:first-child td {@include line(border, none, top)}
+          }
         }
-      }
-      
+        tbody {
+            th {background:$color-light-yellow1;}
+        }    
     }
-    
-  }
-}
-
-.cp-tbl {
-  @include display(flex) {justify-content:start;}
-  @include fontSize("xs"); font-weight: 400; margin-top:1rem;
-  .desc {
-    @include display(none);
-    @include width(50rem);
-    background:$color-light-green1; padding:15px;
-    margin-right:5rem;
-    @include line(border, .1rem $color-light-green2 solid);
-
-    p {
-      @include el-content(before) {
-        @include display(inline-block);
-        @include el-size(.2rem, 1rem);
-        background-color:$color-orange;
-        margin-right:5px;
-      }
-      & ~ p, & ~ ul {margin-top:10px;}
-    }
-  }
-
-  ul{
-    p{
-      @include el-content(before){@include display(none);}
-    }
-  }
-
-  b {color:$color-red;}
-  strong {
-    color:$color-green;
-    font-weight: bold;
-    & + div, & + ul {margin-top:1rem;}
-  }
-
-  .bul{
-    & > li {
-      @include pos(relative);
-      margin:.2rem 0 0; padding:0 0 .4rem 1.3rem; color:$color-black;
-
-      @include el-content(before) {
-        @include pos-offset-l(.7rem, .5rem);
-        @include el-size(.3rem, .3rem);
-        border-radius: 100%; background-color:$color-blue2;
-      }
-    }
-  }
-  .case {
-    counter-reset: number 0;
-    & > li {
-      padding:10px 0; @include line(border, .1rem $color-light-green2 solid, top);
-      @include el-content(before) {
-        @include display(inline-block){content:'CASE';}
-        counter-increment: number 1;
-        color:$color-white; font-weight:400; font-size:var(--space-3xs);
-        background-color:$color-green;
-        padding:.3rem .5rem; margin-right:.5rem; border-radius:.3rem;
-        @include align(valign, top);
-      }
-    }
-  }
- 
-  #{$tbl} {
-    &Wrap {
-      > p:first-child {margin-top:0;}
-      p {margin:4rem 0 1rem;}
-    }
-    caption {
-      @include pos(relative !important);
-      padding:1.5rem 1rem .5rem !important;
-      background-color:$color-gray6;
-      font-size:var(--space-2xs) !important;
-      @include line(border, 1px $color-gray8 solid !important);
   
-      @include el-content(before) {
-        @include display(inline-block !important) {content:'Table Caption' !important;}
-        @include pos-offset-l(-.5rem !important, -.5rem !important);
-        padding:.3rem 1rem;
-      }
-  
-      & > p {margin:0 !important;}
-    }
-    legend, caption {
-      @include overflow(both, visible !important);
-      @include el-size(auto !important, auto !important);
-      margin: auto !important;
-      line-height: inherit !important;
-      clip: auto;
-    } 
   }
-  
 }
 
 

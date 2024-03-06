@@ -600,6 +600,150 @@
   height: 1px;
 }
 
+/* TABLE */
+.cp-tbl {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: start;
+  font-size: 1.2rem;
+  font-weight: 400;
+  margin-top: 1rem;
+}
+.cp-tbl .tblWrap > p:first-child {
+  margin-top: 0;
+}
+.cp-tbl .tblWrap p {
+  margin: 4rem 0 1rem;
+}
+.cp-tbl .tblWrap table {
+  width: 100%;
+}
+.cp-tbl .tblWrap table + table {
+  margin-top: 2rem;
+}
+.cp-tbl .tblWrap table th, .cp-tbl .tblWrap table td {
+  padding: 1rem;
+  border: 0.1rem #aaa solid;
+}
+.cp-tbl .tblWrap table th {
+  border-color: #666;
+}
+.cp-tbl .tblWrap table thead th {
+  background: #d9e4fa;
+}
+.cp-tbl .tblWrap table thead + tbody > tr:first-child th, .cp-tbl .tblWrap table thead + tbody > tr:first-child td {
+  border-top: none;
+}
+.cp-tbl .tblWrap table tbody th {
+  background: #f3f1ea;
+}
+.cp-tbl .tblWrap caption {
+  position: relative !important;
+  padding: 1.5rem 1rem 0.5rem !important;
+  background-color: #ddd;
+  font-size: var(--space-xs) !important;
+  border: 1px #ccc solid !important;
+}
+.cp-tbl .tblWrap caption::before {
+  content: "";
+  display: block;
+  background-color: #aaa;
+  display: inline-block !important;
+  content: "Table Caption" !important;
+  position: absolute;
+  top: -0.5rem !important;
+  left: -0.5rem !important;
+  padding: 0.3rem 1rem;
+}
+.cp-tbl .tblWrap caption > p {
+  margin: 0 !important;
+}
+.cp-tbl .tblWrap legend, .cp-tbl .tblWrap caption {
+  overflow: visible !important;
+  width: auto !important;
+  height: auto !important;
+  margin: auto !important;
+  line-height: inherit !important;
+  clip: auto;
+}
+.cp-tbl .desc {
+  display: none;
+  width: 50rem;
+  background: #d3ffe5;
+  padding: 15px;
+  margin-right: 5rem;
+  border: 0.1rem #8ed0aa solid;
+}
+.cp-tbl .desc p::before {
+  content: "";
+  display: block;
+  display: inline-block;
+  width: 0.2rem;
+  height: 1rem;
+  background-color: #ff3502;
+  margin-right: 5px;
+}
+.cp-tbl .desc p ~ p, .cp-tbl .desc p ~ ul {
+  margin-top: 10px;
+}
+.cp-tbl ul p::before {
+  content: "";
+  display: block;
+  display: none;
+}
+.cp-tbl b {
+  color: #e00700;
+}
+.cp-tbl strong {
+  color: #016823;
+  font-weight: bold;
+}
+.cp-tbl strong + div, .cp-tbl strong + ul {
+  margin-top: 1rem;
+}
+.cp-tbl .bul > li {
+  position: relative;
+  margin: 0.2rem 0 0;
+  padding: 0 0 0.4rem 1.3rem;
+  color: #000;
+}
+.cp-tbl .bul > li::before {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 0.7rem;
+  left: 0.5rem;
+  width: 0.3rem;
+  height: 0.3rem;
+  border-radius: 100%;
+  background-color: #0048ff;
+}
+.cp-tbl .case {
+  counter-reset: number 0;
+}
+.cp-tbl .case > li {
+  padding: 10px 0;
+  border-top: 0.1rem #8ed0aa solid;
+}
+.cp-tbl .case > li::before {
+  content: "";
+  display: block;
+  display: inline-block;
+  content: "CASE";
+  counter-increment: number 1;
+  color: #fff;
+  font-weight: 400;
+  font-size: var(--space-3xs);
+  background-color: #016823;
+  padding: 0.3rem 0.5rem;
+  margin-right: 0.5rem;
+  border-radius: 0.3rem;
+  vertical-align: top !important;
+}
+
 .tit {
   padding: 0.5rem 0;
 }
@@ -3555,6 +3699,12 @@
 }
 
 /* TABLE */
+.tblWrap > p:first-child {
+  margin-top: 0;
+}
+.tblWrap p {
+  margin: 4rem 0 1rem;
+}
 .tblWrap table {
   width: 100%;
 }
@@ -3571,131 +3721,11 @@
 .tblWrap table thead th {
   background: #d9e4fa;
 }
-.tblWrap table thead + tbody th {
-  background: #f3f1ea;
-}
 .tblWrap table thead + tbody > tr:first-child th, .tblWrap table thead + tbody > tr:first-child td {
   border-top: none;
 }
-
-.cp-tbl {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: start;
-      -ms-flex-pack: start;
-          justify-content: start;
-  font-size: 1.2rem;
-  font-weight: 400;
-  margin-top: 1rem;
-}
-.cp-tbl .desc {
-  display: none;
-  width: 50rem;
-  background: #d3ffe5;
-  padding: 15px;
-  margin-right: 5rem;
-  border: 0.1rem #8ed0aa solid;
-}
-.cp-tbl .desc p::before {
-  content: "";
-  display: block;
-  display: inline-block;
-  width: 0.2rem;
-  height: 1rem;
-  background-color: #ff3502;
-  margin-right: 5px;
-}
-.cp-tbl .desc p ~ p, .cp-tbl .desc p ~ ul {
-  margin-top: 10px;
-}
-.cp-tbl ul p::before {
-  content: "";
-  display: block;
-  display: none;
-}
-.cp-tbl b {
-  color: #e00700;
-}
-.cp-tbl strong {
-  color: #016823;
-  font-weight: bold;
-}
-.cp-tbl strong + div, .cp-tbl strong + ul {
-  margin-top: 1rem;
-}
-.cp-tbl .bul > li {
-  position: relative;
-  margin: 0.2rem 0 0;
-  padding: 0 0 0.4rem 1.3rem;
-  color: #000;
-}
-.cp-tbl .bul > li::before {
-  content: "";
-  display: block;
-  position: absolute;
-  top: 0.7rem;
-  left: 0.5rem;
-  width: 0.3rem;
-  height: 0.3rem;
-  border-radius: 100%;
-  background-color: #0048ff;
-}
-.cp-tbl .case {
-  counter-reset: number 0;
-}
-.cp-tbl .case > li {
-  padding: 10px 0;
-  border-top: 0.1rem #8ed0aa solid;
-}
-.cp-tbl .case > li::before {
-  content: "";
-  display: block;
-  display: inline-block;
-  content: "CASE";
-  counter-increment: number 1;
-  color: #fff;
-  font-weight: 400;
-  font-size: var(--space-3xs);
-  background-color: #016823;
-  padding: 0.3rem 0.5rem;
-  margin-right: 0.5rem;
-  border-radius: 0.3rem;
-  vertical-align: top !important;
-}
-.cp-tbl .tblWrap > p:first-child {
-  margin-top: 0;
-}
-.cp-tbl .tblWrap p {
-  margin: 4rem 0 1rem;
-}
-.cp-tbl .tbl caption {
-  position: relative !important;
-  padding: 1.5rem 1rem 0.5rem !important;
-  background-color: #ddd;
-  font-size: var(--space-2xs) !important;
-  border: 1px #ccc solid !important;
-}
-.cp-tbl .tbl caption::before {
-  content: "";
-  display: block;
-  display: inline-block !important;
-  content: "Table Caption" !important;
-  position: absolute;
-  top: -0.5rem !important;
-  left: -0.5rem !important;
-  padding: 0.3rem 1rem;
-}
-.cp-tbl .tbl caption > p {
-  margin: 0 !important;
-}
-.cp-tbl .tbl legend, .cp-tbl .tbl caption {
-  overflow: visible !important;
-  width: auto !important;
-  height: auto !important;
-  margin: auto !important;
-  line-height: inherit !important;
-  clip: auto;
+.tblWrap table tbody th {
+  background: #f3f1ea;
 }
 
 /****************************************/
