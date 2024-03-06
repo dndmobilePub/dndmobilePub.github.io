@@ -47,7 +47,8 @@ SyntaxHighlighter.all();
                     <li class="swiper-slide" role="group"><a href="#doc2" role="button">컨텐츠 가이드</a></li>
                     <li class="swiper-slide" role="group"><a href="#doc3" role="button">SCSS 가이드</a></li>
                     <li class="swiper-slide" role="group"><a href="#doc4" role="button">JS 가이드</a></li>
-                    <li class="swiper-slide" role="group"><a href="#doc5" role="button">주석가이드</a></li>
+                    <li class="swiper-slide" role="group"><a href="#doc5" role="button">주석 가이드</a></li>
+                    <li class="swiper-slide" role="group"><a href="#doc6" role="button">예약어 가이드</a></li>
 				</ul>
                 <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span>
                 <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span>
@@ -472,14 +473,17 @@ SyntaxHighlighter.all();
                                     <strong class="wg-TxtTit">DATA TABLE</strong>
                                     <ul class="wg-lstBody wg-lst-bar">
                                         <li>table Mark up에 <b>thead, th를 포함</b>하고 있는 경우 무조건 데이터테이블로 간주</li>
-                                        <li>데이터 테이블일 경우 Mark up 작성 순서(필수) : <b>table[summary]>caption>colgroup>thead>tfoot>tbody</b></li>
-                                        <li>데이터 테이블일 경우 <strong class="txt_underLine">summary, caption의 속성 사용 필수</strong> <b>html5에서는 summary 제외.</b></li>
-                                        <li><b>[/com/js/cm.jQuery.browser.vers.js]</b>에서 데이터 테이블의 <strong class="txt_underLine">caption/summary 자동 적용</strong></li>
+                                        <li>데이터 테이블일 경우 Mark up 작성 순서(필수) : <b>table>caption[표의 제목+설명]>colgroup>thead>tfoot>tbody</b></li>
+                                        <li>데이터 테이블일 경우 <strong class="uline">caption의 속성 사용 필수</strong></li>
+                                        <li><b>[ui.component.js / cp.tblCaption()]</b>에서 데이터 테이블의 <strong class="uline">caption 자동 적용 : component/table.html 참고</strong></li>
                                             <div class="wg-codeBox">
                                                 <pre class="brush: js; html-script: true">
                                                     <!-- 기본 DATA TABLE 구조 -->
-                                                    &lt;table summary="데이터 테이블에 대한 설명">&lt;!-- 데이터 테이블일 경우 summary 작성 필수. html5에서는 summary 속성 사용하지 않음 -->
-                                                    &lt;caption>데이터 테이블 제목&lt;/caption>&lt;!-- 데이터 테이블일 경우 caption 작성 필수. -->
+                                                    &lt;table>
+                                                    &lt;caption>
+                                                        &lt;strong>데이터 테이블 제목&lt;/strong>
+                                                        &lt;p>데이터 테이블 설명&lt;/p>
+                                                    &lt;/caption>&lt;!-- 데이터 테이블일 경우 caption 작성 필수. -->
                                                     &lt;colgroup>
                                                         &lt;col>&lt;col>
                                                     &lt;/colgroup>                                            
@@ -502,48 +506,40 @@ SyntaxHighlighter.all();
                                                         &lt;/tr>
                                                     &lt;/tbody>
                                                 &lt;/table>
-    
-                                                <!-- HTML5 DATA TABLE CAPTION -->
-                                                &lt;table>
-                                                    &lt;caption>
-                                                        &lt;strong>HTML5 데이터 테이블 구조&lt;/strong>
-                                                        &lt;p>HTML5 데이터 테이블 구조에 대한 내용&lt;/p>
-                                                    &lt;/caption>
-                                                    ...
-                                                &lt;/table>
                                                 </pre>
                                             </div>
                                         </li>
                                     </ul>
                                 </dd>
                                 <dd class="wg-txtCont">
-                                    <strong class="wg-TxtTit">scope, id/headers 작성 가이드</strong>
+                                    <strong class="wg-TxtTit">scope 작성 가이드</strong>
                                     <ul class="wg-lstBody wg-lst-bar">
-                                        <li>scope-col 작성 예
-                                            <table class="guideTbl01 gray c">
-                                                <caption>데이터테이블:scope-col 작성 예</caption>
-                                                <colgroup>
-                                                    <col style="width:20%" span="5">
-                                                </colgroup>
-                                                <thead>
-                                                    <tr>
-                                                        <th scope="col">scope=col</th>
-                                                        <th scope="col">scope=col</th>
-                                                        <th scope="col">scope=col</th>
-                                                        <th scope="col">scope=col</th>
-                                                        <th scope="col">scope=col</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr>
-                                                        <td>&nbsp;</td>
-                                                        <td>&nbsp;</td>
-                                                        <td>&nbsp;</td>
-                                                        <td>&nbsp;</td>
-                                                        <td>&nbsp;</td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
+                                        <li>scope-col / scope-colgroup 작성 예
+                                            <div class="tblWrap">
+                                                <table class="c">
+                                                    <caption>데이터테이블:scope-col 작성 예</caption>
+                                                    <colgroup>
+                                                        <col style="width:20%" span="5">
+                                                    </colgroup>
+                                                    <thead>
+                                                        <tr>
+                                                            <th scope="col">scope=col</th>
+                                                            <th colspan="2" scope="colgroup">scope=colgroup</th>
+                                                            <th scope="col">scope=col</th>
+                                                            <th scope="col">scope=col</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>내용셀</td>
+                                                            <td>내용셀</td>
+                                                            <td>내용셀</td>
+                                                            <td>내용셀</td>
+                                                            <td>내용셀</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
                                             <div class="wg-codeBox">
                                                 <pre class="brush: js; html-script: true">
                                                 &lt;table>
@@ -566,28 +562,36 @@ SyntaxHighlighter.all();
                                             </div>
                                         </li>
                                         <li>scope-row 작성 예
-                                            <table class="guideTbl01 gray c">
-                                                <caption>데이터테이블:scope-row 작성 예</caption>
-                                                <colgroup>
-                                                    <col style="width:20%" span="5">
-                                                </colgroup>
-                                                <tbody>
-                                                    <tr>
-                                                        <th scope="row">scope=row</th>
-                                                        <td>&nbsp;</td>
-                                                        <td>&nbsp;</td>
-                                                        <td>&nbsp;</td>
-                                                        <td>&nbsp;</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th scope="row">scope=row</th>
-                                                        <td>&nbsp;</td>
-                                                        <td>&nbsp;</td>
-                                                        <td>&nbsp;</td>
-                                                        <td>&nbsp;</td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
+                                            <div class="tblWrap">
+                                                <table class="c">
+                                                    <caption>데이터테이블:scope-row 작성 예</caption>
+                                                    <colgroup>
+                                                        <col style="width:20%" span="5">
+                                                    </colgroup>
+                                                    <tbody>
+                                                        <tr>
+                                                            <th scope="row">scope=row</th>
+                                                            <td>내용셀</td>
+                                                            <td>내용셀</td>
+                                                            <td>내용셀</td>
+                                                            <td>내용셀</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th rowspan="2" scope="rowgroup">scope=row</th>
+                                                            <td>내용셀</td>
+                                                            <td>내용셀</td>
+                                                            <td>내용셀</td>
+                                                            <td>내용셀</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>내용셀</td>
+                                                            <td>내용셀</td>
+                                                            <td>내용셀</td>
+                                                            <td>내용셀</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
                                             <div class="wg-codeBox">
                                                 <pre class="brush: js; html-script: true">
                                                 &lt;table>
@@ -602,76 +606,6 @@ SyntaxHighlighter.all();
                                                             &lt;td>&nbsp;&lt;/td>
                                                             &lt;td>&nbsp;&lt;/td>
                                                             &lt;td>&nbsp;&lt;/td>
-                                                        &lt;/tr>
-                                                    &lt;/tbody>
-                                                &lt;/table>
-                                                </pre>
-                                            </div>
-                                        </li>
-                                        <li>id/headers 작성 예
-                                            <table class="guideTbl01 gray c">
-                                                <caption>데이터테이블:id/headers 작성 예</caption>
-                                                <colgroup>
-                                                    <col style="width:20%" span="5">
-                                                </colgroup>
-                                                <thead>
-                                                    <tr>
-                                                        <th scope="col" colspan="2" rowspan="2" id="exc1">id=exc1</th>
-                                                        <th scope="col" colspan="2" id="exc2">id=exc2</th>
-                                                        <th scope="col" rowspan="2" id="exc3">id=exc3</th>
-                                                    </tr>
-                                                    <tr>
-                                                        <th scope="col" id="exc4">id=exc4</th>
-                                                        <th scope="col" id="exc5">id=exc5</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr>
-                                                        <th scope="row" id="exr1">id=exr1</th>
-                                                        <th scope="row" id="exr2">id=exr2</th>
-                                                        <td headers="exc2 exc4 exr1 exr2">headers=exc2 exc4 exr1 exr2</td>
-                                                        <td headers="exc2 exc5 exr1 exr2">headers=exc2 exc5 exr1 exr2</td>
-                                                        <td headers="exc3 exc6 exr1 exr2">headers=exc3 exr1 exr2</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th scope="row" colspan="2" id="exr3">id=exr3</th>
-                                                        <td headers="exc2 exc4 exr3">headers=exc2 exc4 exr3</td>
-                                                        <td headers="exc2 exc5 exr3">headers=exc2 exc5 exr3</td>
-                                                        <td headers="exc3 exr3">headers=exc3 exr3</td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                            <div class="wg-codeBox">
-                                                <pre class="brush: js; html-script: true">
-                                                &lt;table>
-                                                    &lt;caption>데이터테이블:id/headers 작성 예&lt;/caption>
-                                                    &lt;colgroup>
-                                                        &lt;col style="width:20%" span="5">
-                                                    &lt;/colgroup>
-                                                    &lt;thead>
-                                                        &lt;tr>
-                                                            &lt;th scope="col" colspan="2" rowspan="2" id="exc1">id=exc1&lt;/th>
-                                                            &lt;th scope="col" colspan="2" id="exc2">id=exc2&lt;/th>
-                                                            &lt;th scope="col" rowspan="2" id="exc3">id=exc3&lt;/th>
-                                                        &lt;/tr>
-                                                        &lt;tr>
-                                                            &lt;th scope="col" id="exc4">id=exc4&lt;/th>
-                                                            &lt;th scope="col" id="exc5">id=exc5&lt;/th>
-                                                        &lt;/tr>
-                                                    &lt;/thead>
-                                                    &lt;tbody>
-                                                        &lt;tr>
-                                                            &lt;th scope="row" id="exr1">id=exr1&lt;/th>
-                                                            &lt;th scope="row" id="exr2">id=exr2&lt;/th>
-                                                            &lt;td headers="exc2 exc4 exr1 exr2">headers=exc2 exc4 exr1 exr2&lt;/td>
-                                                            &lt;td headers="exc2 exc5 exr1 exr2">headers=exc2 exc5 exr1 exr2&lt;/td>
-                                                            &lt;td headers="exc3 exc6 exr1 exr2">headers=exc3 exr1 exr2&lt;/td>
-                                                        &lt;/tr>
-                                                        &lt;tr>
-                                                            &lt;th scope="row" colspan="2" id="exr3">id=exr3&lt;/th>
-                                                            &lt;td headers="exc2 exc4 exr3">headers=exc2 exc4 exr3&lt;/td>
-                                                            &lt;td headers="exc2 exc5 exr3">headers=exc2 exc5 exr3&lt;/td>
-                                                            &lt;td headers="exc3 exr3">headers=exc3 exr3&lt;/td>
                                                         &lt;/tr>
                                                     &lt;/tbody>
                                                 &lt;/table>
@@ -782,7 +716,24 @@ SyntaxHighlighter.all();
                                             속성값은 반드시 변수로 적용되도록 작성한다. (_variables.scss 에 선언된 변수값을 참고)<br>
                                             <p class="wg-ico wg-ico-star">WSG에 따라 필요시 _variables.scss 에 선언된 변수값을 수정/추가 할 수 있다.</p>
                                         </li>
-                                        <li></li>
+                                        <li>엘리먼트 상위에 선언되는 wrap가 있는 클래스는 카멜 스타일로 선언(ex. classWrap) 그외 클래스는 예약어-클래스명, 또는 클래스성격-클래스명 등의 형태인 (-)하이픈으로 연겨된 클래스명을 갖도록 작성한다
+                                            <div class="wg-codeBox">
+                                                <pre class="brush: js; html-css: true;">
+                                                    /* 카멜선언 */
+                                                    .btnWrap {}
+                                                    .tblWrap {}
+                                                    .lstWrap {}
+                                                    
+                                                    /* (-) 하이픈선언 */
+                                                    .btn {
+                                                        &-style {}
+                                                    }
+                                                    .cont {
+                                                        &-desc {}
+                                                    }
+                                                </pre>
+                                            </div>
+                                        </li>
                                         <li>scss 속성 선언시 모든 속성은 소문자로 작성되어야 하며, 선언된 속성과 속성 사이는 빈칸으로 구분하고 속성과 속성값 사이에 빈칸은 적용하지 않는다.</b>
                                             <div class="wg-codeBox">
                                                 <pre class="brush: js; html-css: true;">
@@ -790,91 +741,10 @@ SyntaxHighlighter.all();
                                                     1. 속성과 속성값 사이 빈칸 적용
                                                     2. 속성에 대문자 사용
                                                     */
-                                                    .example {display: block; Background: #fff; COLOR: #000;}
+                                                    .example {display: block; Background: $color-white; COLOR: $color-black;}
                                                     
                                                     /* 올바른 사용 예 */
-                                                    .example {display:block; background:#fff; color:#000;}
-                                                </pre>
-                                            </div>
-                                        </li>
-                                        <li>페이지내 style 사용은 금하며, <b>예외적으로 input 또는 팝업(레이어팝업 포함) 사이즈 지정이 필요한 경우 style="width" 사용</b>할 수 있다.</li>
-                                        <li>문서내 margin/padding 사용이 필요할 경우 해당 요소의 클래스내에서 처리하며, 아래 예시와 같이 <b>inner style 또는 공통클래스(ex. marT15, padL20 등)를 만들어 사용하지 않는다</b>
-                                            <div class="wg-codeBox">
-                                                <pre class="brush: js; html-script: true;">
-                                                    &lt;!-- 잘못된 사용 예 -->
-                                                    &lt;p style="margin-top:20px; padding-bottom:15px;">사용금지&lt;/p>
-                                                    &lt;p class="marT20 padL20">사용금지&lt;/p>
-                                                    
-                                                    &lt;!-- 올바른 사용 예 -->
-                                                    p.sampleBox {margin-top:20px; padding-bottom:15px;}
-                                                    &lt;p class="sampleBox">inner style 또는 공통클래스(ex. marT15, padL20 등)를 만들어 사용하지 않는다.&lt;/p>
-                                                </pre>
-                                            </div>
-                                        </li>
-                                        <li>속성값으로 한글폰트 및 이미지 URL 표기시 <b>작은 따옴표{''}를 사용</b>하며, <b>모든 속성의 마지막에는 세미콜론(;)을 작성</b>하도록 한다.
-                                            <div class="wg-codeBox">
-                                                <pre class="brush: css; html-css: true">
-                                                div {font-family:'맑은고딕', '돋움'; background:url(/front/img/temp.gif);} /* 속성 마지막에는 반드시 (;) 작성. */
-                                                </pre>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </dd>
-                            </dl>
-                        </div><!--// .wg-contBoxWrap end -->
-                    </article>
-
-                    <article class="wg-fxWrap wg-colWrap">
-    
-                        <div class="wg-contBoxWrap wg-fx">
-                            <dl class="wg-contBody">
-                                <dt>SCSS 가이드</dt>
-                                <dd class="wg-txtCont">
-                                    <strong class="wg-TxtTit">CSS 선언</strong>
-                                    <ul class="wg-lstBody wg-lst-bar">
-                                        <li>css 는 해당 카테고리의 것만 사용하며, <b>공통 css파일을 해당 카테고리 css 페이지 내에 import 시켜서 사용</b>한다.
-                                            <div class="wg-codeBox">
-                                                <pre class="brush: html;">
-                                                    <!-- 공통 CSS -->
-                                                    &lt;link rel="stylesheet" type="text/css" href="/com/css/cm.import.css">
-                                                     
-                                                    <!-- 카테고리/페이지별 CSS -->
-                                                    &lt;link rel="stylesheet" type="text/css" href="/com/css/main.css">
-                                                </pre>
-    
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </dd>
-                                <dd class="wg-txtCont">
-                                    <strong class="wg-TxtTit">CSS 파일명 작성 규칙</strong>
-                                    <ul class="wg-lstBody wg-lst-bar">
-                                        <li>css 파일은 기본적으로 <b>[./com/css/]</b> 폴더 내에 포함된다.</li>
-                                        <li>프로젝트 내 공통적으로 사용되는 CSS 파일은 <b>[cm.*.css]</b>의 형태로 작성되어야 한다.
-                                            <div class="wg-codeBox">
-                                                <pre class="brush: js; html-css: true;">
-                                                    @import url ("cm.reset.css");        /* 문서 초기화 스타일 */
-                                                    @import url ("cm.layout.css");       /* 공통 레이아웃 (ex. 타입별 레이아웃구조[1단 레이아웃, 2단 레이아웃 등], 뎁스별 타이틀 체계, gnb 등) */
-                                                    @import url ("cm.projectName.css");		 /* 공통 스타일 (ex. 버튼, 테이블, 게시판, 기본 블릿리스트, 팝업 등) */
-                                                </pre>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </dd>
-                                <dd class="wg-txtCont">
-                                    <strong class="wg-TxtTit">CSS 기본사용 규칙</strong>
-                                    <ul class="wg-lstBody wg-lst-bar">
-                                        <li>css 속성 선언시 모든 속성은 소문자로 작성되어야 하며, 선언된 속성과 속성 사이는 빈칸으로 구분하고 속성과 속성값 사이에 빈칸은 적용하지 않는다.</b>
-                                            <div class="wg-codeBox">
-                                                <pre class="brush: js; html-css: true;">
-                                                    /* 잘못된 사용 예
-                                                    1. 속성과 속성값 사이 빈칸 적용
-                                                    2. 속성에 대문자 사용
-                                                    */
-                                                    .example {display: block; Background: #fff; COLOR: #000;}
-                                                    
-                                                    /* 올바른 사용 예 */
-                                                    .example {display:block; background:#fff; color:#000;}
+                                                    .example {display:block; background:$color-white; color:$color-black;}
                                                 </pre>
                                             </div>
                                         </li>
@@ -918,24 +788,15 @@ SyntaxHighlighter.all();
                                 <dd class="wg-txtCont">
                                     <strong class="wg-TxtTit">JQUERY 선언</strong>
                                     <ul class="wg-lstBody wg-lst-bar">
-                                        <li>jquery 버전은 항상 <b>최신 버전(jQuery 1.x 기준)을 사용</b>하며, 하위 버전과의 호환성을 위해 <b>jQuery Migrate</b>를 함께 사용하도록 한다.
+                                        <li>jquery 버전은 항상 <b>최신 버전(jQuery 3.x 기준)을 사용</b>하며, 필요시 하위 버전과의 호환성을 위해 jQuery Migrate를 함께 사용할 수 있다.
                                             <div class="wg-codeBox">
                                                 <pre class="brush: js; html-script: true;">
                                                     <!-- jquery default -->
-                                                    &lt;script type="text/javascript" src="./com/js/jquery-1.12.4.min.js">&lt;/script>
-                                                    &lt;script type="text/javascript" src="./com/js/jquery-migrate-1.4.1.min.js">&lt;/script>
-                                                    &lt;script type="text/javascript" src="./com/js/jquery-easing-1.4.1.min.js">&lt;/script>
-                                                </pre>
-                                            </div>
-                                        </li>
-                                        <li>jquery UI 또는 jquery Mobile 을 사용할 경우 <b>최신버전</b>을 사용한다.
-                                            <div class="wg-codeBox">
-                                                <pre class="brush: js; html-script: true;">
+                                                    &lt;script type="text/javascript" src="./asset/js/plugin/lib.jquery-3.7.1.min.js">&lt;/script>
+                                                    <!-- jquery 버전 호환성 - 필요시 사용 -->
+                                                    &lt;script type="text/javascript" src="./com/js/jquery-migrate-3.4.0.min.js">&lt;/script>
                                                     <!-- jquery UI -->
-                                                    &lt;script type="text/javascript" src="./com/js/jquery-ui-1.11.4.js">&lt;/script>
-    
-                                                    <!-- jquery Mobile -->
-                                                    &lt;script type="text/javascript" src="./com/js/jquery.mobile-1.4.5.min.js">&lt;/script>
+                                                    &lt;script type="text/javascript" src="./com/js/jquery-ui-1.13.2.js">&lt;/script>
                                                 </pre>
                                             </div>
                                         </li>
@@ -944,19 +805,20 @@ SyntaxHighlighter.all();
                                 <dd>
                                     <strong class="wg-TxtTit">JS 파일명 작성 규칙</strong>
                                     <ul class="wg-lstBody wg-lst-bar">
-                                        <li>js 파일은 기본적으로 <b>[./com/js/]</b> 폴더 내에 포함된다.</li>
-                                        <li>기본적으로 제이쿼리 문서의 파일명에는 <b>jquery</b>를 포함하며, [.]로 파일명 네임을 구분하도록 한다.</li>                                    
-                                        <li>퍼블리싱팀에서 작성하는 js 파일은 <b>[cm.*.js]</b>의 형태로 작성되어야 한다.
+                                        <li>js 파일은 기본적으로 <b>[./asset/js/]</b> 폴더 내에 포함된다.</li>
+                                        <li>각 파일마다 성격에 따라 지정된 접두어로 시작되며, [.]로 파일명 네임을 구분하도록 한다.</li>                                        
+                                        <li>jquery library/plugin 을 사용할 경우 파일명 앞에 <b>[lib.*.js], [pg.*.js]</b>의 형태로 작성되어야 한다.
                                             <div class="wg-codeBox">
                                                 <pre class="brush: js; html-script: true;">
-                                                    &lt;script type="text/javascript" src="./com/js/cm.import.js">&lt;/script>
+                                                    &lt;script type="text/javascript" src="./asset/js/plugin/lib.jquery-3.7.1.min.js">&lt;/script>
+                                                    &lt;script type="text/javascript" src="./asset/js/plugin/pg.cropper.js">&lt;/script>
                                                 </pre>
                                             </div>
                                         </li>
-                                        <li>jquery plugin 을 사용할 경우 파일명 앞에 <b>[pg.*.js]</b>의 형태로 작성되어야 한다.
+                                        <li>퍼블리싱팀에서 작성하는 js 파일은 <b>[ui.*.js]</b>의 형태로 작성되어야 한다.
                                             <div class="wg-codeBox">
                                                 <pre class="brush: js; html-script: true;">
-                                                    &lt;script type="text/javascript" src="./com/js/pg.slick.js">&lt;/script>
+                                                    &lt;script type="text/javascript" src="./asset/js/ui.component.js">&lt;/script>
                                                 </pre>
                                             </div>
                                         </li>
@@ -972,22 +834,97 @@ SyntaxHighlighter.all();
                     <div class="wg-hgroup">
                         <h2 class="wgTit01">주석 가이드</h2>
                     </div>
+                    <article class="wg-fxWrap wg-rowWrap">
+                        <div class="wg-contBoxWrap wg-fx">
+                            <dl class="wg-contBody">
+                                <dt>주석 가이드</dt>
+                                <dd class="wg-txtCont">
+                                    <strong class="wg-TxtTit">HTML 주석 가이드</strong>
+                                    <ul class="wg-lstBody wg-lst-bar">
+                                        <li>섹션, 모듈, 단락의 구분을 위해 사용되는 주석은 시작과 끝을 항상 표시해야 한다.
+                                            <div class="wg-codeBox">
+                                                <pre class="brush: js; html-script: true;">
+                                                    <!-- [S] 섹션타입1 -->
+                                                    &lt;section class="content">...&lt;/section>
+                                                    <!--// [E] 섹션타입1 -->
+                                                </pre>
+                                            </div>
+                                        </li>
+                                        <li>작업자 전달용으로 주석 작성 필요시
+                                            <div class="wg-codeBox">
+                                                <pre class="brush: js; html-script: true;">
+                                                    <!-- [P] : 퍼블리셔를 위한 주석입니다. -->
+                                                    <!-- [D] : 개발자를 위한 주석입니다. -->
+                                                    <!-- [P/D] : 퍼블리셔 & 개발자를 위한 주석입니다. -->
+                                                </pre>
+                                            </div>
+                                        </li>                                        
+                                        <li>수정변동이 발생되어 히스토리를 위해 주석 작성 필요시
+                                            <div class="wg-codeBox">
+                                                <pre class="brush: js; html-script: true;">
+                                                    <!-- YYYY.MM.DD 작업자명 히스토리 -->
+                                                </pre>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </dd>
+                            </dl>
+                        </div>
+
+                        <div class="wg-contBoxWrap wg-fx">
+                            <dl class="wg-contBody">
+                                <dt>주석 가이드</dt>
+                                <dd class="wg-txtCont">
+                                    <strong class="wg-TxtTit">CSS 주석 가이드</strong>
+                                    <ul class="wg-lstBody wg-lst-bar">
+                                        <li>선언된 SCSS의 카테고리, 성격 등으로 내용이 구분되는 경우
+                                            <div class="wg-codeBox">
+                                                <pre class="brush: js; html-css: true;">
+                                                    /* 메뉴명, 카테고리명, 성격 */
+                                                    .menu {}
+                                                </pre>
+                                            </div>
+                                        </li>                              
+                                        <li>수정변동이 발생되어 히스토리를 위해 주석 작성 필요시
+                                            <div class="wg-codeBox">
+                                                <pre class="brush: js; html-css: true;">
+                                                    /* YYYY-MM-DD 작업자명
+                                                       기존 코드 주석처리 및 수정내용/히스토리 작성
+                                                       .desc-box {color:$color-white;}
+                                                    */
+                                                    .desc-box {color:$color-orange;}
+                                                </pre>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </dd>
+                            </dl>
+                        </div>
+                    </article>
+                </section>
+
+                <hr class="target_hr" id="doc6" />
+                <section class="pg-docSection">
+                    <div class="wg-hgroup">
+                        <h2 class="wgTit01">예약어 가이드</h2>
+                    </div>
                     <article class="wg-fxWrap wg-colWrap">
                         <div class="wg-contBoxWrap wg-fx">
                             <dl class="wg-contBody">
-                                <dt>CSS 예약어 가이드 : 카멜 표기법 사용</dt>
+                                <dt>SCSS 예약어 가이드 : 카멜 표기법 + (-)하이픈 표기법 사용</dt>
                                 <dd class="wg-txtCont">
-                                    <strong class="wg-TxtTit">레이아웃 관련 ID/CSS 예약어</strong>
+                                    <p class="wg-ico wg-ico-star" style="margin-bottom:2rem;"><strong class="uline">_variables.scss</strong>에 선언된 예약어 참고</p>
+                                    <strong class="wg-TxtTit">레이아웃 관련 CSS 예약어</strong>
                                     <!-- <div class="wg-lstBody">- ID 및 예약어 클래스는 카멜표기법(camelCase)으로 적용</div> -->
                                     <ul class="wg-lstBody wg-lst-bar wg-splitWrap col2">
-                                        <li><b>#wrap</b>&nbsp;:&nbsp;문서 전체를 감싸는 전체영역</li>
-                                        <li><b>#header</b>&nbsp;:&nbsp;GNB를 포함하는 상단 영역</li>
+                                        <li><b>.wrap</b>&nbsp;:&nbsp;문서 전체를 감싸는 전체영역</li>
+                                        <li><b>.header</b>&nbsp;:&nbsp;GNB를 포함하는 상단 영역</li>
                                         <li><b>.skipMenu</b>&nbsp;:&nbsp;건너띄기 css 예약어</li>
-                                        <li><b>#container</b>&nbsp;:&nbsp;본문 내용을 보함하는 컨텐츠 영역<br>* [본문 바로가기]의 스킵네비게이션 타겟 영역으로 <strong class="txt_underLine">반드시 div로 적용</strong></li>
-                                        <li><b>#lnbWrap</b>&nbsp;:&nbsp;컨텐츠 영역 분할시 왼쪽 영역</li>
-                                        <li><b>#content</b>&nbsp;:&nbsp;본문 내용을 보함하는 컨텐츠 영역</li>
-                                        <li><b>#footer</b>&nbsp;:&nbsp;하단 컨텐츠 영역</li>
-                                        <li><b>#popWrap, #popContainer, #popContent, #popFooter, .btn_popClose</b>&nbsp;:&nbsp;팝업(레이어팝업) 관련 css 예약어</li>
+                                        <li><b>.container</b>&nbsp;:&nbsp;본문 내용을 보함하는 컨텐츠 영역<br>* [본문 바로가기]의 스킵네비게이션 타겟 영역으로 <strong class="uline">반드시 div로 적용</strong></li>
+                                        <li><b>.lnbWrap</b>&nbsp;:&nbsp;컨텐츠 영역 분할시 왼쪽 영역</li>
+                                        <li><b>.content</b>&nbsp;:&nbsp;본문 내용을 보함하는 컨텐츠 영역</li>
+                                        <li><b>.footer</b>&nbsp;:&nbsp;하단 컨텐츠 영역</li>
+                                        <li><b>.popWrap, .popContainer, .popContent, .popFooter, .btn_popClose</b>&nbsp;:&nbsp;팝업(레이어팝업) 관련 css 예약어</li>
                                     </ul>
                                 </dd>
                                 <dd class="wg-txtCont">
@@ -995,14 +932,14 @@ SyntaxHighlighter.all();
                                     <!-- <div class="wg-lstBody">- ID 및 예약어 클래스는 카멜표기법(camelCase)으로 적용</div> -->
                                     <ul class="wg-lstBody wg-lst-bar wg-splitWrap col2">
                                         <li><b>.dep01, .dep02, .dep03, .dep04...</b>&nbsp;:&nbsp;주로 멀티클래스로 적용되며, 각 컨텐츠의 뎁스를 구분하는 역할을 한다.</li>
-                                        <li><b>.on</b>&nbsp;:&nbsp;컨텐츠 활성화시 적용되는 클래스</li>
+                                        <li><b>._is-active</b>&nbsp;:&nbsp;컨텐츠 활성화시 적용되는 클래스</li>
                                         <li>
                                             <b>.hgroupWrap</b><br>
                                             타이틀 영역. 멀티클래스 .dep01, .dep02, .dep03, .dep04... 등을 통해 hn 단계별 구분
                                             <div class="wg-codeBox">
                                                 <pre class="brush: js; html-script: true;">
-                                                    &lt;div class="hgroupWrap dep01">
-                                                        &lt;h1 class="tit">1depth 타이틀&lt;/h1>
+                                                    &lt;div class="hgroupWrap">
+                                                        &lt;h1 class="tit dep01">1depth 타이틀&lt;/h1>
                                                     &lt;/div>
                                                 </pre>
                                             </div>
@@ -1013,8 +950,8 @@ SyntaxHighlighter.all();
                                             <div class="wg-codeBox">
                                                 <pre class="brush: js; html-script: true;">
                                                     &lt;div class="depthWrap dep02">
-                                                        &lt;div class="hgroupWrap dep02">
-                                                            &lt;h2 class="tit">2depth 타이틀&lt;/h2>
+                                                        &lt;div class="hgroupWrap">
+                                                            &lt;h2 class="tit dep02">2depth 타이틀&lt;/h2>
                                                         &lt;/div>
                                                         &lt;div class="descWrap">
                                                         텍스트 컨텐츠
@@ -1029,7 +966,7 @@ SyntaxHighlighter.all();
                                                 <pre class="brush: js; html-script: true;">
                                                     &lt;div class="tabWrap">
                                                         &lt;ul class="tabMenu">
-                                                            &lt;li>&lt;a href="" class="on" title="현재페이지">탭1&lt;/a>&lt;/li>
+                                                            &lt;li>&lt;a href="" class="_is-active" title="선택됨">탭1&lt;/a>&lt;/li>
                                                             &lt;li>&lt;a href="">탭2&lt;/a>&lt;/li>
                                                         &lt;/ul>
     
@@ -1046,21 +983,21 @@ SyntaxHighlighter.all();
                                                 <pre class="brush: js; html-script: true;">
                                                     <!-- COL TYPE TABLE -->
                                                     &lt;div class="tblWrap">
-                                                        &lt;table class="col">
+                                                        &lt;table class="tbl-col">
                                                         ...
                                                         &lt;/table>
                                                     &lt;/div>
     
                                                     <!-- ROW TYPE TABLE -->
                                                     &lt;div class="tblWrap">
-                                                        &lt;table class="row">
+                                                        &lt;table class="tbl-row">
                                                         ...
                                                         &lt;/table>
                                                     &lt;/div>
     
                                                     <!-- 복합 TABLE -->
                                                     &lt;div class="tblWrap">
-                                                        &lt;table class="col row">
+                                                        &lt;table class="tbl-col tbl-row">
                                                         ...
                                                         &lt;/table>
                                                     &lt;/div>
@@ -1073,7 +1010,7 @@ SyntaxHighlighter.all();
                                             <div class="wg-codeBox">
                                                 <pre class="brush: js; html-script: true;">
                                                     &lt;div class="lstWrap">
-                                                        &lt;ul class="lst bar">
+                                                        &lt;ul class="lst ico-bar">
                                                         &lt;/ul>
                                                     &lt;/div>
                                                 </pre>
@@ -1111,14 +1048,14 @@ SyntaxHighlighter.all();
                                                 <pre class="brush: js; html-script: true;">
                                                     <!-- 아이콘 관련 -->
                                                     &lt;div class="icoWrap">
-                                                        &lt;a href="#" class="ico home">&lt;/a>
-                                                        &lt;a href="#" class="ico print">&lt;/a>
+                                                        &lt;a href="#" class="ico ico-home">&lt;/a>
+                                                        &lt;a href="#" class="ico ico-print">&lt;/a>
                                                     &lt;/div>
     
                                                     <!-- 마크, 라벨, 위험도 등의 표식 관련 -->
-                                                    &lt;div class="markWrap">
-                                                        &lt;a href="#" class="mark type1">&lt;/a>
-                                                        &lt;a href="#" class="mark type2">&lt;/a>
+                                                    &lt;div class="labelWrap">
+                                                        &lt;a href="#" class="label label-1">&lt;/a>
+                                                        &lt;a href="#" class="label label-2">&lt;/a>
                                                     &lt;/div>
                                                 </pre>
                                             </div>
@@ -1155,11 +1092,11 @@ SyntaxHighlighter.all();
                                             <div class="wg-codeBox">
                                                 <pre class="brush: js; html-script: true;">
                                                     &lt;div class="msgWrap">
-                                                        &lt;p class="msg star">* 참고/가이드 메세지&lt;/p>
+                                                        &lt;p class="msg ico ico-star">* 참고/가이드 메세지&lt;/p>
                                                     &lt;/div>
     
                                                     &lt;div class="msgWrap">
-                                                        &lt;ul class="msg star">
+                                                        &lt;ul class="msg ico ico-star">
                                                             &lt;li>* 참고/가이드 메세지&lt;/li>
                                                         &lt;/ul>
                                                     &lt;/div>

@@ -514,7 +514,7 @@
 .cp-tit.dep03::before {
   content: "";
   display: block;
-  color: #ff633f;
+  color: #ff3502;
   margin-right: 1rem;
   display: inline-block;
   content: "\f02e";
@@ -1339,7 +1339,7 @@
   display: block;
   -webkit-transition: 0.3s all ease;
   transition: 0.3s all ease;
-  border-color: #ff633f;
+  border-color: #ff3502;
 }
 .btn.ico::after {
   content: "";
@@ -1371,7 +1371,7 @@
           transform: translateX(-50%);
   -webkit-transition: 0.5s all ease;
   transition: 0.5s all ease;
-  background: #ff633f;
+  background: #ff3502;
   width: 100%;
   height: 0.1rem;
 }
@@ -2875,7 +2875,7 @@
           transform: rotate(-45deg) translateY(-25%);
 }
 .btn-toggle:not([class*=btn-style])._is-active.btn-act-orange::after {
-  border-color: #ff633f;
+  border-color: #ff3502;
 }
 .btn-toggle.toggle-tit {
   top: auto;
@@ -2921,7 +2921,7 @@
           transform: translateY(-75%) rotate(-45deg);
 }
 .btn-toggle.btn-style-02._is-active.btn-act-orange::before, .btn-toggle.btn-style-02._is-active.btn-act-orange::after {
-  background-color: #ff633f;
+  background-color: #ff3502;
 }
 .btn-toggle.btn-none {
   width: auto;
@@ -3322,7 +3322,7 @@
   left: 0;
   height: 0.3rem;
   margin-left: 1.5rem;
-  background: #ff633f;
+  background: #ff3502;
   border-radius: 0.4rem;
   -webkit-transition-property: all;
   transition-property: all;
@@ -3555,7 +3555,30 @@
 }
 
 /* TABLE */
-.splitWrap {
+.tblWrap table {
+  width: 100%;
+}
+.tblWrap table + table {
+  margin-top: 2rem;
+}
+.tblWrap table th, .tblWrap table td {
+  padding: 1rem;
+  border: 0.1rem #aaa solid;
+}
+.tblWrap table th {
+  border-color: #666;
+}
+.tblWrap table thead th {
+  background: #d9e4fa;
+}
+.tblWrap table thead + tbody th {
+  background: #f3f1ea;
+}
+.tblWrap table thead + tbody > tr:first-child th, .tblWrap table thead + tbody > tr:first-child td {
+  border-top: none;
+}
+
+.cp-tbl {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -3564,133 +3587,112 @@
           justify-content: start;
   font-size: 1.2rem;
   font-weight: 400;
-  margin-top: 10px;
+  margin-top: 1rem;
 }
-.splitWrap .desc {
-  background: #d3ffe5;
-  width: 500px;
-  padding: 15px;
-  border: 1px #8ed0aa solid;
+.cp-tbl .desc {
   display: none;
-  margin-right: 50px;
+  width: 50rem;
+  background: #d3ffe5;
+  padding: 15px;
+  margin-right: 5rem;
+  border: 0.1rem #8ed0aa solid;
 }
-.splitWrap .desc p::before {
-  display: inline-block;
+.cp-tbl .desc p::before {
   content: "";
-  background: red;
-  width: 2px;
-  height: 10px;
+  display: block;
+  display: inline-block;
+  width: 0.2rem;
+  height: 1rem;
+  background-color: #ff3502;
   margin-right: 5px;
 }
-.splitWrap .desc > p ~ p, .splitWrap .desc > p ~ ul {
+.cp-tbl .desc p ~ p, .cp-tbl .desc p ~ ul {
   margin-top: 10px;
 }
-.splitWrap ul p::before {
+.cp-tbl ul p::before {
+  content: "";
+  display: block;
   display: none;
 }
-.splitWrap b {
-  color: #c32000;
+.cp-tbl b {
+  color: #e00700;
 }
-.splitWrap strong {
-  color: #1d7500;
+.cp-tbl strong {
+  color: #016823;
   font-weight: bold;
 }
-.splitWrap strong + div, .splitWrap strong + ul {
-  margin-top: 10px;
+.cp-tbl strong + div, .cp-tbl strong + ul {
+  margin-top: 1rem;
 }
-.splitWrap .bul > li {
+.cp-tbl .bul > li {
   position: relative;
-  margin: 2px 0 0 0;
-  padding: 0 0 4px 13px;
+  margin: 0.2rem 0 0;
+  padding: 0 0 0.4rem 1.3rem;
   color: #000;
 }
-.splitWrap .bul > li::before {
+.cp-tbl .bul > li::before {
   content: "";
+  display: block;
   position: absolute;
-  top: 7px;
-  left: 5px;
-  width: 3px;
-  height: 3px;
+  top: 0.7rem;
+  left: 0.5rem;
+  width: 0.3rem;
+  height: 0.3rem;
   border-radius: 100%;
-  background-color: #01f;
+  background-color: #0048ff;
 }
-.splitWrap .case {
+.cp-tbl .case {
   counter-reset: number 0;
 }
-.splitWrap .case > li {
+.cp-tbl .case > li {
   padding: 10px 0;
-  border-top: 1px #8ed0aa solid;
+  border-top: 0.1rem #8ed0aa solid;
 }
-.splitWrap .case > li::before {
+.cp-tbl .case > li::before {
+  content: "";
+  display: block;
   display: inline-block;
+  content: "CASE";
   counter-increment: number 1;
-  content: "CASE." counter(number);
   color: #fff;
-  font-weight: bold;
-  background: #134c00;
-  padding: 3px 5px;
-  margin-right: 5px;
-  border-radius: 3px;
-  font-size: 0.8rem;
-  font-family: "arial";
+  font-weight: 400;
+  font-size: var(--space-3xs);
+  background-color: #016823;
+  padding: 0.3rem 0.5rem;
+  margin-right: 0.5rem;
+  border-radius: 0.3rem;
+  vertical-align: top !important;
 }
-.splitWrap .tblExWrap > p:first-child {
+.cp-tbl .tblWrap > p:first-child {
   margin-top: 0;
 }
-.splitWrap .tblExWrap p {
-  margin: 40px 0 10px;
+.cp-tbl .tblWrap p {
+  margin: 4rem 0 1rem;
 }
-.splitWrap table {
-  padding: 0;
-  border: 0;
-  border-spacing: 0px;
-  border-collapse: collapse;
-  width: 100%;
-}
-.splitWrap table table {
-  width: 100%;
-}
-.splitWrap table + table {
-  margin-top: 20px;
-}
-.splitWrap th, .splitWrap td {
-  padding: 10px;
-  border: 1px #bbb solid;
-}
-.splitWrap tbody th {
-  background: #feffea;
-}
-.splitWrap thead th {
-  background: #eafaff;
-}
-.splitWrap thead th, .splitWrap tbody th {
-  border-color: #666;
-}
-.splitWrap caption {
+.cp-tbl .tbl caption {
   position: relative !important;
-  padding: 15px 10px 5px !important;
-  background: #ddd !important;
-  font-size: 11px !important;
+  padding: 1.5rem 1rem 0.5rem !important;
+  background-color: #ddd;
+  font-size: var(--space-2xs) !important;
   border: 1px #ccc solid !important;
 }
-.splitWrap caption::before {
+.cp-tbl .tbl caption::before {
+  content: "";
+  display: block;
   display: inline-block !important;
   content: "Table Caption" !important;
-  position: Absolute !important;
-  top: -5px !important;
-  left: -5px !important;
-  padding: 3px 10px !important;
-  background: #333 !important;
-  color: #fff !important;
-  font-size: 6px !important;
+  position: absolute;
+  top: -0.5rem !important;
+  left: -0.5rem !important;
+  padding: 0.3rem 1rem;
 }
-.splitWrap caption > p {
+.cp-tbl .tbl caption > p {
   margin: 0 !important;
 }
-.splitWrap legend, .splitWrap caption {
+.cp-tbl .tbl legend, .cp-tbl .tbl caption {
   overflow: visible !important;
-  height: auto !important;
   width: auto !important;
+  height: auto !important;
   margin: auto !important;
   line-height: inherit !important;
   clip: auto;
@@ -3765,6 +3767,7 @@ button {
 table {
   background-color: transparent;
   border-spacing: 0;
+  border-collapse: collapse;
 }
 
 input,
@@ -6417,7 +6420,7 @@ html.m .frame_device {
 .cp-tit.dep03::before {
   content: "";
   display: block;
-  color: #ff633f;
+  color: #ff3502;
   margin-right: 1rem;
   display: inline-block;
   content: "\f02e";
@@ -6872,7 +6875,7 @@ html[light-mode=dark] .frame_device .device .btn_size_set button {
     color: #666;
   }
   .pg_nav > ul > li.active > a {
-    color: #ff633f;
+    color: #ff3502;
   }
   .pg_nav > ul > li.active > ul {
     display: block;

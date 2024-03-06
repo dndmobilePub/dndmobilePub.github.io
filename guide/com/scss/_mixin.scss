@@ -345,11 +345,31 @@
 }
 
 //border
-@mixin line($attribute, $argument){
+@mixin line($attribute, $argument, $direction:all){
     @if($attribute == "border"){
-        border: $argument;
+        @if($direction == "all"){
+            border: $argument;
+        } @else if ($direction == "top"){
+            border-top: $argument;
+        } @else if($direction == "left"){
+            border-left: $argument;
+        } @else if($direction == "bottom"){
+            border-bottom: $argument;
+        } @else if($direction == "right"){
+            border-right: $argument;
+        }
     } @else if($attribute == "outline"){
-        outline: $argument;
+        @if($direction == "all"){
+            outline: $argument;
+        } @else if ($direction == "top"){
+            outline-top: $argument;
+        } @else if($direction == "left"){
+            outline-left: $argument;
+        } @else if($direction == "bottom"){
+            outline-bottom: $argument;
+        } @else if($direction == "right"){
+            outline-right: $argument;
+        }
     }
     @content;
 }
