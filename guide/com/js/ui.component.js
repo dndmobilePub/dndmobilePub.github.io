@@ -93,35 +93,51 @@ var COMPONENT_UI = (function (cp, $) {
     cp.tblCaption = {
       constEl: {},
   
-        init: function() {
+        /* init: function() {
             $('table').each(function() {
-                // summary 속성 제거
                 $(this).removeAttr('summary');
 
                 var hasHeader = $(this).find('th').length > 0;
-
                 if (!hasHeader) {
-                    // 헤더가 없는 테이블인 경우 caption 제거
                     $(this).find('caption').remove();
                 } else {
-                    cp.tblCaption.processCaption.call(this); // 'this'를 넘겨줌
+                    cp.tblCaption.processCaption.call(this);
                 }
             });
+        }, */
+        init: function() {
+            $('table').each(function() {
+                cp.tblCaption.processTable(this);
+            });
+            return {
+                tblCaption: cp.tblCaption
+            };
+        },
 
+        processTable: function(table) {
+            $(table).removeAttr('summary');
+
+            var hasHeader = $(table).find('th').length > 0;
+            if (!hasHeader) {
+                $(table).find('caption').remove();
+            } else {
+                cp.tblCaption.processCaption.call(table);
+            }
+        },
+
+        scopeSetup: function () {
             var theadCells = $('thead th');
             var tbodyCells = $('tbody th, tfoot th');
             var tdCells = $('tbody td, tfoot td');
 
-            function updateCells(cells, scopeType) { // 공통함수 인자(Cells, scopeType)
-                cells.each(function() { // each 메서드는 요소검사 및 반복하게 하는 함수
-                    
-                    $(this).removeAttr('scope'); // scope 속성 제거
-
+            function updateCells(cells, scopeType) {
+                cells.each(function() {
+                    $(this).removeAttr('scope'); 
                     if ($(this).is('th:not([scope])')) {
-                        $(this).attr('scope', scopeType); // scope, scope유형 값 받기
+                        $(this).attr('scope', scopeType); 
                     }
                     var colSpanGroup = $(this).attr('colspan');
-                    if (colSpanGroup !== undefined && colSpanGroup > 1) { // 값이 1보다 크다면 실행
+                    if (colSpanGroup !== undefined && colSpanGroup > 1) {
                         $(this).attr('scope', 'colgroup');
                     }
                     var rowSpanGroup = $(this).attr('rowspan');
@@ -130,102 +146,115 @@ var COMPONENT_UI = (function (cp, $) {
                     }
                 });
             }
-            // 셀에 대해 스코프 갱신
-            updateCells(theadCells, 'col'); // 스코프 유형 전달
-            updateCells(tbodyCells, 'row'); // 스코프 유형 전달
-            updateCells(tdCells, ''); // 원하는 스코프 유형 전달
+            updateCells(theadCells, 'col');
+            updateCells(tbodyCells, 'row');
+            updateCells(tdCells, '');
         },
   
-      processCaption: function() {
-          var captionType = $(this).data('caption');
-          var dataTblTit = $(this).data('tbl');
-          var tblCaption = $(this).find('caption');
-          var tblCaptionTit = tblCaption.text().trim();
-          var tblColgroup = $(this).find('colgroup');
-  
-          // 이미 처리된 경우 return
-  
-          // 테이블안에 테이블 있는 경우에도, 부모 테이블에 캡션이 있으면 함수가 더 이상 실행안됨
-          /* if (tblCaption.hasClass('processedCaption')) {
-              return;
-          } */
-  
-          // 캡션이 있고 innerTbl인 경우는 캡션 생성을 계속 실행(예외처리)
-          if (
-            tblCaption.hasClass("processedCaption") && captionType !== "innerTbl" // true (논리연산자 && 두가지 조건 모두 충족시)
-          ){
-            return;
-          }
-  
-          // 캡션 정보 변수에 저장
-          var currentCaptionTit = dataTblTit || tblCaption.text().trim();
-  
-          if (captionType === 'basic') {
-              // basic 타입인 경우
-              tblCaption.remove();
-  
-              $(this).find('th').each(function() {
-                  var thHTML = $(this).html();
-                  $(this).replaceWith('<td>' + thHTML + '</td>');
-              });
-          } else if (captionType === 'keep') {
-              // keep 타입인 경우 기존 caption 정보를 유지함
-          } else {
-              cp.tblCaption.handleRegularTbl.call(this); // 'this'를 넘겨줌
-          }
-      },
+        processCaption: function() {
+            var captionType = $(this).data('caption');
+            var dataTblTit = $(this).data('tbl');
+            var tblCaption = $(this).find('caption');
+            var tblCaptionTit = tblCaption.text().trim();
+            var tblColgroup = $(this).find('colgroup');
+            
+            if (
+                tblCaption.hasClass("processedCaption") && captionType !== "innerTbl"
+            ){
+                return;
+            }
+    
+            var currentCaptionTit = dataTblTit || tblCaption.text().trim();
+    
+            if (captionType === 'basic') {
+                tblCaption.remove();
+    
+                $(this).find('th').each(function() {
+                    var thHTML = $(this).html();
+                    $(this).replaceWith('<td>' + thHTML + '</td>');
+                });
+            } else if (captionType === 'keep') {
+            } else {
+                cp.tblCaption.handleRegularTbl.call(this);
+            }
+        },
          
-      handleParentTbl: function() {
-          var tblCaption = $(this).find('caption');
-          var currentCaptionTit = '';
-          var captionText = $(this).find('> thead > tr > th, > tbody > tr > th').map(function() {
-              return $(this).text();
-          }).get().join(', ');
-          
-          console.log(captionText);
-      
-          if (currentCaptionTit) {
-              var captionHtml = cp.tblCaption.getCaptionHtml(currentCaptionTit, captionText);
-              cp.tblCaption.insertCaption.call(this, tblCaption, captionHtml);
-          }
-      },
-  
-      handleRegularTbl: function() {
-          var tblCaption = $(this).find('caption');
-          var currentCaptionTit = $(this).data('tbl') || tblCaption.text().trim();
-          var tblColgroup = $(this).find('colgroup');
-          var captionText = $(this).find('> thead > tr > th, > tbody > tr > th').map(function() {
-              return $(this).text();
-          }).get().join(', ');
-  
-          // 캡션 삭제
-          tblCaption.remove();
-  
-          if (tblColgroup.length > 0) {
-              // colgroup이 존재하는 경우
-              var captionHtml = cp.tblCaption.getCaptionHtml(currentCaptionTit, captionText); // 새로운 캡션 정보 생성
-              tblColgroup.before(captionHtml); // 'this'와 caption 정보를 넘겨줌
-          } else {
-              // colgroup이 없는 경우
-              cp.tblCaption.insertCaption.call(this, tblCaption, cp.tblCaption.getCaptionHtml(currentCaptionTit, captionText)); // 'this'와 caption 정보를 넘겨줌
-          }
-      },
-  
-      insertCaption: function(tblCaption, captionHtml) {
-          var tableThead = $(this).find('thead');
-          var tableTbody = $(this).find('tbody');
-  
-          if (tableThead.length > 0) {
-              tableThead.before(captionHtml);
-          } else {
-              tableTbody.before(captionHtml);
-          }
-      },
-  
-      getCaptionHtml: function(title, text) {
-          return '<caption class="processedCaption"><strong>' + title + '</strong><p>' + text + ' 로 구성된 표' + '</p></caption>';
-      },
+        handleParentTbl: function() {
+            var tblCaption = $(this).find('caption');
+            var currentCaptionTit = '';
+            var captionText = $(this).find('> thead > tr > th, > tbody > tr > th').map(function() {
+                return $(this).text();
+            }).get().join(', ');
+            
+            console.log(captionText);
+        
+            if (currentCaptionTit) {
+                var captionHtml = cp.tblCaption.getCaptionHtml(currentCaptionTit, captionText);
+                cp.tblCaption.insertCaption.call(this, tblCaption, captionHtml);
+            }
+        },
+    
+        handleRegularTbl: function() {
+            var tblCaption = $(this).find('caption');
+            var currentCaptionTit = $(this).data('tbl') || tblCaption.text().trim();
+            var tblColgroup = $(this).find('colgroup');
+            var captionText = $(this).find('> thead > tr > th, > tbody > tr > th').map(function() {
+                return $(this).text();
+            }).get().join(', ');
+    
+            tblCaption.remove();
+    
+            if (tblColgroup.length > 0) {
+                var captionHtml = cp.tblCaption.getCaptionHtml(currentCaptionTit, captionText);
+                tblColgroup.before(captionHtml); 
+            } else {
+                cp.tblCaption.insertCaption.call(this, tblCaption, cp.tblCaption.getCaptionHtml(currentCaptionTit, captionText));
+            }
+        },
+    
+        insertCaption: function(tblCaption, captionHtml) {
+            var tableThead = $(this).find('thead');
+            var tableTbody = $(this).find('tbody');
+    
+            if (tableThead.length > 0) {
+                tableThead.before(captionHtml);
+            } else {
+                tableTbody.before(captionHtml);
+            }
+        },
+    
+        getCaptionHtml: function(title, text) {
+            return '<caption class="processedCaption"><strong>' + title + '</strong><p>' + text + ' 로 구성된 표' + '</p></caption>';
+        },
+
+
+        setTableCaptions: function() {
+            var elementsWithDataRoll = document.querySelectorAll('[data-roll]'); // data-roll 속성을 가진 모든 요소 선택
+    
+            elementsWithDataRoll.forEach(function(elementWithDataRoll) {
+                var table = elementWithDataRoll.nextElementSibling; // data-roll 속성을 가진 요소의 다음 형제 요소인 <table> 선택
+                var captionText = elementWithDataRoll.getAttribute('data-roll'); // data-roll 속성 값을 가져옴
+    
+                // caption에 제목과 내용을 분리하여 적용하기 위해 strong 태그 생성 및 내용 추가
+                var strongElement = document.createElement('strong');
+                strongElement.textContent = captionText;
+    
+                // caption 태그에 strong 태그 추가
+                var captionElement = document.createElement('caption');
+                captionElement.appendChild(strongElement);
+    
+                // caption 태그를 테이블에 추가
+                table.appendChild(captionElement);
+            });
+        }
+
     },
+    
+
+
+
+
+    
   
   
     cp.form = {
@@ -1901,6 +1930,8 @@ var COMPONENT_UI = (function (cp, $) {
           cp.tab.init();
           cp.tabSwiper.init();
           cp.swiper.init();
+          cp.tblCaption.scopeSetup();
+          cp.tblCaption.setTableCaptions();
       };
   
       cp.init();
