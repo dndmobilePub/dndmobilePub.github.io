@@ -1434,7 +1434,10 @@ html.util_show {
         @include flex;
         flex-wrap:wrap;
 
-        & > li {margin-bottom:4rem;}
+        & > li {
+            margin-bottom:4rem;
+            // #{$tbl} {@include line(border, .1rem solid $color-gray3, top);}
+        }
     }
 
     &-wrap {
@@ -1535,17 +1538,15 @@ html.util_show {
             border-top:1px $color-gray1 solid;
         }
 
-        th {
-            background:$color-light-gray1;
-        }
-        td {
-            background:$color-light-gray2;
+        th {background:$color-light-gray1;}
+        td {background:$color-light-gray2;}
+
+        tbody {
+            tr:first-child > th, tr:first-child > td {@include line(border, 1px #222 solid, top)}
         }
         
-        tr {
-            &:first-child {
-                & > th, & > td {border-top:0;}
-            }
+        thead + tbody {
+            tr:first-child th, tr:first-child td {@include line(border, none, top)}
         }
     }
 }

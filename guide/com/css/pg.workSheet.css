@@ -6517,8 +6517,11 @@ html.m .frame_device {
 .tblWrap .tbl td {
   background: #f5f5f5;
 }
-.tblWrap .tbl tr:first-child > th, .tblWrap .tbl tr:first-child > td {
-  border-top: 0;
+.tblWrap .tbl tbody tr:first-child > th, .tblWrap .tbl tbody tr:first-child > td {
+  border-top: 1px #222 solid;
+}
+.tblWrap .tbl thead + tbody tr:first-child th, .tblWrap .tbl thead + tbody tr:first-child td {
+  border-top: none;
 }
 
 .hr.divice {
