@@ -228,7 +228,7 @@ var COMPONENT_UI = (function (cp, $) {
         },
 
 
-        setTableCaptions: function() {
+        /* setTableCaptions: function() {
             var elementsWithDataRoll = document.querySelectorAll('[data-roll]'); // data-roll 속성을 가진 모든 요소 선택
     
             elementsWithDataRoll.forEach(function(elementWithDataRoll) {
@@ -246,7 +246,22 @@ var COMPONENT_UI = (function (cp, $) {
                 // caption 태그를 테이블에 추가
                 table.appendChild(captionElement);
             });
-        }
+        } */
+
+        // 모든 테이블에 대해 처리
+        setTableCaptions: function() {
+            $('table[data-roll="table-with-caption"]').each(function() {
+                var captionText = $(this).prev('p').text(); // 이전 형제 요소의 텍스트 가져오기
+
+                // caption에 제목과 내용을 분리하여 적용하기 위해 strong 태그 생성 및 내용 추가
+                var strongElement = $('<strong>').text(captionText);
+
+                // caption 태그에 strong 태그 추가
+                var captionElement = $(this).children('caption');
+                captionElement.children('p').empty(); // <p> 태그의 내용 비우기
+                captionElement.append(strongElement); // strong 태그 추가
+            });
+        },
 
     },
     
@@ -1932,6 +1947,7 @@ var COMPONENT_UI = (function (cp, $) {
           cp.swiper.init();
           cp.tblCaption.scopeSetup();
           cp.tblCaption.setTableCaptions();
+
       };
   
       cp.init();
