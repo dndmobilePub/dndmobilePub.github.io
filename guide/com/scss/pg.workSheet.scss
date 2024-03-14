@@ -2,7 +2,7 @@
 /****************************************/
 /*	PART: IMPORT CSS
 /****************************************/
-@import 'cm.common';
+@import '../../../asset/com/scss/cm.common';
 /****************************************/
 /*	PART: work sheet PAGE STYLE
 /****************************************/
@@ -1713,4 +1713,4 @@ html.util_show {
 }
 
 // media Query import
-@import 'mediaquery';
+@import '../../../asset/com/scss/mediaquery';

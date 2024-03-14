@@ -1761,13 +1761,15 @@ var COMPONENT_UI = (function (cp, $) {
   cp.swiper = {
       constEl: {},
       init: function () {
-          $('.pg-swiper').each(function () {
+          $('.swip-swiper').each(function () {
               const $pgSwiper = $(this);
               const swiperType = $pgSwiper.attr('swiper-type');
               const $swiperContent = $pgSwiper.find('.pg-content');
               const $pagination = $pgSwiper.find('.swiper-pagination');
               const $playBtn = $pgSwiper.find('#playBtn');
               const $pauseBtn = $pgSwiper.find('#pauseBtn');
+              const swiperOuto = $pgSwiper.attr('swiper-outo');
+              const swiperNav = $pgSwiper.attr('swiper-nav');
   
               const swiperOptions = {
                   loop: true,
@@ -1776,6 +1778,13 @@ var COMPONENT_UI = (function (cp, $) {
                   pagination: $pagination.length ? $pagination[0] : null,
                   a11y: {
                       enabled: true,
+                  },
+                  nextButton: this,
+                  prevButton: this,
+                  coverflow: {
+                    rotate: 0,
+                    modifier: 1.5,
+                    slideShadows: false,
                   },
               };
   
@@ -1790,11 +1799,6 @@ var COMPONENT_UI = (function (cp, $) {
                       slidesPerView: 1.4,
                       effect: 'coverflow',
                       spaceBetween: 20,
-                      coverflow: {
-                          rotate: 0,
-                          modifier: 1.5,
-                          slideShadows: false,
-                      },
                   });
               } else if (swiperType === 'swiper4') {
                   Object.assign(swiperOptions, {
@@ -1802,14 +1806,29 @@ var COMPONENT_UI = (function (cp, $) {
                       slidesPerView: 1.4,
                       // spaceBetween: 20,
                       effect: 'coverflow',
-                      nextButton: '.swiper-button-next',
-                      prevButton: '.swiper-button-prev',
-                      coverflow: {
-                          rotate: 0,
-                          modifier: 1.5,
-                          slideShadows: false,
-                      },
                   });
+              }
+
+              if(swiperOuto === 'true'){
+                Object.assign(swiperOptions, {
+                    autoplay: 2000,
+                    coverflow: {
+                        rotate: 0,
+                        modifier: 1.5,
+                        slideShadows: false,
+                    },
+                });
+              }
+
+              if(swiperNav === 'type1'){
+                $(this).append('<div class="swiper-pagination"></div>');
+                    console.log('dd')
+                } else if(swiperNav === 'type2'){
+                    $(this).append('<div class="swip-wrap"><div class="play-btn-wrap"><button class="fa-solid fa-pause fa-sm" id="pauseBtn"><span>정지</span></button><button class="fa-solid fa-play fa-sm" id="playBtn" style="display: none"><span>재생</span></button></div><div class="swiper-pagination"></div></div>');
+                } else if(swiperNav === 'type3'){
+                    $(this).append('<div class="swiper-button-prev"><span>이전 슬라이드로</span></div><div class="swiper-button-next"><span>다음 슬라이드로</span></div>');
+                } else if(swiperNav === 'type4'){
+                    $(this).append('<div class="swip-wrap"><div class="play-btn-wrap"><button class="fa-solid fa-pause fa-sm" id="pauseBtn"><span>정지</span></button><button class="fa-solid fa-play fa-sm" id="playBtn" style="display: none"><span>재생</span></button></div><div class="swiper-pagination"></div></div><div class="swiper-button-prev"><span>이전 슬라이드로</span></div><div class="swiper-button-next"><span>다음 슬라이드로</span></div>');
               }
   
               const swiper = new Swiper($swiperContent, swiperOptions);

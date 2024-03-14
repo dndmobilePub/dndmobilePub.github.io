@@ -2,8 +2,8 @@
 /****************************************/
 /*	PART: IMPORT CSS
 /****************************************/
-@import 'variables';
-@import 'mixin';
+@import '../../../asset/com/scss/variables';
+@import '../../../asset/com/scss/mixin';
 
 /****************************************/
 /*	PART: GUIDE PAGE STYLE
@@ -450,8 +450,8 @@
         & > li {
         padding:10px 0; @include line(border, .1rem $color-light-green2 solid, top);
         @include el-content(before) {
-            @include display(inline-block){content:'CASE';}
-            counter-increment: number 1;
+            @include display(inline-block){content:'CASE' counter(number);}
+            counter-increment: number;
             color:$color-white; font-weight:400; font-size:var(--space-3xs);
             background-color:$color-green;
             padding:.3rem .5rem; margin-right:.5rem; border-radius:.3rem;
