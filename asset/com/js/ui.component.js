@@ -1807,24 +1807,13 @@ var COMPONENT_UI = (function (cp, $) {
         for (let i = 0; i < slidesCount; i++) {
             $pagination.append('<span class="swiper-pagination-bullet"></span>');
         }
-    
-        // Update bullet class on slide change
-        /*
-        swiperInstance.on('onSlideChangeEnd', function () {
-            setTimeout(function () {
-                const activeIndex = swiperInstance.activeIndex;
-                $pagination.find('.swiper-pagination-bullet').removeClass('swiper-pagination-bullet-active');
-                $pagination.find('.swiper-pagination-bullet').eq(activeIndex).addClass('swiper-pagination-bullet-active');
-            }, 50); // 지연을 추가하여 문제를 해결합니다.
-        });
-        */
        // Initialize the active bullet class
         const $bullets = $pagination.find('.swiper-pagination-bullet');
         $bullets.eq(0).addClass('swiper-pagination-bullet-active');
 
         // Update bullet class on slide change start
         swiperInstance.on('onSlideChangeStart', function () {
-            const activeIndex = swiperInstance.activeIndex;
+            const activeIndex = swiperInstance.realIndex;
             $bullets.removeClass('swiper-pagination-bullet-active');
             $bullets.eq(activeIndex).addClass('swiper-pagination-bullet-active');
         });
