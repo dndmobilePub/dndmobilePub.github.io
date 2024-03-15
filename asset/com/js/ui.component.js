@@ -1710,15 +1710,19 @@ var COMPONENT_UI = (function (cp, $) {
 
     swiperSetting: function () {
         $('.swip-swiper').each(function () {
-            const $thisSwiper = $(this);
-            const $swiperContent = $thisSwiper.find('.swip-content');
-    
-            const swiperOptions = cp.swiper.swiperOptions($thisSwiper);
+            const $thisSwiper = $(this),
+                  $swiperContent = $thisSwiper.find('.swip-content'),
+                  swiperOptions = cp.swiper.swiperOptions($thisSwiper);
+                  
             cp.swiper.appendIndicate($thisSwiper, swiperOptions);
-    
-            new Swiper($swiperContent, swiperOptions);
+            
+            const swiperInstance = new Swiper($swiperContent, swiperOptions);
+            $thisSwiper.data('swiperInstance', swiperInstance);
+            
+            cp.swiper.updatePaginationBullets($thisSwiper, swiperInstance);
         });
     },
+    
     
     swiperOptions: function ($thisSwiper) {
         const swiperType = $thisSwiper.attr('swiper-type');
@@ -1738,6 +1742,9 @@ var COMPONENT_UI = (function (cp, $) {
                 rotate: 0,
                 modifier: 1.5,
                 slideShadows: false,
+            },
+            pagination: {
+                el: '.swiper-pagination',
             },
         };
     
@@ -1777,40 +1784,89 @@ var COMPONENT_UI = (function (cp, $) {
     
     appendIndicate: function ($thisSwiper, swiperOptions) {
         const swiperNav = $thisSwiper.attr('swiper-nav');
-    
+        let paginationSelector = '';
+        
         if (swiperNav === 'type1') {
-            $thisSwiper.append('<div class="swiper-pagination"></div>');
+            paginationSelector = '<div class="swiper-pagination"></div>';
         } else if (swiperNav === 'type2') {
-            $thisSwiper.append('<div class="swip-wrap"><div class="play-btn-wrap"><button class="fa-solid fa-pause fa-sm" id="pauseBtn"><span>정지</span></button><button class="fa-solid fa-play fa-sm" id="playBtn" style="display: none"><span>재생</span></button></div><div class="swiper-pagination"></div></div>');
+            paginationSelector = '<div class="swip-wrap"><div class="play-btn-wrap"><button class="btn pauseBtn"><span>정지</span></button><button class="btn playBtn" style="display: none"><span>재생</span></button></div><div class="swiper-pagination"></div></div>';
         } else if (swiperNav === 'type3') {
-            $thisSwiper.append('<div class="swiper-button-prev"><span>이전 슬라이드로</span></div><div class="swiper-button-next"><span>다음 슬라이드로</span></div>');
+            paginationSelector = '<div class="swiper-button-prev"><span>이전 슬라이드로</span></div><div class="swiper-button-next"><span>다음 슬라이드로</span></div><div class="swiper-pagination"></div>';
         } else if (swiperNav === 'type4') {
-            $thisSwiper.append('<div class="swip-wrap"><div class="play-btn-wrap"><button class="fa-solid fa-pause fa-sm" id="pauseBtn"><span>정지</span></button><button class="fa-solid fa-play fa-sm" id="playBtn" style="display: none"><span>재생</span></button></div><div class="swiper-pagination"></div></div><div class="swiper-button-prev"><span>이전 슬라이드로</span></div><div class="swiper-button-next"><span>다음 슬라이드로</span></div>');
+            paginationSelector = '<div class="swip-wrap"><div class="play-btn-wrap"><button class="btn pauseBtn"><span>정지</span></button></div><div class="swiper-pagination"></div></div><div class="swiper-button-prev"><span>이전 슬라이드로</span></div><div class="swiper-button-next"><span>다음 슬라이드로</span></div>';
         }
-        cp.swiper.swiperControl($thisSwiper);
+        
+        $thisSwiper.append(paginationSelector);
     },
+
+    updatePaginationBullets: function ($thisSwiper, swiperInstance) {
+        const $pagination = $thisSwiper.find('.swiper-pagination');
+        const slidesCount = swiperInstance.slides.length - swiperInstance.loopedSlides * 2;
+    
+        $pagination.empty();
+        for (let i = 0; i < slidesCount; i++) {
+            $pagination.append('<span class="swiper-pagination-bullet"></span>');
+        }
+    
+        // Update bullet class on slide change
+        /*
+        swiperInstance.on('onSlideChangeEnd', function () {
+            setTimeout(function () {
+                const activeIndex = swiperInstance.activeIndex;
+                $pagination.find('.swiper-pagination-bullet').removeClass('swiper-pagination-bullet-active');
+                $pagination.find('.swiper-pagination-bullet').eq(activeIndex).addClass('swiper-pagination-bullet-active');
+            }, 50); // 지연을 추가하여 문제를 해결합니다.
+        });
+        */
+       // Initialize the active bullet class
+        const $bullets = $pagination.find('.swiper-pagination-bullet');
+        $bullets.eq(0).addClass('swiper-pagination-bullet-active');
+
+        // Update bullet class on slide change start
+        swiperInstance.on('onSlideChangeStart', function () {
+            const activeIndex = swiperInstance.activeIndex;
+            $bullets.removeClass('swiper-pagination-bullet-active');
+            $bullets.eq(activeIndex).addClass('swiper-pagination-bullet-active');
+        });
+    },
+    
 
     swiperControl: function () {
         $('.swip-swiper').each(function () {
-            const $thisSwiper = $(this);
-            const $playBtn = $thisSwiper.find('#playBtn');
-            const $pauseBtn = $thisSwiper.find('#pauseBtn');
-            const swiper = $thisSwiper.find('.swip-content').swiper;
-
-            $playBtn.on('click', function () {
-                $pauseBtn.show();
-                $playBtn.hide();
-                swiper.startAutoplay();
-                $pauseBtn.focus();
+            const $thisSwiper = $(this),
+                  swiper = $thisSwiper.data('swiperInstance');
+    
+            function togglePlayPause($button) {
+                const $span = $button.find('>span');
+                if ($button.hasClass('playBtn')) {
+                    if (swiper && swiper.startAutoplay) {
+                        swiper.startAutoplay();
+                    }
+                    $span.text("정지");
+                    $button.addClass('pauseBtn').removeClass('playBtn').focus();
+                } else if ($button.hasClass('pauseBtn')) {
+                    if (swiper && swiper.stopAutoplay) {
+                        swiper.stopAutoplay();
+                    }
+                    $span.text("재생");
+                    $button.addClass('playBtn').removeClass('pauseBtn').focus();
+                }
+            }
+    
+            $thisSwiper.on('click', '.playBtn, .pauseBtn', function () {
+                togglePlayPause($(this));
             });
-            $pauseBtn.on('click', function () {
-                $playBtn.show();
-                $pauseBtn.hide();
-                swiper.stopAutoplay();
-                $playBtn.focus();
+    
+            $thisSwiper.on('click', '.swiper-button-prev', function () {
+                swiper.slidePrev();
+            });
+    
+            $thisSwiper.on('click', '.swiper-button-next', function () {
+                swiper.slideNext();
             });
         });
     }
+    
   };
 
 

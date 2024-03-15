@@ -260,20 +260,25 @@
 .play-btn-wrap {
   margin-left: 7rem;
   
-  & button{
+  & > button {
     @include pos(absolute){bottom: -2.5rem; z-index: 100;}
-    @include el-size(2rem, 2rem);
+    @include el-size(5rem, 2rem);    
     border-radius: 1rem;
     background: $color-blue4;
-    color: $color-white;
+    padding:0;
     cursor: pointer;
-
-    & span{
-      @include pos(absolute);
-      clip: rect(0 0 0 0);
-      @include el-size(0.1rem, 0.1rem);
-      margin: -0.1rem;
-      @include overflow(both, hidden);
+    & > span {
+      @include display(inline-block);
+      font-size:var(--space-xs);
+      color: $color-white;
     }
+
+    // & span{
+    //   @include pos(absolute);
+    //   clip: rect(0 0 0 0);
+    //   @include el-size(0.1rem, 0.1rem);
+    //   margin: -0.1rem;
+    //   @include overflow(both, hidden);
+    // }
   }
 }
