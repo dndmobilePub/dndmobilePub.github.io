@@ -1710,19 +1710,19 @@ var COMPONENT_UI = (function (cp, $) {
 
     swiperSetting: function () {
         $('.swip-swiper').each(function () {
-            const $pgSwiper = $(this);
-            const $swiperContent = $pgSwiper.find('.swip-content');
+            const $thisSwiper = $(this);
+            const $swiperContent = $thisSwiper.find('.swip-content');
     
-            const swiperOptions = this.configureSwiperOptions($pgSwiper);
-            this.appendIndicate($pgSwiper, swiperOptions);
+            const swiperOptions = cp.swiper.swiperOptions($thisSwiper);
+            cp.swiper.appendIndicate($thisSwiper, swiperOptions);
     
             new Swiper($swiperContent, swiperOptions);
         });
     },
     
-    swiperOptions: function ($pgSwiper) {
-        const swiperType = $pgSwiper.attr('swiper-type');
-        const swiperOuto = $pgSwiper.attr('swiper-outo');
+    swiperOptions: function ($thisSwiper) {
+        const swiperType = $thisSwiper.attr('swiper-type');
+        const swiperAuto = $thisSwiper.attr('swiper-auto');
     
         const swiperOptions = {
             loop: true,
@@ -1761,7 +1761,7 @@ var COMPONENT_UI = (function (cp, $) {
             });
         }
     
-        if (swiperOuto === 'true') {
+        if (swiperAuto === 'true') {
             Object.assign(swiperOptions, {
                 autoplay: 2000,
                 coverflow: {
@@ -1775,26 +1775,27 @@ var COMPONENT_UI = (function (cp, $) {
         return swiperOptions;
     },
     
-    appendIndicate: function ($pgSwiper, swiperOptions) {
-        const swiperNav = $pgSwiper.attr('swiper-nav');
+    appendIndicate: function ($thisSwiper, swiperOptions) {
+        const swiperNav = $thisSwiper.attr('swiper-nav');
     
         if (swiperNav === 'type1') {
-            $pgSwiper.append('<div class="swiper-pagination"></div>');
+            $thisSwiper.append('<div class="swiper-pagination"></div>');
         } else if (swiperNav === 'type2') {
-            $pgSwiper.append('<div class="swip-wrap"><div class="play-btn-wrap"><button class="fa-solid fa-pause fa-sm" id="pauseBtn"><span>정지</span></button><button class="fa-solid fa-play fa-sm" id="playBtn" style="display: none"><span>재생</span></button></div><div class="swiper-pagination"></div></div>');
+            $thisSwiper.append('<div class="swip-wrap"><div class="play-btn-wrap"><button class="fa-solid fa-pause fa-sm" id="pauseBtn"><span>정지</span></button><button class="fa-solid fa-play fa-sm" id="playBtn" style="display: none"><span>재생</span></button></div><div class="swiper-pagination"></div></div>');
         } else if (swiperNav === 'type3') {
-            $pgSwiper.append('<div class="swiper-button-prev"><span>이전 슬라이드로</span></div><div class="swiper-button-next"><span>다음 슬라이드로</span></div>');
+            $thisSwiper.append('<div class="swiper-button-prev"><span>이전 슬라이드로</span></div><div class="swiper-button-next"><span>다음 슬라이드로</span></div>');
         } else if (swiperNav === 'type4') {
-            $pgSwiper.append('<div class="swip-wrap"><div class="play-btn-wrap"><button class="fa-solid fa-pause fa-sm" id="pauseBtn"><span>정지</span></button><button class="fa-solid fa-play fa-sm" id="playBtn" style="display: none"><span>재생</span></button></div><div class="swiper-pagination"></div></div><div class="swiper-button-prev"><span>이전 슬라이드로</span></div><div class="swiper-button-next"><span>다음 슬라이드로</span></div>');
+            $thisSwiper.append('<div class="swip-wrap"><div class="play-btn-wrap"><button class="fa-solid fa-pause fa-sm" id="pauseBtn"><span>정지</span></button><button class="fa-solid fa-play fa-sm" id="playBtn" style="display: none"><span>재생</span></button></div><div class="swiper-pagination"></div></div><div class="swiper-button-prev"><span>이전 슬라이드로</span></div><div class="swiper-button-next"><span>다음 슬라이드로</span></div>');
         }
+        cp.swiper.swiperControl($thisSwiper);
     },
 
     swiperControl: function () {
         $('.swip-swiper').each(function () {
-            const $pgSwiper = $(this);
-            const $playBtn = $pgSwiper.find('#playBtn');
-            const $pauseBtn = $pgSwiper.find('#pauseBtn');
-            const swiper = $pgSwiper.find('.swip-content').swiper;
+            const $thisSwiper = $(this);
+            const $playBtn = $thisSwiper.find('#playBtn');
+            const $pauseBtn = $thisSwiper.find('#pauseBtn');
+            const swiper = $thisSwiper.find('.swip-content').swiper;
 
             $playBtn.on('click', function () {
                 $pauseBtn.show();
@@ -1810,7 +1811,7 @@ var COMPONENT_UI = (function (cp, $) {
             });
         });
     }
-};
+  };
 
 
   cp.init = function () {
