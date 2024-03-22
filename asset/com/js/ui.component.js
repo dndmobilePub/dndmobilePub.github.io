@@ -498,52 +498,87 @@ var COMPONENT_UI = (function (cp, $) {
 
         // input:doublerange
         inputRangeDouble: function() {
-            const doublerangevalue = $(".slider-container .double-slider");
-            const doublerangeInputvalue = $(".range-slider.double .field-input input[type=range]");
-            const doubleInputvalue = $(".range-slider.double .field-input input[type=number]");
+            const doubRangeBg = $(".slider-container .double-slider");
+            const doubleInputRange = $(".range-slider.double .field-input input[type=range]");
+            const dobuleInputNum = $(".range-slider.double .field-input input[type=number]");
+            const minInfo = $('.doublerange-info.min');
+            const minInfoValue = $('.doublerange-info ._value-min');
+            const maxInfo = $('.doublerange-info.max');
+            const maxInfoValue = $('.doublerange-info ._value-max');
 
             let doubleGap = 500; //최소 gap
 
             function rangeInputWidth() {
-                let minVal = parseInt(doublerangeInputvalue.eq(0).val());
-                let maxVal = parseInt(doublerangeInputvalue.eq(1).val());
+                let minVal = parseInt(doubleInputRange.eq(0).val());
+                let maxVal = parseInt(doubleInputRange.eq(1).val());
 
                 let diff = maxVal - minVal;
 
                 if (diff < doubleGap) {
                     if ($(this).hasClass("min-range")) {
-                        doublerangeInputvalue.eq(0).val(maxVal - doubleGap);
+                        doubleInputRange.eq(0).val(maxVal - doubleGap);
                     } else {
-                        doublerangeInputvalue.eq(1).val(minVal + doubleGap);
+                        doubleInputRange.eq(1).val(minVal + doubleGap);
                     }
                 } else {
-                    doubleInputvalue.eq(0).val(minVal);
-                    doubleInputvalue.eq(1).val(maxVal);
-                    doublerangevalue.css("left", `${(minVal / doublerangeInputvalue.eq(0).attr("max")) * 100}%`);
-                    doublerangevalue.css("right", `${100 - (maxVal / doublerangeInputvalue.eq(1).attr("max")) * 100}%`);
+                    dobuleInputNum.eq(0).val(minVal);
+                    dobuleInputNum.eq(1).val(maxVal);
+
+                    if(!minInfoValue.attr('range-value')) {
+                        minInfoValue.text(minVal);
+                    }
+                    if(!maxInfoValue.attr('range-value')) {
+                        maxInfoValue.text(maxVal);
+                    }
+
+
+                    if( minVal == doubleInputRange.eq(0).attr('min') ) {
+                        minInfo.addClass('left');
+                    } else {
+                        minInfo.removeClass('left');
+                    }
+                    if ( maxVal == doubleInputRange.eq(1).attr('max') ) {
+                        maxInfo.addClass('right');
+                    } else {
+                        maxInfo.removeClass('right');
+                    }
+
+                    doubRangeBg.css("left", `${(minVal / doubleInputRange.eq(0).attr("max")) * 100}%`);
+                    minInfo.css({
+                        "left": `${(minVal / doubleInputRange.eq(0).attr("max")) * 100}%`,
+                        'margin-left' : `-${minInfo.outerWidth() / 2}px`
+                    });
+
+                    doubRangeBg.css("right", `${100 - (maxVal / doubleInputRange.eq(1).attr("max")) * 100}%`);
+                    maxInfo.css({
+                        "right": `${100 - (maxVal / doubleInputRange.eq(1).attr("max")) * 100}%`,
+                        'margin-right' : `-${maxInfo.outerWidth() / 2}px`
+                    });
                 }
             }
             rangeInputWidth(); //초기화
 
-            doubleInputvalue.on("input", function() {
-                let minp = parseInt(doubleInputvalue.eq(0).val());
-                let maxp = parseInt(doubleInputvalue.eq(1).val());
+            dobuleInputNum.on("input", function() {
+                let minp = parseInt(dobuleInputNum.eq(0).val());
+                let maxp = parseInt(dobuleInputNum.eq(1).val());
                 let diff = maxp - minp;
 
-                if (diff >= doubleGap && maxp <= doublerangeInputvalue.eq(1).attr("max")) {
+                if (diff >= doubleGap && maxp <= doubleInputRange.eq(1).attr("max")) {
                     if ($(this).hasClass("min-input")) {
-                        doublerangeInputvalue.eq(0).val(minp);
-                        let value1 = doublerangeInputvalue.eq(0).attr("max");
-                        doublerangevalue.css("left", `${(minp / value1) * 100}%`);
+                        doubleInputRange.eq(0).val(minp);
+                        let value1 = doubleInputRange.eq(0).attr("max");
+                        doubRangeBg.css("left", `${(minp / value1) * 100}%`);
+                        minInfo.css("left", `${(minp / value1) * 100}%`);
                     } else {
-                        doublerangeInputvalue.eq(1).val(maxp);
-                        let value2 = doublerangeInputvalue.eq(1).attr("max");
-                        doublerangevalue.css("right", `${100 - (maxp / value2) * 100}%`);
+                        doubleInputRange.eq(1).val(maxp);
+                        let value2 = doubleInputRange.eq(1).attr("max");
+                        doubRangeBg.css("right", `${100 - (maxp / value2) * 100}%`);
+                        maxInfo.css("right", `${100 - (maxp / value2) * 100}%`);
                     }
                 }
             });
 
-            doublerangeInputvalue.on("input", function() {
+            doubleInputRange.on("input", function() {
                 rangeInputWidth()
             });
         }
