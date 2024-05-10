@@ -1606,6 +1606,7 @@ var COMPONENT_UI = (function (cp, $) {
           const $tabWrap = $('.tab-sticky');
           let isTabClick; // 중복 호출 방지를 위한 플래그 변수
           
+          
           $(window).on('scroll', function(){
               if (!isTabClick) {
                   isTabClick = true;
