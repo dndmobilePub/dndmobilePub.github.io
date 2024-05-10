@@ -1497,7 +1497,6 @@ var COMPONENT_UI = (function (cp, $) {
             if($('.tab-warp').hasClass('tab-sticky')) {
                 self.tabSticky(isTabClick);
             }
-            
       },
       tabSel: function($this, $tabWrap) {
           /**
