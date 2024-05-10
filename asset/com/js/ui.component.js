@@ -1493,7 +1493,10 @@ var COMPONENT_UI = (function (cp, $) {
 
           $('.tab-scroll .tab-contents-wrap').on('scroll', self.scrollEventHandler);
   
-          self.tabSticky(isTabClick);
+            // this.tabSticky(isTabClick);
+            if($('.tab-warp').hasClass('tab-sticky')) {
+                self.tabSticky(isTabClick);
+            }
       },
       tabSel: function($this, $tabWrap) {
           /**
