@@ -1436,6 +1436,7 @@ var COMPONENT_UI = (function (cp, $) {
           this.tabSetting();
           this.tabClick();
           this.scrollEventHandler();
+          this.tabSticky();
       },
       tabSetting: function() {
           /**
@@ -1488,15 +1489,8 @@ var COMPONENT_UI = (function (cp, $) {
                   });
               }, 200);
           });
-  
-          let isTabClick; // 중복 호출 방지를 위한 플래그 변수
 
           $('.tab-scroll .tab-contents-wrap').on('scroll', self.scrollEventHandler);
-  
-            // self.tabSticky(isTabClick);
-            if($('.tab-warp').hasClass('tab-sticky')) {
-                self.tabSticky(isTabClick);
-            }
 
       },
       tabSel: function($this, $tabWrap) {
@@ -1601,7 +1595,7 @@ var COMPONENT_UI = (function (cp, $) {
               callback($tabWrap, $this);
           }
       },
-      tabSticky: function(isTabClick) {
+      tabSticky: function() {
           /**
            * tab sticky 이벤트
            * @this 클릭한 탭 버튼
@@ -1610,12 +1604,13 @@ var COMPONENT_UI = (function (cp, $) {
            */
           const self = this;
           const $tabWrap = $('.tab-sticky');
+          let isTabClick; // 중복 호출 방지를 위한 플래그 변수
           
           $(window).on('scroll', function(){
               if (!isTabClick) {
                   isTabClick = true;
   
-                  $(".tab-contents").each(function () {
+                  $(".tab-sticky .tab-contents").each(function () {
                       const contentTop = $(this).offset().top;
                       const contentBottom = contentTop + $(this).outerHeight();
                       const tabHeight = $('.tab').outerHeight() + 2;
