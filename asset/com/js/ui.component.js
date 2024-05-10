@@ -1436,7 +1436,7 @@ var COMPONENT_UI = (function (cp, $) {
           this.tabSetting();
           this.tabClick();
           this.scrollEventHandler();
-          this.tabSticky();
+          this.tabSticky(); // 선언
       },
       tabSetting: function() {
           /**
@@ -1605,12 +1605,13 @@ var COMPONENT_UI = (function (cp, $) {
           const self = this;
           const $tabWrap = $('.tab-sticky');
           let isTabClick; // 중복 호출 방지를 위한 플래그 변수
-          
+
           
           $(window).on('scroll', function(){
               if (!isTabClick) {
                   isTabClick = true;
-  
+
+                  // sticky 안에서만 돌게 지정
                   $(".tab-sticky .tab-contents").each(function () {
                       const contentTop = $(this).offset().top;
                       const contentBottom = contentTop + $(this).outerHeight();
