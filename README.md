@@ -16,13 +16,13 @@
 ### 컴포넌트 관련
 1. 폴더구조 변경
  -asset : asset 폴더 내 com 폴더에 있던 폴더들을 com을 삭제하고 바로 하위로 이동함
-  └ css, font(Pretendard 추가), img, js, scss
+  - css, font(Pretendard 추가), img, js, scss
 2. SVG url-encoder 추가 : 오프라인에서도 svg path css background 용으로 변환할 수 있는 페이지 추가
 3. loading 추가
  - COMPONENT_UI.loading.loadingInit(); : 로딩 실행
-   └ loadingInit(); 기본형
-   └ loadingInit('circle'); 기본형과 다른 제시된 클래스로 구성되는 타입의 로딩을 작성하여 실행
-   └ loadingInit('', '로딩중입니다'); 기본형에 텍스트 추가 형태로 제공됨. 텍스트가 길어질 경우 위치 조정은 수동으로 적용
+   - loadingInit(); 기본형
+   - loadingInit('circle'); 기본형과 다른 제시된 클래스로 구성되는 타입의 로딩을 작성하여 실행
+   - loadingInit('', '로딩중입니다'); 기본형에 텍스트 추가 형태로 제공됨. 텍스트가 길어질 경우 위치 조정은 수동으로 적용
  - COMPONENT_UI.loading.loadingRemove(); : 로딩 제거
 4. 버튼 로딩 / 활성 / 비활성 상태 변경 추가 : 콜백함수를 통해 COMPONENT_UI.btnFn.btnStatus(); 호출하여 상태 변경 (페이지 내 예시 참고)
 5. input 수정
