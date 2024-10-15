@@ -17,34 +17,34 @@
 1. 폴더구조 변경
  -asset : asset 폴더 내 com 폴더에 있던 폴더들을 com을 삭제하고 바로 하위로 이동함
   - css, font(Pretendard 추가), img, js, scss
-2. SVG url-encoder 추가 : 오프라인에서도 svg path css background 용으로 변환할 수 있는 페이지 추가
-3. loading 추가
+2. _mixin.scss 간결화
+3. SVG url-encoder 추가 : 오프라인에서도 svg path css background 용으로 변환할 수 있는 페이지 추가
+4. loading 추가
  - COMPONENT_UI.loading.loadingInit(); : 로딩 실행
    - loadingInit(); 기본형
    - loadingInit('circle'); 기본형과 다른 제시된 클래스로 구성되는 타입의 로딩을 작성하여 실행
    - loadingInit('', '로딩중입니다'); 기본형에 텍스트 추가 형태로 제공됨. 텍스트가 길어질 경우 위치 조정은 수동으로 적용
  - COMPONENT_UI.loading.loadingRemove(); : 로딩 제거
-4. 버튼 로딩 / 활성 / 비활성 상태 변경 추가 : 콜백함수를 통해 COMPONENT_UI.btnFn.btnStatus(); 호출하여 상태 변경 (페이지 내 예시 참고)
-5. input 수정
+5. 버튼 로딩 / 활성 / 비활성 상태 변경 추가 : 콜백함수를 통해 COMPONENT_UI.btnFn.btnStatus(); 호출하여 상태 변경 (페이지 내 예시 참고)
+6. input 수정
  - clear btn 동적 추가/삭제 부분 삭제하고, 페이지 시작시 input이 존재하면 clear btn 동적 추가후 유지하는 걸로 변경함
  - PLACEHODER TYPE 부분 수정
- - input에 별도 id가 없는 경우 임의 id를 생성하여 lavel for과 매핑
+ - input에 별도 id가 없는 경우 임의 id를 생성하여 label for과 매핑
  - .field-outline에 여러개의 input가 존재하는 경우 label for는 첫번째 input의 id와 매핑됨
-6. INPUT RANGE / INPUT RANGE DOUBLE 오류 수정
-7. select, 모달팝
+7. INPUT RANGE / INPUT RANGE DOUBLE 오류 수정
+8. select, 모달팝
  - dimmed 처리 방식 변경
  - 이중 모달팝 처리 추가(모달팝 중첩은 2개까지만 지원함)
  - 토스트 팝업 동적 생성에서 페이지 토스트 컨텐츠 show/hide 방식으로 변경
-8. ToolTip
+9. ToolTip
  - 페이지/모달팝에서 툴팁이 뜨는 경우 위치 오류 수정 : 모달팝 안에서 툴팁이 뜨는 경우 ._inModal 클래스 동적 추가됨
  - 모달팝 [.modal-header]에서 툴팁 적용이 필요한 경우 .tooltipWrap[tip-pos="fixed"]으로 위치 기준 적용
  - .ico-tooltip에 [tip-maxWidth] data-roll을 추가하여 .tooltip의 width를 적용할수 있도록 함. 제공하지 않는 경우 기본값 적용됨(_cp.popup.scss 참고)
-9. Swiper v8.4.7 예제 추가
+10. Swiper v8.4.7 예제 추가
  - data-roll을 이용한 옵션 적용을 통해 스와이퍼의 동작이 달라짐
    : 해당 스와이퍼 옵션은 js 참고할 것
-10. 페이지 go to top 추가
+11. 페이지 go to top 추가
  - 일정 부분 스크롤시 상단 이동 버튼이 보이게 됨. body[quick-topBtn="false"]로 선언되면 퀵버튼이 생성되지 않음
-
 
 
 -------------------------------------------------------------------------
